@@ -12,7 +12,7 @@ struct TIGApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OnboardingView()
         }
     }
 }

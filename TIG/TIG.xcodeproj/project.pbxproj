@@ -8,17 +8,52 @@
 
 /* Begin PBXBuildFile section */
 		57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F072C3CCAB600863BC6 /* TIGApp.swift */; };
-		57A98F0A2C3CCAB600863BC6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F092C3CCAB600863BC6 /* ContentView.swift */; };
+		57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F092C3CCAB600863BC6 /* OnboardingView.swift */; };
 		57A98F0E2C3CCAB800863BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */; };
 		57A98F112C3CCAB800863BC6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F102C3CCAB800863BC6 /* Preview Assets.xcassets */; };
+		57A98F202C3CD4D000863BC6 /* PersistenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */; };
+		57A98F222C3CD4FA00863BC6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F212C3CD4FA00863BC6 /* Colors.xcassets */; };
+		57A98F242C3CD51300863BC6 /* SwiftDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */; };
+		57A98F272C3CDAB600863BC6 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F262C3CDAB600863BC6 /* TestModel.swift */; };
+		57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F282C3CDABD00863BC6 /* TestUseCase.swift */; };
+		57A98F362C3CDCF100863BC6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F2D2C3CDCF000863BC6 /* Pretendard-ExtraBold.otf */; };
+		57A98F372C3CDCF100863BC6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F2E2C3CDCF000863BC6 /* Pretendard-Medium.otf */; };
+		57A98F382C3CDCF100863BC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F2F2C3CDCF000863BC6 /* Pretendard-Black.otf */; };
+		57A98F392C3CDCF100863BC6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F302C3CDCF000863BC6 /* Pretendard-Bold.otf */; };
+		57A98F3A2C3CDCF100863BC6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F312C3CDCF000863BC6 /* Pretendard-SemiBold.otf */; };
+		57A98F3B2C3CDCF100863BC6 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F322C3CDCF000863BC6 /* Pretendard-ExtraLight.otf */; };
+		57A98F3C2C3CDCF100863BC6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F332C3CDCF000863BC6 /* Pretendard-Regular.otf */; };
+		57A98F3D2C3CDCF100863BC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F342C3CDCF100863BC6 /* Pretendard-Thin.otf */; };
+		57A98F3E2C3CDCF100863BC6 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F352C3CDCF100863BC6 /* Pretendard-Light.otf */; };
+		57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F412C3CE0FB00863BC6 /* AppFont.swift */; };
+		57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F432C3CE11D00863BC6 /* AppColor.swift */; };
+		57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F452C3CF49800863BC6 /* Date+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		57A98F042C3CCAB600863BC6 /* TIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A98F072C3CCAB600863BC6 /* TIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIGApp.swift; sourceTree = "<group>"; };
-		57A98F092C3CCAB600863BC6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		57A98F092C3CCAB600863BC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57A98F102C3CCAB800863BC6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceRepository.swift; sourceTree = "<group>"; };
+		57A98F212C3CD4FA00863BC6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataStorage.swift; sourceTree = "<group>"; };
+		57A98F262C3CDAB600863BC6 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		57A98F282C3CDABD00863BC6 /* TestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUseCase.swift; sourceTree = "<group>"; };
+		57A98F2D2C3CDCF000863BC6 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		57A98F2E2C3CDCF000863BC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		57A98F2F2C3CDCF000863BC6 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		57A98F302C3CDCF000863BC6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		57A98F312C3CDCF000863BC6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		57A98F322C3CDCF000863BC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		57A98F332C3CDCF000863BC6 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		57A98F342C3CDCF100863BC6 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		57A98F352C3CDCF100863BC6 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		57A98F3F2C3CDFF900863BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57A98F412C3CE0FB00863BC6 /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
+		57A98F432C3CE11D00863BC6 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		57A98F452C3CF49800863BC6 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +86,12 @@
 		57A98F062C3CCAB600863BC6 /* TIG */ = {
 			isa = PBXGroup;
 			children = (
-				57A98F072C3CCAB600863BC6 /* TIGApp.swift */,
-				57A98F092C3CCAB600863BC6 /* ContentView.swift */,
-				57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */,
+				57A98F172C3CD3DF00863BC6 /* App */,
+				57A98F1A2C3CD41100863BC6 /* Data */,
+				57A98F192C3CD40C00863BC6 /* Domain */,
+				57A98F182C3CD3FA00863BC6 /* Presentaion */,
+				57A98F2A2C3CDAD600863BC6 /* Util */,
+				57A98F1B2C3CD41A00863BC6 /* Resource */,
 				57A98F0F2C3CCAB800863BC6 /* Preview Content */,
 			);
 			path = TIG;
@@ -65,6 +103,125 @@
 				57A98F102C3CCAB800863BC6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		57A98F172C3CD3DF00863BC6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F072C3CCAB600863BC6 /* TIGApp.swift */,
+				57A98F3F2C3CDFF900863BC6 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		57A98F182C3CD3FA00863BC6 /* Presentaion */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F252C3CD9A100863BC6 /* Onboarding */,
+			);
+			path = Presentaion;
+			sourceTree = "<group>";
+		};
+		57A98F192C3CD40C00863BC6 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F1E2C3CD46D00863BC6 /* Entitiy */,
+				57A98F1D2C3CD46800863BC6 /* UseCase */,
+				57A98F1C2C3CD43100863BC6 /* Interface */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		57A98F1A2C3CD41100863BC6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		57A98F1B2C3CD41A00863BC6 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F2C2C3CDC8900863BC6 /* Font */,
+				57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */,
+				57A98F212C3CD4FA00863BC6 /* Colors.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		57A98F1C2C3CD43100863BC6 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		57A98F1D2C3CD46800863BC6 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F282C3CDABD00863BC6 /* TestUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		57A98F1E2C3CD46D00863BC6 /* Entitiy */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F262C3CDAB600863BC6 /* TestModel.swift */,
+			);
+			path = Entitiy;
+			sourceTree = "<group>";
+		};
+		57A98F252C3CD9A100863BC6 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F092C3CCAB600863BC6 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		57A98F2A2C3CDAD600863BC6 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F402C3CE0F200863BC6 /* Constant */,
+				57A98F2B2C3CDADF00863BC6 /* Extension */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		57A98F2B2C3CDADF00863BC6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F452C3CF49800863BC6 /* Date+Ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		57A98F2C2C3CDC8900863BC6 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F2F2C3CDCF000863BC6 /* Pretendard-Black.otf */,
+				57A98F302C3CDCF000863BC6 /* Pretendard-Bold.otf */,
+				57A98F2D2C3CDCF000863BC6 /* Pretendard-ExtraBold.otf */,
+				57A98F322C3CDCF000863BC6 /* Pretendard-ExtraLight.otf */,
+				57A98F352C3CDCF100863BC6 /* Pretendard-Light.otf */,
+				57A98F2E2C3CDCF000863BC6 /* Pretendard-Medium.otf */,
+				57A98F332C3CDCF000863BC6 /* Pretendard-Regular.otf */,
+				57A98F312C3CDCF000863BC6 /* Pretendard-SemiBold.otf */,
+				57A98F342C3CDCF100863BC6 /* Pretendard-Thin.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		57A98F402C3CE0F200863BC6 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				57A98F412C3CE0FB00863BC6 /* AppFont.swift */,
+				57A98F432C3CE11D00863BC6 /* AppColor.swift */,
+			);
+			path = Constant;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +282,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57A98F3B2C3CDCF100863BC6 /* Pretendard-ExtraLight.otf in Resources */,
 				57A98F112C3CCAB800863BC6 /* Preview Assets.xcassets in Resources */,
+				57A98F372C3CDCF100863BC6 /* Pretendard-Medium.otf in Resources */,
+				57A98F392C3CDCF100863BC6 /* Pretendard-Bold.otf in Resources */,
+				57A98F3A2C3CDCF100863BC6 /* Pretendard-SemiBold.otf in Resources */,
+				57A98F3E2C3CDCF100863BC6 /* Pretendard-Light.otf in Resources */,
 				57A98F0E2C3CCAB800863BC6 /* Assets.xcassets in Resources */,
+				57A98F362C3CDCF100863BC6 /* Pretendard-ExtraBold.otf in Resources */,
+				57A98F3C2C3CDCF100863BC6 /* Pretendard-Regular.otf in Resources */,
+				57A98F382C3CDCF100863BC6 /* Pretendard-Black.otf in Resources */,
+				57A98F3D2C3CDCF100863BC6 /* Pretendard-Thin.otf in Resources */,
+				57A98F222C3CD4FA00863BC6 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +304,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57A98F0A2C3CCAB600863BC6 /* ContentView.swift in Sources */,
+				57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */,
+				57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */,
+				57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */,
+				57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */,
+				57A98F242C3CD51300863BC6 /* SwiftDataStorage.swift in Sources */,
+				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
+				57A98F272C3CDAB600863BC6 /* TestModel.swift in Sources */,
+				57A98F202C3CD4D000863BC6 /* PersistenceRepository.swift in Sources */,
 				57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,11 +449,13 @@
 				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TIG/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -287,6 +463,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zerosugar.academy.developer.ios.apple.TIG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,11 +484,13 @@
 				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TIG/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +498,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zerosugar.academy.developer.ios.apple.TIG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
