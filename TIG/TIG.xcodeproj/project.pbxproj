@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		356FF03C2C4A89F1005A078C /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimeLineView.swift */; };
 		57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F072C3CCAB600863BC6 /* TIGApp.swift */; };
 		57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F092C3CCAB600863BC6 /* OnboardingView.swift */; };
 		57A98F0E2C3CCAB800863BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		356FF03B2C4A89F0005A078C /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 		57A98F042C3CCAB600863BC6 /* TIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A98F072C3CCAB600863BC6 /* TIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIGApp.swift; sourceTree = "<group>"; };
 		57A98F092C3CCAB600863BC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				57A98F252C3CD9A100863BC6 /* Onboarding */,
+				356FF03B2C4A89F0005A078C /* TimeLineView.swift */,
 			);
 			path = Presentaion;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				57A98F272C3CDAB600863BC6 /* TestModel.swift in Sources */,
 				57A98F202C3CD4D000863BC6 /* PersistenceRepository.swift in Sources */,
 				57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */,
+				356FF03C2C4A89F1005A078C /* TimeLineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
