@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 final class TimelineSD {
+    // TODO: Unique ID 추가 필요??
     var start: Date
     var end: Date
     var isAvailable: Bool
