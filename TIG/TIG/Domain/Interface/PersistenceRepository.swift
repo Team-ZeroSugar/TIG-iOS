@@ -8,5 +8,14 @@
 import Foundation
 
 protocol PersistenceRepository {
+    // DailyContent 관련
+    func createDailyContent()
+    func fetchDailyContents() -> [DailyContent]
+    func updateDailyContent()
+    func deleteDailyContent()
     
+    // WeeklyRepeat 관련
+    func createWeeklyRepeat()
+    func fetchWeeklyRepeats() -> [WeeklyRepeat]
+    func updateWeeklyRepeat()
 }

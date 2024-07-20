@@ -18,7 +18,7 @@
 		57A98F112C3CCAB800863BC6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F102C3CCAB800863BC6 /* Preview Assets.xcassets */; };
 		57A98F202C3CD4D000863BC6 /* PersistenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */; };
 		57A98F222C3CD4FA00863BC6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F212C3CD4FA00863BC6 /* Colors.xcassets */; };
-		57A98F242C3CD51300863BC6 /* SwiftDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */; };
+		57A98F242C3CD51300863BC6 /* DefaultPersistenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F232C3CD51300863BC6 /* DefaultPersistenceRepository.swift */; };
 		57A98F272C3CDAB600863BC6 /* DailyContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F262C3CDAB600863BC6 /* DailyContent.swift */; };
 		57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F282C3CDABD00863BC6 /* TestUseCase.swift */; };
 		57A98F362C3CDCF100863BC6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F2D2C3CDCF000863BC6 /* Pretendard-ExtraBold.otf */; };
@@ -48,7 +48,7 @@
 		57A98F102C3CCAB800863BC6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceRepository.swift; sourceTree = "<group>"; };
 		57A98F212C3CD4FA00863BC6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataStorage.swift; sourceTree = "<group>"; };
+		57A98F232C3CD51300863BC6 /* DefaultPersistenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPersistenceRepository.swift; sourceTree = "<group>"; };
 		57A98F262C3CDAB600863BC6 /* DailyContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContent.swift; sourceTree = "<group>"; };
 		57A98F282C3CDABD00863BC6 /* TestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUseCase.swift; sourceTree = "<group>"; };
 		57A98F2D2C3CDCF000863BC6 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				577B36582C4A984F0015C9A4 /* Mapping */,
-				57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */,
+				57A98F232C3CD51300863BC6 /* DefaultPersistenceRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -334,7 +334,7 @@
 				577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */,
 				57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */,
 				57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */,
-				57A98F242C3CD51300863BC6 /* SwiftDataStorage.swift in Sources */,
+				57A98F242C3CD51300863BC6 /* DefaultPersistenceRepository.swift in Sources */,
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
 				577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */,
 				577B365E2C4A98D40015C9A4 /* WeeklyRepeatSD.swift in Sources */,
