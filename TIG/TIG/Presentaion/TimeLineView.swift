@@ -58,20 +58,27 @@ fileprivate struct TimelineHeaderView: View {
 fileprivate struct TimelineBodyView: View {
     
     @Bindable var timelineUseCase: TimelineUseCase
-    
-    
+
     fileprivate var body: some View {
+        
+        let filteredTimelines = timelineUseCase.filteredTimelines()
+        
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                ForEach(18..<54) { index in
+                ForEach(filteredTimelines.indices, id: \.self) { index in
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .top, spacing: 0) {
-                            Text(timelineUseCase.timeString(for: index))
+                            
+                            let isHour = Calendar.current.component(.minute, from: filteredTimelines[index].start) == 0
+                            let isLast = index == filteredTimelines.count - 1
+                            
+                            Text(filteredTimelines[index].start.formattedTimelineTime())
                                 .frame(width: 47, height: 14, alignment: .leading)
                                 .font(.custom(AppFont.medium, size: 12))
                                 .foregroundStyle(AppColor.gray3)
-                                .opacity(index % 2 == 0 ? 1 : 0)
+                                .opacity(isHour ? 1 : 0)
                                 .offset(y: -7)
+                            
                             
                             Spacer().frame(width: 14, height: 39)
                             
@@ -87,9 +94,9 @@ fileprivate struct TimelineBodyView: View {
             
             if timelineUseCase.state.editTimeline {
                 VStack(alignment: .leading, spacing:4) {
-                    ForEach(18..<54) { index in
+                    ForEach(filteredTimelines.indices, id: \.self) { index in
                         Button(action: {
-                            
+                            print(filteredTimelines[index])
                         }, label: {
                             RoundedRectangle(cornerRadius: 8)
                                 .foregroundStyle(.timelineBlue)
@@ -106,6 +113,25 @@ fileprivate struct TimelineBodyView: View {
                 Spacer()
             }
         }
+        
+        // 마지막 시간 표시
+        HStack(alignment: .top, spacing: 0) {
+            if Calendar.current.component(.minute, from: filteredTimelines.last!.end) == 0 {
+                Text(filteredTimelines.last!.end.formattedTimelineTime())
+                    .frame(width: 47, height: 14, alignment: .leading)
+                    .font(.custom(AppFont.medium, size: 12))
+                    .foregroundStyle(AppColor.gray3)
+                    .offset(y: -7)
+                
+                Spacer().frame(width: 14)
+                
+                Rectangle()
+                    .frame(width: filteredTimelines.count % 2 == 0 ? 28 : 16, height: 1)
+                    .foregroundStyle(AppColor.gray2)
+                
+                Spacer()
+            }
+        }.offset(y: -12)
     }
 }
 
