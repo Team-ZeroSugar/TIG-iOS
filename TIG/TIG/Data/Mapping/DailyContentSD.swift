@@ -11,10 +11,10 @@ import SwiftData
 @Model
 final class DailyContentSD {
     @Attribute(.unique) var date: Date
-    @Relationship(deleteRule: .cascade) var timelines: [Timeline]
+    @Relationship(deleteRule: .cascade) var timelines: [TimelineSD]
     var totalAvailabilityTime: Int
     
-    init(date: Date, timelines: [Timeline], totalAvailabilityTime: Int) {
+    init(date: Date, timelines: [TimelineSD], totalAvailabilityTime: Int) {
         self.date = date
         self.timelines = timelines
         self.totalAvailabilityTime = totalAvailabilityTime
@@ -25,7 +25,7 @@ extension DailyContentSD {
     func toEntity() -> DailyContent {
         return DailyContent(
             date: self.date,
-            timelines: self.timelines,
+            timelines: self.timelines.map { $0.toEntity() },
             totalAvailabilityTime: self.totalAvailabilityTime
         )
     }
