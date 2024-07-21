@@ -11,9 +11,9 @@ import SwiftData
 @Model
 final class WeeklyRepeatSD {
     @Attribute(.unique) var day: Weekly
-    @Relationship(deleteRule: .cascade) var timelines: [Timeline]
+    @Relationship(deleteRule: .cascade) var timelines: [TimelineSD]
     
-    init(day: Weekly, timelines: [Timeline]) {
+    init(day: Weekly, timelines: [TimelineSD]) {
         self.day = day
         self.timelines = timelines
     }
@@ -21,6 +21,9 @@ final class WeeklyRepeatSD {
 
 extension WeeklyRepeatSD {
     func toEntity() -> WeeklyRepeat {
-        return WeeklyRepeat(day: self.day, timelines: self.timelines)
+        return WeeklyRepeat(
+            day: self.day,
+            timelines: self.timelines.map { $0.toEntity() }
+        )
     }
 }

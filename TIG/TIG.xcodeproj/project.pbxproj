@@ -99,8 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */,
-				577B365B2C4A98B90015C9A4 /* TimelineSD.swift */,
 				577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */,
+				577B365B2C4A98B90015C9A4 /* TimelineSD.swift */,
 			);
 			path = Mapping;
 			sourceTree = "<group>";
