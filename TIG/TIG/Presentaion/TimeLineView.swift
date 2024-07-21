@@ -9,18 +9,22 @@ import SwiftUI
 
 struct TimelineView: View {
     
-    @State var isEditMode: Bool = false
+    @Bindable var timelineUseCase: TimelineUseCase
+    
+    init(timelineUseCase: TimelineUseCase) {
+        self.timelineUseCase = timelineUseCase
+    }
     
     var body: some View {
         ScrollView {
             VStack {
                 Spacer().frame(height: 47)
                 
-                TimelineHeaderView(isEditMode: $isEditMode)
+                TimelineHeaderView(timelineUseCase: timelineUseCase)
                 
                 Spacer().frame(height: 51)
                 
-                TimelineBodyView(isEditMode: $isEditMode)
+                TimelineBodyView(timelineUseCase: timelineUseCase)
             }
             .padding(.horizontal, 20)
         }
@@ -29,20 +33,24 @@ struct TimelineView: View {
 
 // MARK: - Header View
 fileprivate struct TimelineHeaderView: View {
-    @Binding var isEditMode: Bool
+    @Bindable var timelineUseCase: TimelineUseCase
+    
+    init(timelineUseCase: TimelineUseCase) {
+        self.timelineUseCase = timelineUseCase
+    }
     
     fileprivate var body: some View {
         HStack {
-            Text(isEditMode ? "오늘 일정 시간을 탭해서 지워주세요" : "지금은 활용 가능 시간이에요")
+            Text(timelineUseCase.state.editTimeline ? "오늘 일정 시간을 탭해서 지워주세요" : "지금은 활용 가능 시간이에요")
                 .font(.custom(AppFont.semiBold, size: 18))
                 .foregroundStyle(AppColor.gray5)
             
             Spacer()
             
             Button(action: {
-                isEditMode.toggle()
+                timelineUseCase.effect(.tappedEditTimeline)
             }, label: {
-                Text(isEditMode ? "완료" : "편집")
+                Text(timelineUseCase.state.editTimeline ? "완료" : "편집")
                     .font(.custom(AppFont.medium, size: 16))
                     .foregroundStyle(AppColor.mainBlue)
             })
@@ -53,7 +61,7 @@ fileprivate struct TimelineHeaderView: View {
 // MARK: - Body View
 fileprivate struct TimelineBodyView: View {
     
-    @Binding var isEditMode: Bool
+    @Bindable var timelineUseCase: TimelineUseCase
     
     fileprivate var body: some View {
         HStack(spacing: 0) {
@@ -61,7 +69,7 @@ fileprivate struct TimelineBodyView: View {
                 ForEach(18..<54) { index in
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .top, spacing: 0) {
-                            Text(timeString(for: index))
+                            Text(timelineUseCase.timeString(for: index))
                                 .frame(width: 47, height: 14, alignment: .leading)
                                 .font(.custom(AppFont.medium, size: 12))
                                 .foregroundStyle(AppColor.gray3)
@@ -80,7 +88,7 @@ fileprivate struct TimelineBodyView: View {
             
             Spacer().frame(width: 18)
             
-            if isEditMode {
+            if timelineUseCase.state.editTimeline {
                 VStack(alignment: .leading, spacing:4) {
                     ForEach(18..<54) { index in
                         Button(action: {
@@ -104,15 +112,6 @@ fileprivate struct TimelineBodyView: View {
     }
 }
 
-extension TimelineBodyView {
-    func timeString(for index: Int) -> String {
-        let hour = index / 2 % 24
-        let period = hour < 12 ? "오전" : "오후"
-        let displayHour = hour % 12 == 0 ? 12 : hour % 12
-        return "\(period) \(displayHour)시"
-    }
-}
-
 #Preview {
-    TimelineView()
+    TimelineView(timelineUseCase: TimelineUseCase())
 }
