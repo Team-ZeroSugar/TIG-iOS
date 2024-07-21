@@ -100,7 +100,7 @@ fileprivate struct TimelineBodyView: View {
             } else {
                 VStack(alignment: .leading, spacing:0) {
                     RoundedRectangle(cornerRadius: 5)
-                        .foregroundStyle(.timelineBlue)
+                        .foregroundStyle(.timelineStroke)
                         .frame(width: 4)
                 }
                 Spacer()
