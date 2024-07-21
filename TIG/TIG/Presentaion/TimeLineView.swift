@@ -116,15 +116,3 @@ extension TimelineBodyView {
 #Preview {
     TimelineView()
 }
-
-struct DailyContent {
-    var date: Date
-    var timeline: [Timeline]
-    var totalAvailableTime: Int
-}
-
-struct Timeline {
-    var startTime: Date
-    var endTime: Date
-    var isAvailableTime: Bool
-}
