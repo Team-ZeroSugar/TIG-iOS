@@ -12,7 +12,7 @@ struct WeeklyRepeat {
     var timelines: [Timeline]
 }
 
-enum Weekly: Int {
+enum Weekly: Int, Codable {
     case sun
     case mon
     case tue
