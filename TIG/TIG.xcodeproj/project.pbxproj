@@ -7,14 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		577B36552C4A955E0015C9A4 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36542C4A955E0015C9A4 /* Timeline.swift */; };
+		577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
+		577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
+		577B365C2C4A98B90015C9A4 /* TimelineSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365B2C4A98B90015C9A4 /* TimelineSD.swift */; };
+		577B365E2C4A98D40015C9A4 /* WeeklyRepeatSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */; };
+		577B36602C4BAD0D0015C9A4 /* AppSettingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365F2C4BAD0D0015C9A4 /* AppSettingRepository.swift */; };
+		577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36612C4BAD460015C9A4 /* WeeklyRepeatRepository.swift */; };
+		577B36642C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36632C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift */; };
+		577B36662C4BEF8C0015C9A4 /* SwiftDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36652C4BEF8C0015C9A4 /* SwiftDataStorage.swift */; };
+		577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36682C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift */; };
+		577B366B2C4BF5E50015C9A4 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */; };
+		577B366D2C4BF6240015C9A4 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B366C2C4BF6240015C9A4 /* AppSetting.swift */; };
 		57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F072C3CCAB600863BC6 /* TIGApp.swift */; };
 		57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F092C3CCAB600863BC6 /* OnboardingView.swift */; };
 		57A98F0E2C3CCAB800863BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */; };
 		57A98F112C3CCAB800863BC6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F102C3CCAB800863BC6 /* Preview Assets.xcassets */; };
-		57A98F202C3CD4D000863BC6 /* PersistenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */; };
+		57A98F202C3CD4D000863BC6 /* DailyContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F1F2C3CD4D000863BC6 /* DailyContentRepository.swift */; };
 		57A98F222C3CD4FA00863BC6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F212C3CD4FA00863BC6 /* Colors.xcassets */; };
-		57A98F242C3CD51300863BC6 /* SwiftDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */; };
-		57A98F272C3CDAB600863BC6 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F262C3CDAB600863BC6 /* TestModel.swift */; };
+		57A98F242C3CD51300863BC6 /* DefaultDailyContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F232C3CD51300863BC6 /* DefaultDailyContentRepository.swift */; };
+		57A98F272C3CDAB600863BC6 /* DailyContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F262C3CDAB600863BC6 /* DailyContent.swift */; };
 		57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F282C3CDABD00863BC6 /* TestUseCase.swift */; };
 		57A98F362C3CDCF100863BC6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F2D2C3CDCF000863BC6 /* Pretendard-ExtraBold.otf */; };
 		57A98F372C3CDCF100863BC6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F2E2C3CDCF000863BC6 /* Pretendard-Medium.otf */; };
@@ -31,15 +43,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		577B36542C4A955E0015C9A4 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
+		577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeat.swift; sourceTree = "<group>"; };
+		577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContentSD.swift; sourceTree = "<group>"; };
+		577B365B2C4A98B90015C9A4 /* TimelineSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineSD.swift; sourceTree = "<group>"; };
+		577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatSD.swift; sourceTree = "<group>"; };
+		577B365F2C4BAD0D0015C9A4 /* AppSettingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingRepository.swift; sourceTree = "<group>"; };
+		577B36612C4BAD460015C9A4 /* WeeklyRepeatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatRepository.swift; sourceTree = "<group>"; };
+		577B36632C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWeeklyRepeatRepository.swift; sourceTree = "<group>"; };
+		577B36652C4BEF8C0015C9A4 /* SwiftDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataStorage.swift; sourceTree = "<group>"; };
+		577B36682C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppSettingRepository.swift; sourceTree = "<group>"; };
+		577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		577B366C2C4BF6240015C9A4 /* AppSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetting.swift; sourceTree = "<group>"; };
 		57A98F042C3CCAB600863BC6 /* TIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A98F072C3CCAB600863BC6 /* TIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIGApp.swift; sourceTree = "<group>"; };
 		57A98F092C3CCAB600863BC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57A98F102C3CCAB800863BC6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceRepository.swift; sourceTree = "<group>"; };
+		57A98F1F2C3CD4D000863BC6 /* DailyContentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContentRepository.swift; sourceTree = "<group>"; };
 		57A98F212C3CD4FA00863BC6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataStorage.swift; sourceTree = "<group>"; };
-		57A98F262C3CDAB600863BC6 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		57A98F232C3CD51300863BC6 /* DefaultDailyContentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDailyContentRepository.swift; sourceTree = "<group>"; };
+		57A98F262C3CDAB600863BC6 /* DailyContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContent.swift; sourceTree = "<group>"; };
 		57A98F282C3CDABD00863BC6 /* TestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUseCase.swift; sourceTree = "<group>"; };
 		57A98F2D2C3CDCF000863BC6 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		57A98F2E2C3CDCF000863BC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -67,6 +91,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		577B36582C4A984F0015C9A4 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */,
+				577B365B2C4A98B90015C9A4 /* TimelineSD.swift */,
+				577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */,
+			);
+			path = Mapping;
+			sourceTree = "<group>";
+		};
+		577B36672C4BF1E20015C9A4 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				577B36652C4BEF8C0015C9A4 /* SwiftDataStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		57A98EFB2C3CCAB600863BC6 = {
 			isa = PBXGroup;
 			children = (
@@ -135,7 +177,11 @@
 		57A98F1A2C3CD41100863BC6 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				57A98F232C3CD51300863BC6 /* SwiftDataStorage.swift */,
+				577B36672C4BF1E20015C9A4 /* Storage */,
+				577B36582C4A984F0015C9A4 /* Mapping */,
+				57A98F232C3CD51300863BC6 /* DefaultDailyContentRepository.swift */,
+				577B36632C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift */,
+				577B36682C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -153,7 +199,9 @@
 		57A98F1C2C3CD43100863BC6 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				57A98F1F2C3CD4D000863BC6 /* PersistenceRepository.swift */,
+				57A98F1F2C3CD4D000863BC6 /* DailyContentRepository.swift */,
+				577B36612C4BAD460015C9A4 /* WeeklyRepeatRepository.swift */,
+				577B365F2C4BAD0D0015C9A4 /* AppSettingRepository.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -169,7 +217,10 @@
 		57A98F1E2C3CD46D00863BC6 /* Entitiy */ = {
 			isa = PBXGroup;
 			children = (
-				57A98F262C3CDAB600863BC6 /* TestModel.swift */,
+				57A98F262C3CDAB600863BC6 /* DailyContent.swift */,
+				577B36542C4A955E0015C9A4 /* Timeline.swift */,
+				577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */,
+				577B366C2C4BF6240015C9A4 /* AppSetting.swift */,
 			);
 			path = Entitiy;
 			sourceTree = "<group>";
@@ -195,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				57A98F452C3CF49800863BC6 /* Date+Ext.swift */,
+				577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -304,14 +356,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				577B36552C4A955E0015C9A4 /* Timeline.swift in Sources */,
+				577B365C2C4A98B90015C9A4 /* TimelineSD.swift in Sources */,
+				577B366D2C4BF6240015C9A4 /* AppSetting.swift in Sources */,
 				57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */,
 				57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */,
+				577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */,
 				57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */,
+				577B36642C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift in Sources */,
+				577B36662C4BEF8C0015C9A4 /* SwiftDataStorage.swift in Sources */,
+				577B366B2C4BF5E50015C9A4 /* UserDefaults+Ext.swift in Sources */,
 				57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */,
-				57A98F242C3CD51300863BC6 /* SwiftDataStorage.swift in Sources */,
+				57A98F242C3CD51300863BC6 /* DefaultDailyContentRepository.swift in Sources */,
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
-				57A98F272C3CDAB600863BC6 /* TestModel.swift in Sources */,
-				57A98F202C3CD4D000863BC6 /* PersistenceRepository.swift in Sources */,
+				577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */,
+				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,
+				577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */,
+				577B365E2C4A98D40015C9A4 /* WeeklyRepeatSD.swift in Sources */,
+				57A98F272C3CDAB600863BC6 /* DailyContent.swift in Sources */,
+				57A98F202C3CD4D000863BC6 /* DailyContentRepository.swift in Sources */,
+				577B36602C4BAD0D0015C9A4 /* AppSettingRepository.swift in Sources */,
 				57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
