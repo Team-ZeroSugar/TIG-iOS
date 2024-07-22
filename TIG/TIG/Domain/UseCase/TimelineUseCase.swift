@@ -131,11 +131,6 @@ class TimelineUseCase {
         case tappedEditTimeline
     }
     
-//    private var _state: State = .init()
-//    var state: State {
-//        return _state
-//    }
-    
     private(set) var state: State = .init()
     
     // MARK: - View Action
@@ -147,19 +142,12 @@ class TimelineUseCase {
     }
     
     // MARK: - Helper function
-    func timeString(for index: Int) -> String {
-        let hour = index / 2 % 24
-        let period = hour < 12 ? "오전" : "오후"
-        let displayHour = hour % 12 == 0 ? 12 : hour % 12
-        return "\(period) \(displayHour)시"
-    }
-       
     func filteredTimelines() -> [Timeline] {
         return state.timelines.filter { $0.start >= state.wakeupTime && $0.end <= state.bedTime }
     }
     
-    func groupedTimelines() -> [(isAvailable: Bool, count: Int)] {
-        var result: [(isAvailable: Bool, count: Int)] = []
+    func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: Date, end: Date)] {
+        var result: [(isAvailable: Bool, count: Int, start: Date, end: Date)] = []
         let filtered = filteredTimelines()
         
         if filtered.isEmpty {
@@ -168,19 +156,42 @@ class TimelineUseCase {
         
         var currentIsAvailable = filtered[0].isAvailable
         var currentCount = 1
+        var currentStart = filtered[0].start
+        var currentEnd = filtered[0].end
         
         for index in 1..<filtered.count {
             if filtered[index].isAvailable == currentIsAvailable {
                 currentCount += 1
+                currentEnd = filtered[index].end
             } else {
-                result.append((currentIsAvailable, currentCount))
+                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
                 currentIsAvailable = filtered[index].isAvailable
                 currentCount = 1
+                currentStart = filtered[index].start
+                currentEnd = filtered[index].end
             }
         }
         
-        result.append((currentIsAvailable, currentCount))
-        print(result)
+        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
     }
+    
+    func formattedDuration(from slots: Int) -> String {
+        let totalMinutes = slots * 30
+        let hours = totalMinutes / 60
+        let minutes = totalMinutes % 60
+        
+        var result = ""
+        if hours > 0 {
+            result += "\(hours)시간"
+        }
+        if minutes > 0 {
+            if !result.isEmpty {
+                result += " "
+            }
+            result += "\(minutes)분"
+        }
+        return result
+    }
+
 }

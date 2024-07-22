@@ -115,10 +115,19 @@ fileprivate struct TimelineBodyView: View {
                                 .frame(height: totalHeight)
                                 .padding(.vertical, 2)
                         } else {
-                            RoundedRectangle(cornerRadius: 5)
-                                .foregroundStyle(.timelineStroke)
-                                .frame(width:4 ,height: totalHeight)
-                                .padding(.vertical, 2)
+                            HStack(alignment: .top, spacing: 15) {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundStyle(.timelineBlue)
+                                    .frame(width:4 ,height: totalHeight)
+                                    .padding(.vertical, 2)
+                                
+                                Text("일정 시간 (\(timelineUseCase.formattedDuration(from: item.count)))")
+                                    .font(.custom(AppFont.medium, size: 12))
+                                    .foregroundStyle(AppColor.gray3)
+                                    .frame(height: 14)
+                                    .padding(.top, 12)
+                            }
+
                         }
                     }
                 }
