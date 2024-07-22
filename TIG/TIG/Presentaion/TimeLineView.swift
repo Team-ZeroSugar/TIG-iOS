@@ -96,9 +96,16 @@ fileprivate struct TimelineBodyView: View {
                     ForEach(filteredTimelines.indices, id: \.self) { index in
                         Button(action: {
                         }, label: {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.timelineBlue)
-                                .frame(height: 35)
+                            if filteredTimelines[index].isAvailable {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(.timelineBlue)
+                                    .frame(height: 35)
+                            } else {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(.timelineBlue)
+                                    .frame(width: 4,height: 35)
+                                Spacer()
+                            }
                         })
                     }
                 }
@@ -110,10 +117,45 @@ fileprivate struct TimelineBodyView: View {
                         let totalHeight = CGFloat(item.count * 35 + 4 * (item.count - 1))
                         
                         if item.isAvailable {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.timelineBlue)
-                                .frame(height: totalHeight)
-                                .padding(.vertical, 2)
+                            ZStack(alignment: .topLeading) {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(.timelineBlue)
+                                    .frame(height: totalHeight)
+                                    .padding(.vertical, 2)
+                                
+                                VStack(alignment: .leading, spacing: 0) {
+                                    if item.count >= 2 {
+                                        Spacer().frame(height: 16)
+                                        
+                                        VStack(alignment: .leading, spacing: 8) {
+                                            Text("\(item.start.formattedTimelineTime()) - \(item.end.formattedTimelineTime())")
+                                                .font(.custom(AppFont.medium, size: 12))
+                                                .foregroundStyle(AppColor.gray4)
+                                            
+                                            Text("활용 가능 시간")
+                                                .padding(.horizontal, 12)
+                                                .padding(.vertical, 5)
+                                                .background(Capsule().fill(AppColor.mainBlue))
+                                                .font(.custom(AppFont.medium, size: 12))
+                                                .foregroundColor(.white)
+                                                
+                                            
+                                        }.padding(.leading, 20)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    HStack {
+                                        Spacer()
+                                        Text("\(timelineUseCase.formattedDuration(from: item.count))")
+                                            .font(.custom(AppFont.semiBold, size: 20))
+                                            .foregroundStyle(AppColor.gray4)
+                                            .padding(.trailing, 20)
+                                            .frame(height: 18)
+                                    }
+                                    Spacer().frame(height: item.count >= 2 ? 16 : 10)
+                                }
+                            }
                         } else {
                             HStack(alignment: .top, spacing: 15) {
                                 RoundedRectangle(cornerRadius: 5)

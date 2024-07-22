@@ -63,13 +63,13 @@ class TimelineUseCase {
                      isAvailable: false), // 2024/07/21 15:30 - 16:00
             Timeline(start: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 16, minute: 0))!,
                      end: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 16, minute: 30))!,
-                     isAvailable: false),  // 2024/07/21 16:00 - 16:30
+                     isAvailable: true),  // 2024/07/21 16:00 - 16:30
             Timeline(start: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 16, minute: 30))!,
                      end: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 17, minute: 0))!,
                      isAvailable: false), // 2024/07/21 16:30 - 17:00
             Timeline(start: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 17, minute: 0))!,
                      end: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 17, minute: 30))!,
-                     isAvailable: false),  // 2024/07/21 17:00 - 17:30
+                     isAvailable: true),  // 2024/07/21 17:00 - 17:30
             Timeline(start: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 17, minute: 30))!,
                      end: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 18, minute: 0))!,
                      isAvailable: false), // 2024/07/21 17:30 - 18:00
