@@ -62,6 +62,7 @@ fileprivate struct TimelineBodyView: View {
     fileprivate var body: some View {
         
         let filteredTimelines = timelineUseCase.filteredTimelines()
+        let groupedTimelines = timelineUseCase.groupedTimelines()
         
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
@@ -70,7 +71,6 @@ fileprivate struct TimelineBodyView: View {
                         HStack(alignment: .top, spacing: 0) {
                             
                             let isHour = Calendar.current.component(.minute, from: filteredTimelines[index].start) == 0
-                            let isLast = index == filteredTimelines.count - 1
                             
                             Text(filteredTimelines[index].start.formattedTimelineTime())
                                 .frame(width: 47, height: 14, alignment: .leading)
@@ -78,7 +78,6 @@ fileprivate struct TimelineBodyView: View {
                                 .foregroundStyle(AppColor.gray3)
                                 .opacity(isHour ? 1 : 0)
                                 .offset(y: -7)
-                            
                             
                             Spacer().frame(width: 14, height: 39)
                             
@@ -96,7 +95,6 @@ fileprivate struct TimelineBodyView: View {
                 VStack(alignment: .leading, spacing:4) {
                     ForEach(filteredTimelines.indices, id: \.self) { index in
                         Button(action: {
-                            print(filteredTimelines[index])
                         }, label: {
                             RoundedRectangle(cornerRadius: 8)
                                 .foregroundStyle(.timelineBlue)
@@ -106,11 +104,25 @@ fileprivate struct TimelineBodyView: View {
                 }
             } else {
                 VStack(alignment: .leading, spacing:0) {
-                    RoundedRectangle(cornerRadius: 5)
-                        .foregroundStyle(.timelineStroke)
-                        .frame(width: 4)
+                    ForEach(groupedTimelines.indices, id: \.self) { index in
+                        
+                        let item = groupedTimelines[index]
+                        let totalHeight = CGFloat(item.count * 35 + 4 * (item.count - 1))
+                        
+                        if item.isAvailable {
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundStyle(.timelineBlue)
+                                .frame(height: totalHeight)
+                                .padding(.vertical, 2)
+                        } else {
+                            RoundedRectangle(cornerRadius: 5)
+                                .foregroundStyle(.timelineStroke)
+                                .frame(width:4 ,height: totalHeight)
+                                .padding(.vertical, 2)
+                        }
+                    }
                 }
-                Spacer()
+                
             }
         }
         
@@ -131,7 +143,7 @@ fileprivate struct TimelineBodyView: View {
                 
                 Spacer()
             }
-        }.offset(y: -12)
+        }.offset(y: -10)
     }
 }
 
