@@ -20,3 +20,8 @@ class SwiftDataStorage {
         }
     }()
 }
+
+enum SwiftDataError: Error {
+    case notFound
+    case fetchError
+}

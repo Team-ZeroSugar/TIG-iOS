@@ -8,12 +8,12 @@
 import Foundation
 
 struct WeeklyRepeat {
-    var day: Weekly
+    var day: Int
     var timelines: [Timeline]
 }
 
 enum Weekly: Int, Codable {
-    case sun
+    case sun = 1
     case mon
     case tue
     case wed

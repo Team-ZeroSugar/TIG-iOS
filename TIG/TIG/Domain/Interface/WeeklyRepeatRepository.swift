@@ -8,7 +8,7 @@
 import Foundation
 
 protocol WeeklyRepeatRepository {
-    func createWeeklyRepeat()
-    func fetchWeeklyRepeats() -> [WeeklyRepeat]
-    func updateWeeklyRepeat()
+    func initialWeeklyRepeats()
+    func fetchWeeklyRepeats() -> Result<[WeeklyRepeat], SwiftDataError>
+    func updateWeeklyRepeat(weeklyRepeat: WeeklyRepeat, timelines: [Timeline])
 }
