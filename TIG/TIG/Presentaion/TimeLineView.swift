@@ -33,7 +33,7 @@ struct TimelineView: View {
 
 // MARK: - Header View
 fileprivate struct TimelineHeaderView: View {
-    @Bindable var timelineUseCase: TimelineUseCase
+    var timelineUseCase: TimelineUseCase
     
     fileprivate var body: some View {
         HStack {
@@ -57,7 +57,7 @@ fileprivate struct TimelineHeaderView: View {
 // MARK: - Body View
 fileprivate struct TimelineBodyView: View {
     
-    @Bindable var timelineUseCase: TimelineUseCase
+    var timelineUseCase: TimelineUseCase
 
     fileprivate var body: some View {
         
