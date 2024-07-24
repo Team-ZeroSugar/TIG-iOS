@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimelineView: View {
     
-    @Bindable var timelineUseCase: TimelineUseCase
+    @State var timelineUseCase: TimelineUseCase
     
     init(timelineUseCase: TimelineUseCase) {
         self.timelineUseCase = timelineUseCase
