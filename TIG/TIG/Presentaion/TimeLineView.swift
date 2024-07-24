@@ -61,101 +61,19 @@ fileprivate struct TimelineBodyView: View {
 
     fileprivate var body: some View {
         
-        let filteredTimelines = timelineUseCase.filteredTimelines()
-        let groupedTimelines = timelineUseCase.groupedTimelines()
-        
         HStack(spacing: 0) {
 
             TimeMarkerView(timelineUseCase: timelineUseCase)
             
             Spacer().frame(width: 18)
             
-            if timelineUseCase.state.editTimeline {
-                VStack(alignment: .leading, spacing:4) {
-                    ForEach(filteredTimelines.indices, id: \.self) { index in
-                        Button(action: {
-                        }, label: {
-                            if filteredTimelines[index].isAvailable {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundStyle(.timelineBlue)
-                                    .frame(height: 35)
-                            } else {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundStyle(.timelineBlue)
-                                    .frame(width: 4,height: 35)
-                                Spacer()
-                            }
-                        })
-                    }
-                }
-            } else {
-                VStack(alignment: .leading, spacing:0) {
-                    ForEach(groupedTimelines.indices, id: \.self) { index in
-                        
-                        let item = groupedTimelines[index]
-                        let totalHeight = CGFloat(item.count * 35 + 4 * (item.count - 1))
-                        
-                        if item.isAvailable {
-                            ZStack(alignment: .topLeading) {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundStyle(.timelineBlue)
-                                    .frame(height: totalHeight)
-                                    .padding(.vertical, 2)
-                                
-                                VStack(alignment: .leading, spacing: 0) {
-                                    if item.count >= 2 {
-                                        Spacer().frame(height: 16)
-                                        
-                                        VStack(alignment: .leading, spacing: 8) {
-                                            Text("\(item.start.formattedTimelineTime()) - \(item.end.formattedTimelineTime())")
-                                                .font(.custom(AppFont.medium, size: 12))
-                                                .foregroundStyle(AppColor.gray4)
-                                            
-                                            Text("활용 가능 시간")
-                                                .padding(.horizontal, 12)
-                                                .padding(.vertical, 5)
-                                                .background(Capsule().fill(AppColor.mainBlue))
-                                                .font(.custom(AppFont.medium, size: 12))
-                                                .foregroundColor(.white)
-                                                
-                                            
-                                        }.padding(.leading, 20)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    HStack {
-                                        Spacer()
-                                        Text("\(timelineUseCase.formattedDuration(from: item.count))")
-                                            .font(.custom(AppFont.semiBold, size: 20))
-                                            .foregroundStyle(AppColor.gray4)
-                                            .padding(.trailing, 20)
-                                            .frame(height: 18)
-                                    }
-                                    Spacer().frame(height: item.count >= 2 ? 16 : 10)
-                                }
-                            }
-                        } else {
-                            HStack(alignment: .top, spacing: 15) {
-                                RoundedRectangle(cornerRadius: 5)
-                                    .foregroundStyle(.timelineBlue)
-                                    .frame(width:4 ,height: totalHeight)
-                                    .padding(.vertical, 2)
-                                
-                                Text("일정 시간 (\(timelineUseCase.formattedDuration(from: item.count)))")
-                                    .font(.custom(AppFont.medium, size: 12))
-                                    .foregroundStyle(AppColor.gray3)
-                                    .frame(height: 14)
-                                    .padding(.top, 12)
-                            }
-                        }
-                    }
-                }
-            }
+            TimelineContentView(timelineUseCase: timelineUseCase)
+            
         }
     }
 }
 
+// MARK: - TimeMarkerView
 fileprivate struct TimeMarkerView: View {
     
     var timelineUseCase: TimelineUseCase
@@ -204,6 +122,101 @@ fileprivate struct TimeMarkerView: View {
             }
             .frame(height: 0)
             .offset(y: 5)
+        }
+    }
+}
+
+// MARK: - TimelineContentView
+fileprivate struct TimelineContentView: View {
+    
+    var timelineUseCase: TimelineUseCase
+    
+    fileprivate var body: some View {
+        
+        let filteredTimelines = timelineUseCase.filteredTimelines()
+        let groupedTimelines = timelineUseCase.groupedTimelines()
+        
+        if timelineUseCase.state.editTimeline {
+            VStack(alignment: .leading, spacing:4) {
+                ForEach(filteredTimelines.indices, id: \.self) { index in
+                    Button(action: {
+                    }, label: {
+                        if filteredTimelines[index].isAvailable {
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundStyle(.timelineBlue)
+                                .frame(height: 35)
+                        } else {
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundStyle(.timelineBlue)
+                                .frame(width: 4,height: 35)
+                            Spacer()
+                        }
+                    })
+                }
+            }
+        } else {
+            VStack(alignment: .leading, spacing:0) {
+                ForEach(groupedTimelines.indices, id: \.self) { index in
+                    
+                    let item = groupedTimelines[index]
+                    let totalHeight = CGFloat(item.count * 35 + 4 * (item.count - 1))
+                    
+                    if item.isAvailable {
+                        ZStack(alignment: .topLeading) {
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundStyle(.timelineBlue)
+                                .frame(height: totalHeight)
+                                .padding(.vertical, 2)
+                            
+                            VStack(alignment: .leading, spacing: 0) {
+                                if item.count >= 2 {
+                                    Spacer().frame(height: 16)
+                                    
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        Text("\(item.start.formattedTimelineTime()) - \(item.end.formattedTimelineTime())")
+                                            .font(.custom(AppFont.medium, size: 12))
+                                            .foregroundStyle(AppColor.gray4)
+                                        
+                                        Text("활용 가능 시간")
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 5)
+                                            .background(Capsule().fill(AppColor.mainBlue))
+                                            .font(.custom(AppFont.medium, size: 12))
+                                            .foregroundColor(.white)
+                                            
+                                        
+                                    }.padding(.leading, 20)
+                                }
+                                
+                                Spacer()
+                                
+                                HStack {
+                                    Spacer()
+                                    Text("\(timelineUseCase.formattedDuration(from: item.count))")
+                                        .font(.custom(AppFont.semiBold, size: 20))
+                                        .foregroundStyle(AppColor.gray4)
+                                        .padding(.trailing, 20)
+                                        .frame(height: 18)
+                                }
+                                Spacer().frame(height: item.count >= 2 ? 16 : 10)
+                            }
+                        }
+                    } else {
+                        HStack(alignment: .top, spacing: 15) {
+                            RoundedRectangle(cornerRadius: 5)
+                                .foregroundStyle(.timelineBlue)
+                                .frame(width:4 ,height: totalHeight)
+                                .padding(.vertical, 2)
+                            
+                            Text("일정 시간 (\(timelineUseCase.formattedDuration(from: item.count)))")
+                                .font(.custom(AppFont.medium, size: 12))
+                                .foregroundStyle(AppColor.gray3)
+                                .frame(height: 14)
+                                .padding(.top, 12)
+                        }
+                    }
+                }
+            }
         }
     }
 }
