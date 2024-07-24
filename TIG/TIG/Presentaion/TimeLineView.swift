@@ -65,29 +65,8 @@ fileprivate struct TimelineBodyView: View {
         let groupedTimelines = timelineUseCase.groupedTimelines()
         
         HStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(filteredTimelines.indices, id: \.self) { index in
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack(alignment: .top, spacing: 0) {
-                            
-                            let isHour = Calendar.current.component(.minute, from: filteredTimelines[index].start) == 0
-                            
-                            Text(filteredTimelines[index].start.formattedTimelineTime())
-                                .frame(width: 47, height: 14, alignment: .leading)
-                                .font(.custom(AppFont.medium, size: 12))
-                                .foregroundStyle(AppColor.gray3)
-                                .opacity(isHour ? 1 : 0)
-                                .offset(y: -7)
-                            
-                            Spacer().frame(width: 14, height: 39)
-                            
-                            Rectangle()
-                                .frame(width: index % 2 == 0 ? 28 : 16, height: 1)
-                                .foregroundStyle(AppColor.gray2)
-                        }
-                    }
-                }
-            }
+
+            TimeMarkerView(timelineUseCase: timelineUseCase)
             
             Spacer().frame(width: 18)
             
@@ -169,32 +148,63 @@ fileprivate struct TimelineBodyView: View {
                                     .frame(height: 14)
                                     .padding(.top, 12)
                             }
-
                         }
                     }
                 }
-                
             }
         }
+    }
+}
+
+fileprivate struct TimeMarkerView: View {
+    
+    var timelineUseCase: TimelineUseCase
+    
+    fileprivate var body: some View {
         
-        // 마지막 시간 표시
-        HStack(alignment: .top, spacing: 0) {
-            if Calendar.current.component(.minute, from: filteredTimelines.last!.end) == 0 {
-                Text(filteredTimelines.last!.end.formattedTimelineTime())
-                    .frame(width: 47, height: 14, alignment: .leading)
-                    .font(.custom(AppFont.medium, size: 12))
-                    .foregroundStyle(AppColor.gray3)
-                    .offset(y: -7)
+        let filteredTimelines = timelineUseCase.filteredTimelines()
+        
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(filteredTimelines.indices, id: \.self) { index in
+                HStack(alignment: .top, spacing: 0) {
+                    
+                    let isHour = Calendar.current.component(.minute, from: filteredTimelines[index].start) == 0
+                    
+                    Text(filteredTimelines[index].start.formattedTimelineTime())
+                        .frame(width: 47, height: 14, alignment: .leading)
+                        .font(.custom(AppFont.medium, size: 12))
+                        .foregroundStyle(AppColor.gray3)
+                        .opacity(isHour ? 1 : 0)
+                        .offset(y: -7)
+                    
+                    Spacer().frame(width: 14, height: 39)
+                    
+                    Rectangle()
+                        .frame(width: index % 2 == 0 ? 28 : 16, height: 1)
+                        .foregroundStyle(AppColor.gray2)
+                }
                 
-                Spacer().frame(width: 14)
-                
-                Rectangle()
-                    .frame(width: filteredTimelines.count % 2 == 0 ? 28 : 16, height: 1)
-                    .foregroundStyle(AppColor.gray2)
-                
-                Spacer()
             }
-        }.offset(y: -10)
+            
+            // 마지막 시간 표시
+            HStack(alignment: .top, spacing: 0) {
+                if Calendar.current.component(.minute, from: filteredTimelines.last!.end) == 0 {
+                    Text(filteredTimelines.last!.end.formattedTimelineTime())
+                        .frame(width: 47, height: 14, alignment: .leading)
+                        .font(.custom(AppFont.medium, size: 12))
+                        .foregroundStyle(AppColor.gray3)
+                        .offset(y: -7)
+
+                    Spacer().frame(width: 14)
+
+                    Rectangle()
+                        .frame(width: filteredTimelines.count % 2 == 0 ? 28 : 16, height: 1)
+                        .foregroundStyle(AppColor.gray2)
+                }
+            }
+            .frame(height: 0)
+            .offset(y: 5)
+        }
     }
 }
 
