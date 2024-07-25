@@ -141,16 +141,12 @@ fileprivate struct TimelineContentView: View {
                 ForEach(filteredTimelines.indices, id: \.self) { index in
                     Button(action: {
                     }, label: {
-                        if filteredTimelines[index].isAvailable {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.timelineBlue)
-                                .frame(height: 35)
-                        } else {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.timelineBlue)
-                                .frame(width: 4,height: 35)
-                            Spacer()
-                        }
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundStyle(.timelineBlue)
+                            .frame(
+                                width: filteredTimelines[index].isAvailable ? nil : 4,
+                                height: 35
+                            )
                     })
                 }
             }
