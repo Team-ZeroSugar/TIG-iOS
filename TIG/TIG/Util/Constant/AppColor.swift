@@ -29,7 +29,7 @@ extension LinearGradient {
             .linearGradientMid,
             .linearGradientBot
         ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
+        startPoint: .topTrailing,
+        endPoint: .bottomLeading
     )
 }
