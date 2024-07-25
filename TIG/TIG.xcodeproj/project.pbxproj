@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09977E312C4D194F00AAA648 /* MainTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09977E302C4D194F00AAA648 /* MainTimeView.swift */; };
+		09977E332C4D1D7900AAA648 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09977E322C4D1D7900AAA648 /* TimerView.swift */; };
+		09977E352C4FE04C00AAA648 /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09977E342C4FE04C00AAA648 /* AnnounceView.swift */; };
+		09977E372C527E0F00AAA648 /* MainTimeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09977E362C527E0F00AAA648 /* MainTimeUseCase.swift */; };
 		57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F072C3CCAB600863BC6 /* TIGApp.swift */; };
 		57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F092C3CCAB600863BC6 /* OnboardingView.swift */; };
 		57A98F0E2C3CCAB800863BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */; };
@@ -31,6 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09977E302C4D194F00AAA648 /* MainTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTimeView.swift; sourceTree = "<group>"; };
+		09977E322C4D1D7900AAA648 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		09977E342C4FE04C00AAA648 /* AnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceView.swift; sourceTree = "<group>"; };
+		09977E362C527E0F00AAA648 /* MainTimeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTimeUseCase.swift; sourceTree = "<group>"; };
 		57A98F042C3CCAB600863BC6 /* TIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A98F072C3CCAB600863BC6 /* TIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIGApp.swift; sourceTree = "<group>"; };
 		57A98F092C3CCAB600863BC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -67,6 +75,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09977E2F2C4D18E600AAA648 /* MainTime */ = {
+			isa = PBXGroup;
+			children = (
+				09977E302C4D194F00AAA648 /* MainTimeView.swift */,
+				09977E322C4D1D7900AAA648 /* TimerView.swift */,
+				09977E342C4FE04C00AAA648 /* AnnounceView.swift */,
+			);
+			path = MainTime;
+			sourceTree = "<group>";
+		};
 		57A98EFB2C3CCAB600863BC6 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +135,7 @@
 		57A98F182C3CD3FA00863BC6 /* Presentaion */ = {
 			isa = PBXGroup;
 			children = (
+				09977E2F2C4D18E600AAA648 /* MainTime */,
 				57A98F252C3CD9A100863BC6 /* Onboarding */,
 			);
 			path = Presentaion;
@@ -162,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				57A98F282C3CDABD00863BC6 /* TestUseCase.swift */,
+				09977E362C527E0F00AAA648 /* MainTimeUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -305,13 +325,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */,
+				09977E372C527E0F00AAA648 /* MainTimeUseCase.swift in Sources */,
 				57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */,
 				57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */,
 				57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */,
 				57A98F242C3CD51300863BC6 /* SwiftDataStorage.swift in Sources */,
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
+				09977E332C4D1D7900AAA648 /* TimerView.swift in Sources */,
+				09977E352C4FE04C00AAA648 /* AnnounceView.swift in Sources */,
 				57A98F272C3CDAB600863BC6 /* TestModel.swift in Sources */,
 				57A98F202C3CD4D000863BC6 /* PersistenceRepository.swift in Sources */,
+				09977E312C4D194F00AAA648 /* MainTimeView.swift in Sources */,
 				57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

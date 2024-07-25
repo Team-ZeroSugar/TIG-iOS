@@ -5,4 +5,8 @@
 //  Created by Seo-Jooyoung on 7/25/24.
 //
 
-import Foundation
+import SwiftUI
+
+@Observable
+class MainTimeUseCase {
+}
