@@ -64,6 +64,25 @@ fileprivate struct TimeBanner: View {
             RoundedRectangle(cornerRadius: 8)
                 .frame(height: 79)
                 .foregroundStyle(AppColor.white)
+            HStack(spacing: 20) {
+                Image("AvailableIcon")
+                    .frame(width: 36)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("오전 11시 - 오후 2시")
+                        .font(.custom(AppFont.semiBold, size: 12))
+                        .foregroundStyle(AppColor.gray3)
+                    HStack(spacing: 0) {
+                        Text("지금은 ")
+                        Text("활용할 수 있는 시간")
+                            .font(.custom(AppFont.bold, size: 16))
+                            .foregroundStyle(AppColor.mainBlue)
+                        Text("이에요")
+                    }
+                    .font(.custom(AppFont.semiBold, size: 16))
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 23)
             
         }
     }
