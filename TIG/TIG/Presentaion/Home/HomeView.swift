@@ -12,110 +12,106 @@ enum Tab: String, CaseIterable, Hashable {
     case timeline = "타임라인"
 }
 
-// MARK: - HomeView
+// MARK: - (S)HomeView
 struct HomeView: View {
     // TODO: main에서 Environment 주입으로 변경
     @State private var homeViewModel: HomeViewModel = HomeViewModel()
+    @State private var currentDate = Date()
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .top) {
-                VStack {
-                    Spacer().frame(height: 80)
-                    
-                    ScrollableTabBar(homeViewModel: homeViewModel)
-                }
+            ZStack {
+               ScrollableTabBar(homeViewModel: homeViewModel)
                 
                 if homeViewModel.state.isCalendarVisible {
-                    Color.black.opacity(0.2)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            homeViewModel.effect(.calendarTapped)
-                        }
+                    CalendarView()
                 }
-                
-                NavigationBar(homeViewModel: homeViewModel)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
             }
-            
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    CalendarButton()
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    MenuButton()
+                }
+            })
         }
         
     }
-}
-
-// MARK: - NavigationBar
-fileprivate struct NavigationBar: View {
-    @Bindable private var homeViewModel: HomeViewModel
-    @State private var currentDate = Date()
     
-    init(homeViewModel: HomeViewModel) {
-        self.homeViewModel = homeViewModel
+    // MARK: - (F)CalendarView
+    private func CalendarView() -> some View {
+        ZStack(alignment: .topLeading) {
+            Color.black.opacity(0.2)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    homeViewModel.effect(.calendarTapped)
+                }
+            
+            RoundedRectangle(cornerRadius: 10)
+                .frame(width: 320, height: 320)
+                .foregroundStyle(AppColor.gray0)
+                .overlay {
+                    DatePicker(
+                        "날짜 선택",
+                        selection: $currentDate,
+                        in: .now...,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(.graphical)
+                    .frame(width: 300, height: 300)
+                    .onChange(of: currentDate) { _, _ in
+                        homeViewModel.effect(.dateTapped(currentDate))
+                    }
+                }
+                .padding()
+        }
     }
     
-    fileprivate var body: some View {
-        VStack(alignment: .leading) {
+    // MARK: - (F)CalendarButton
+    private func CalendarButton() -> some View {
+        Button(action: {
+            homeViewModel.effect(.calendarTapped)
+        }, label: {
             HStack {
-                Button(action: {
-                    homeViewModel.effect(.calendarTapped)
-                }, label: {
-                    HStack {
-                        Text(currentDate.pickerFormat)
-                            .font(.custom(AppFont.semiBold, size: 18))
-                            .foregroundStyle(AppColor.gray4)
-                        
-                        Image(systemName: "chevron.down")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 18, height: 18)
-                            .foregroundColor(AppColor.gray4)
-                            .rotationEffect(
-                                .degrees(
-                                    homeViewModel.state.isCalendarVisible ? -180 : 0
-                                )
-                            )
-                    }
-                })
+                Text(currentDate.pickerFormat)
+                    .font(.custom(AppFont.semiBold, size: 18))
+                    .foregroundStyle(AppColor.gray4)
                 
-                Spacer()
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(AppColor.gray4)
-                }
+                Image(systemName: "chevron.down")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 18, height: 18)
+                    .foregroundColor(AppColor.gray4)
+                    .rotationEffect(
+                        .degrees(
+                            homeViewModel.state.isCalendarVisible ? -180 : 0
+                        )
+                    )
             }
             
-            if homeViewModel.state.isCalendarVisible {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 320, height: 320)
-                    .foregroundStyle(AppColor.gray0)
-                    .overlay {
-                        DatePicker(
-                            "날짜 선택",
-                            selection: $currentDate,
-                            in: .now...,
-                            displayedComponents: [.date]
-                        )
-                        .datePickerStyle(.graphical)
-                        .frame(width: 300, height: 300)
+        })
+    }
+    
+    // MARK: - (F)MenuButton
+    private func MenuButton() -> some View {
+        Menu {
+            Button(action: {}, label: {
+                Label("반복 관리", systemImage: "clock.arrow.circlepath")
+            })
+            Button(action: {}, label: {
+                Label("설정", systemImage: "gear")
+            })
+        } label: {
+            Image(systemName: "ellipsis")
+                .foregroundStyle(AppColor.gray4)
+        }
 
-                    }
-            }
-        }
-        .padding(.vertical, 13)
-        .onChange(of: currentDate) { _, _ in
-            homeViewModel.effect(.dateTapped(currentDate))
-        }
     }
 }
 
 
-// MARK: - ScrollableTabBar
+// MARK: - (S)ScrollableTabBar
 fileprivate struct ScrollableTabBar: View {
     @Bindable private var homeViewModel: HomeViewModel
     @State private var scrollPosition: Tab?
@@ -146,7 +142,7 @@ fileprivate struct ScrollableTabBar: View {
         
     }
     
-    // MARK: - TabBar
+    // MARK: - (F)TabBar
     private func TabBar(size: CGSize) -> some View {
         HStack(spacing: 0) {
             ForEach(Tab.allCases, id: \.self) { tab in
@@ -183,7 +179,7 @@ fileprivate struct ScrollableTabBar: View {
         .frame(width: size.width)
     }
     
-    // MARK: - TabBar Item
+    // MARK: - (F)TabBar Item
     private func TabBarItem(size: CGSize) -> some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 0) {
