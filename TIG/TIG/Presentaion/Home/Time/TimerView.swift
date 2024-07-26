@@ -21,7 +21,7 @@ struct TimerView: View {
             TimerHeaderView()
             Spacer().frame(height: 52)
             TimerBodyView(counter: counter, countTo: countTo)
-            
+            Spacer()
         
         }.onReceive(timer) { time in
             if (self.counter < self.countTo) {
@@ -29,6 +29,7 @@ struct TimerView: View {
             }
         }
         .padding(.horizontal, 20)
+        .padding(.top, 44)
     }
 }
 

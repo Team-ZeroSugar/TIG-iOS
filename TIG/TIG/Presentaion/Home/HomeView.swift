@@ -187,9 +187,11 @@ fileprivate struct ScrollableTabBar: View {
                     VStack {
                         switch tab {
                         case .time:
-                            Text("시간")
+                            TimerView()
+                            
+                        // TODO: UseCase 주입 방법 재정리 필요
                         case .timeline:
-                            Text("타임라인")
+                            TimelineView(timelineUseCase: TimelineUseCase(appSettingService: TestAppSettingsService(), dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false))
                         }
                     }
                     .frame(width: size.width)
