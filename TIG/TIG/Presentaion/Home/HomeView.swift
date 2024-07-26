@@ -129,76 +129,85 @@ fileprivate struct ScrollableTabBar: View {
     
     fileprivate var body: some View {
         GeometryReader { proxy in
-            VStack {
+            VStack(spacing: 0) {
                 
-                // MARK: - 탭바
-                HStack(spacing: 0) {
-                    ForEach(Tab.allCases, id: \.self) { tab in
-                        Button(
-                            action: {
-                                withAnimation {
-                                    scrollPosition = tab
-                                }
-                            },
-                            label: {
-                                Text(tab.rawValue)
-                                    .font(.custom(AppFont.semiBold, size: 20))
-                                    .frame(
-                                        width: (proxy.size.width) / CGFloat(Tab.allCases.count),
-                                        height: 40
-                                    )
-                                    .padding(.vertical, 12)
-                                    .foregroundStyle(
-                                        homeViewModel.state.activeTab == tab
-                                        ? AppColor.gray5
-                                        : AppColor.gray2
-                                    )
-                                    .contentShape(Rectangle())
-                            })
-                    }
-                }
-                .overlay(
-                    Rectangle()
-                        .frame(width: proxy.size.width / 2, height: 4)
-                        .foregroundStyle(AppColor.mainBlue)
-                        .offset(x: selectedTabOffset),
-                    alignment: .bottomLeading
-                )
-                .frame(width: proxy.size.width)
+                TabBar(size: proxy.size)
                 
-                // MARK: - 탭바 아이템
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: 0) {
-                        ForEach(Tab.allCases, id: \.self) { tab in
-                            VStack {
-                                switch tab {
-                                case .time:
-                                    Text("시간")
-                                case .timeline:
-                                    Text("타임라인")
-                                }
-                            }
-                            .frame(width: proxy.size.width)
-                        }
-                    }
-                    .scrollTargetLayout()
-                    
-                }
-                .scrollPosition(id: $scrollPosition)
-                .scrollIndicators(.hidden)
-                .scrollTargetBehavior(.paging)
+                TabBarItem(size: proxy.size)
                 
             }
             .onChange(of: scrollPosition) { _, new in
                 withAnimation(.snappy) {
                     homeViewModel.effect(.tabChange(new.unsafelyUnwrapped))
-                    selectedTabOffset = (proxy.size.width / CGFloat(Tab.allCases.count)) * CGFloat(Tab.allCases.firstIndex(of: new.unsafelyUnwrapped) ?? 0)
+                    selectedTabOffset = (proxy.size.width / 2) * CGFloat(Tab.allCases.firstIndex(of: new.unsafelyUnwrapped) ?? 0)
                 }
             }
         }
         
     }
+    
+    // MARK: - TabBar
+    private func TabBar(size: CGSize) -> some View {
+        HStack(spacing: 0) {
+            ForEach(Tab.allCases, id: \.self) { tab in
+                Button(
+                    action: {
+                        withAnimation {
+                            scrollPosition = tab
+                        }
+                    },
+                    label: {
+                        Text(tab.rawValue)
+                            .font(.custom(AppFont.semiBold, size: 20))
+                            .frame(
+                                width: (size.width) / 2,
+                                height: 40
+                            )
+                            .padding(.vertical, 12)
+                            .foregroundStyle(
+                                homeViewModel.state.activeTab == tab
+                                ? AppColor.gray5
+                                : AppColor.gray2
+                            )
+                            .contentShape(Rectangle())
+                    })
+            }
+        }
+        .overlay(
+            Rectangle()
+                .frame(width: size.width / 2, height: 4)
+                .foregroundStyle(AppColor.mainBlue)
+                .offset(x: selectedTabOffset),
+            alignment: .bottomLeading
+        )
+        .frame(width: size.width)
+    }
+    
+    // MARK: - TabBar Item
+    private func TabBarItem(size: CGSize) -> some View {
+        ScrollView(.horizontal) {
+            LazyHStack(spacing: 0) {
+                ForEach(Tab.allCases, id: \.self) { tab in
+                    VStack {
+                        switch tab {
+                        case .time:
+                            Text("시간")
+                        case .timeline:
+                            Text("타임라인")
+                        }
+                    }
+                    .frame(width: size.width)
+                }
+            }
+            .scrollTargetLayout()
+            
+        }
+        .scrollPosition(id: $scrollPosition)
+        .scrollIndicators(.hidden)
+        .scrollTargetBehavior(.paging)
+    }
 }
+
 
 #Preview {
     HomeView()
