@@ -14,8 +14,7 @@ enum Tab: String, CaseIterable, Hashable {
 
 // MARK: - (S)HomeView
 struct HomeView: View {
-    // TODO: main에서 Environment 주입으로 변경
-    @State private var homeViewModel: HomeViewModel = HomeViewModel()
+    @Environment(HomeViewModel.self) var homeViewModel
     @State private var currentDate = Date()
     
     var body: some View {
@@ -209,4 +208,5 @@ fileprivate struct ScrollableTabBar: View {
 
 #Preview {
     HomeView()
+        .environment(HomeViewModel())
 }

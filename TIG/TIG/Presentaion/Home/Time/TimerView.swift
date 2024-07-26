@@ -12,6 +12,9 @@ let timer = Timer
     .autoconnect()
 
 struct TimerView: View {
+//    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
+//    @Environment(HomeViewModel.self) var homeViewModel
+    
     @State var counter: Int = 0
     // 타이머가 끝나는 시간
     var countTo: Int = 18000

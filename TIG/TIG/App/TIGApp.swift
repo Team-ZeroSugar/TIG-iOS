@@ -10,10 +10,13 @@ import SwiftUI
 @main
 struct TIGApp: App {
 
+    @State private var homeViewModel = HomeViewModel()
+    
     var body: some Scene {
         WindowGroup {
 //            OnboardingView()
-            
+            HomeView()
+                .environment(homeViewModel)
         }
     }
 }
