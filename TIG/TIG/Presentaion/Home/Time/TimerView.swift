@@ -12,6 +12,9 @@ let timer = Timer
     .autoconnect()
 
 struct TimerView: View {
+//    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
+//    @Environment(HomeViewModel.self) var homeViewModel
+    
     @State var counter: Int = 0
     // 타이머가 끝나는 시간
     var countTo: Int = 18000
@@ -21,7 +24,7 @@ struct TimerView: View {
             TimerHeaderView()
             Spacer().frame(height: 52)
             TimerBodyView(counter: counter, countTo: countTo)
-            
+            Spacer()
         
         }.onReceive(timer) { time in
             if (self.counter < self.countTo) {
@@ -29,6 +32,7 @@ struct TimerView: View {
             }
         }
         .padding(.horizontal, 20)
+        .padding(.top, 44)
     }
 }
 

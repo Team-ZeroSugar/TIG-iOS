@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TimelineView: View {
+    //    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
+    //    @Environment(HomeViewModel.self) var homeViewModel
     
     @State var timelineUseCase: TimelineUseCase
     
@@ -70,6 +72,7 @@ fileprivate struct TimelineBodyView: View {
             TimelineContentView(timelineUseCase: timelineUseCase)
             
         }
+        .padding(.bottom, 50)
     }
 }
 

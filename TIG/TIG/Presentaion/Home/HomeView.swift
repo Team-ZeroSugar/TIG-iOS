@@ -14,14 +14,14 @@ enum Tab: String, CaseIterable, Hashable {
 
 // MARK: - (S)HomeView
 struct HomeView: View {
-    // TODO: main에서 Environment 주입으로 변경
-    @State private var homeViewModel: HomeViewModel = HomeViewModel()
+    @Environment(HomeViewModel.self) var homeViewModel
     @State private var currentDate = Date()
     
     var body: some View {
         NavigationStack {
             ZStack {
                ScrollableTabBar(homeViewModel: homeViewModel)
+                    .ignoresSafeArea(edges: .bottom)
                 
                 if homeViewModel.state.isCalendarVisible {
                     CalendarView()
@@ -35,7 +35,9 @@ struct HomeView: View {
                     MenuButton()
                 }
             })
+            
         }
+        
         
     }
     
@@ -187,9 +189,11 @@ fileprivate struct ScrollableTabBar: View {
                     VStack {
                         switch tab {
                         case .time:
-                            Text("시간")
+                            TimerView()
+                            
+                        // TODO: UseCase 주입 방법 재정리 필요
                         case .timeline:
-                            Text("타임라인")
+                            TimelineView(timelineUseCase: TimelineUseCase(appSettingService: TestAppSettingsService(), dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false))
                         }
                     }
                     .frame(width: size.width)
@@ -207,4 +211,5 @@ fileprivate struct ScrollableTabBar: View {
 
 #Preview {
     HomeView()
+        .environment(HomeViewModel())
 }
