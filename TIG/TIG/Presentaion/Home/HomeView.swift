@@ -21,6 +21,7 @@ struct HomeView: View {
         NavigationStack {
             ZStack {
                ScrollableTabBar(homeViewModel: homeViewModel)
+                    .ignoresSafeArea(edges: .bottom)
                 
                 if homeViewModel.state.isCalendarVisible {
                     CalendarView()
@@ -34,7 +35,9 @@ struct HomeView: View {
                     MenuButton()
                 }
             })
+            
         }
+        
         
     }
     

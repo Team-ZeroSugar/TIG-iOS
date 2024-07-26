@@ -72,6 +72,7 @@ fileprivate struct TimelineBodyView: View {
             TimelineContentView(timelineUseCase: timelineUseCase)
             
         }
+        .padding(.bottom, 50)
     }
 }
 
