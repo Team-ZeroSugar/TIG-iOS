@@ -8,6 +8,15 @@
 import Foundation
 
 extension Date {
+    
+    /// M월 d일 EEE
+    var pickerFormat: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "M월 d일 EEE"
+        return formatter.string(from: self)
+    }
+
     func formattedTimelineTime() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "a h시"
@@ -25,5 +34,6 @@ extension Date {
         } else {
             return formattedTime + " " + minutes + "분"
         }
+
     }
 }

@@ -21,6 +21,8 @@
 		577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36682C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift */; };
 		577B366B2C4BF5E50015C9A4 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */; };
 		577B366D2C4BF6240015C9A4 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B366C2C4BF6240015C9A4 /* AppSetting.swift */; };
+		577B36722C51E8A60015C9A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36712C51E8A60015C9A4 /* HomeView.swift */; };
+		577B36742C51E8AD0015C9A4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */; };
 		57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F072C3CCAB600863BC6 /* TIGApp.swift */; };
 		57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F092C3CCAB600863BC6 /* OnboardingView.swift */; };
 		57A98F0E2C3CCAB800863BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F0D2C3CCAB800863BC6 /* Assets.xcassets */; };
@@ -59,6 +61,8 @@
 		577B36682C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppSettingRepository.swift; sourceTree = "<group>"; };
 		577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		577B366C2C4BF6240015C9A4 /* AppSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetting.swift; sourceTree = "<group>"; };
+		577B36712C51E8A60015C9A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		57A98F042C3CCAB600863BC6 /* TIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A98F072C3CCAB600863BC6 /* TIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIGApp.swift; sourceTree = "<group>"; };
 		57A98F092C3CCAB600863BC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -113,6 +117,15 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		577B36702C51E8930015C9A4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				577B36712C51E8A60015C9A4 /* HomeView.swift */,
+				577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		57A98EFB2C3CCAB600863BC6 = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				57A98F252C3CD9A100863BC6 /* Onboarding */,
+				577B36702C51E8930015C9A4 /* Home */,
 				356FF03B2C4A89F0005A078C /* TimeLineView.swift */,
 			);
 			path = Presentaion;
@@ -367,6 +381,8 @@
 				577B366D2C4BF6240015C9A4 /* AppSetting.swift in Sources */,
 				57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */,
 				57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */,
+				577B36742C51E8AD0015C9A4 /* HomeViewModel.swift in Sources */,
+				577B36722C51E8A60015C9A4 /* HomeView.swift in Sources */,
 				577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */,
 				57A98F292C3CDABD00863BC6 /* TestUseCase.swift in Sources */,
 				577B36642C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift in Sources */,
