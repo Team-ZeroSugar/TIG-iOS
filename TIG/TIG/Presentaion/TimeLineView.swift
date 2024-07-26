@@ -80,15 +80,15 @@ fileprivate struct TimeMarkerView: View {
     
     fileprivate var body: some View {
         
-        let filteredTimelines = timelineUseCase.filteredTimelines()
+        let timelines = timelineUseCase.state.timelines
         
         VStack(alignment: .leading, spacing: 0) {
-            ForEach(filteredTimelines.indices, id: \.self) { index in
+            ForEach(timelines.indices, id: \.self) { index in
                 HStack(alignment: .top, spacing: 0) {
                     
-                    let isHour = Calendar.current.component(.minute, from: filteredTimelines[index].start) == 0
+                    let isHour = Calendar.current.component(.minute, from: timelines[index].start) == 0
                     
-                    Text(filteredTimelines[index].start.formattedTimelineTime())
+                    Text(timelines[index].start.formattedTimelineTime())
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
                         .foregroundStyle(AppColor.gray3)
@@ -106,8 +106,8 @@ fileprivate struct TimeMarkerView: View {
             
             // 마지막 시간 표시
             HStack(alignment: .top, spacing: 0) {
-                if Calendar.current.component(.minute, from: filteredTimelines.last!.end) == 0 {
-                    Text(filteredTimelines.last!.end.formattedTimelineTime())
+                if Calendar.current.component(.minute, from: timelines.last!.end) == 0 {
+                    Text(timelines.last!.end.formattedTimelineTime())
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
                         .foregroundStyle(AppColor.gray3)
@@ -116,7 +116,7 @@ fileprivate struct TimeMarkerView: View {
                     Spacer().frame(width: 14)
 
                     Rectangle()
-                        .frame(width: filteredTimelines.count % 2 == 0 ? 28 : 16, height: 1)
+                        .frame(width: timelines.count % 2 == 0 ? 28 : 16, height: 1)
                         .foregroundStyle(AppColor.gray2)
                 }
             }
@@ -133,18 +133,18 @@ fileprivate struct TimelineContentView: View {
     
     fileprivate var body: some View {
         
-        let filteredTimelines = timelineUseCase.filteredTimelines()
+        let timelines = timelineUseCase.state.timelines
         let groupedTimelines = timelineUseCase.groupedTimelines()
         
         if timelineUseCase.state.editTimeline {
             VStack(alignment: .leading, spacing:4) {
-                ForEach(filteredTimelines.indices, id: \.self) { index in
+                ForEach(timelines.indices, id: \.self) { index in
                     Button(action: {
                     }, label: {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundStyle(.timelineBlue)
                             .frame(
-                                width: filteredTimelines[index].isAvailable ? nil : 4,
+                                width: timelines[index].isAvailable ? nil : 4,
                                 height: 35
                             )
                     })

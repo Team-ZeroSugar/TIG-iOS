@@ -18,7 +18,7 @@ class TimelineUseCase {
         // Data State
         // 구현을 위한 임시 Data
         //var timelines: [Timeline] = []
-        let timelines: [Timeline] = [
+        var timelines: [Timeline] = [
             Timeline(start: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!,
                      end: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 30))!,
                      isAvailable: true),  // 2024/07/21 09:00 - 09:30
@@ -142,33 +142,29 @@ class TimelineUseCase {
     }
     
     // MARK: - Helper function
-    func filteredTimelines() -> [Timeline] {
-        return state.timelines.filter { $0.start >= state.wakeupTime && $0.end <= state.bedTime }
-    }
-    
     func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: Date, end: Date)] {
         var result: [(isAvailable: Bool, count: Int, start: Date, end: Date)] = []
-        let filtered = filteredTimelines()
+        let timelines = state.timelines
         
-        if filtered.isEmpty {
+        if timelines.isEmpty {
             return result
         }
         
-        var currentIsAvailable = filtered[0].isAvailable
+        var currentIsAvailable = timelines[0].isAvailable
         var currentCount = 1
-        var currentStart = filtered[0].start
-        var currentEnd = filtered[0].end
+        var currentStart = timelines[0].start
+        var currentEnd = timelines[0].end
         
-        for index in 1..<filtered.count {
-            if filtered[index].isAvailable == currentIsAvailable {
+        for index in 1..<timelines.count {
+            if timelines[index].isAvailable == currentIsAvailable {
                 currentCount += 1
-                currentEnd = filtered[index].end
+                currentEnd = timelines[index].end
             } else {
                 result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
-                currentIsAvailable = filtered[index].isAvailable
+                currentIsAvailable = timelines[index].isAvailable
                 currentCount = 1
-                currentStart = filtered[index].start
-                currentEnd = filtered[index].end
+                currentStart = timelines[index].start
+                currentEnd = timelines[index].end
             }
         }
         
