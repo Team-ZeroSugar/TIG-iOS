@@ -12,9 +12,6 @@ class TimelineUseCase {
     
     // MARK: - State
     struct State {
-        // View State
-        var editTimeline: Bool = false
-        
         // Data State
         var currentDate: Date = Date()
         var isWeekly: Bool = false
@@ -62,10 +59,10 @@ class TimelineUseCase {
     
     // MARK: - View Action
     func effect(_ action: Action) {
-        switch action {
-        case .tappedEditTimeline:
-            self.state.editTimeline.toggle()
-        }
+//        switch action {
+//        case .tappedEditTimeline:
+//            self.state.editTimeline.toggle()
+//        }
     }
     
     // MARK: - Helper function

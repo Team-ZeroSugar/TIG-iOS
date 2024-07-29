@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TimelineView: View {
-    //    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
-    //    @Environment(HomeViewModel.self) var homeViewModel
+    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
     
+    @Environment(HomeViewModel.self) var homeViewModel
     @State var timelineUseCase: TimelineUseCase
     
     init(timelineUseCase: TimelineUseCase) {
@@ -22,11 +22,11 @@ struct TimelineView: View {
             VStack {
                 Spacer().frame(height: 47)
                 
-                TimelineHeaderView(timelineUseCase: timelineUseCase)
+                TimelineHeaderView(homeViewModel: homeViewModel)
                 
                 Spacer().frame(height: 51)
                 
-                TimelineBodyView(timelineUseCase: timelineUseCase)
+                TimelineBodyView(homeViewModel: homeViewModel, timelineUseCase: timelineUseCase)
             }
             .padding(.horizontal, 20)
         }
@@ -35,20 +35,25 @@ struct TimelineView: View {
 
 // MARK: - Header View
 fileprivate struct TimelineHeaderView: View {
-    var timelineUseCase: TimelineUseCase
+    
+    @Bindable private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
     
     fileprivate var body: some View {
         HStack {
-            Text(timelineUseCase.state.editTimeline ? "오늘 일정 시간을 탭해서 지워주세요" : "지금은 활용 가능 시간이에요")
+            Text(homeViewModel.state.isEditMode ? "오늘 일정 시간을 탭해서 지워주세요" : "지금은 활용 가능 시간이에요")
                 .font(.custom(AppFont.semiBold, size: 18))
                 .foregroundStyle(AppColor.gray5)
             
             Spacer()
             
             Button(action: {
-                timelineUseCase.effect(.tappedEditTimeline)
+                homeViewModel.effect(.editTapped)
             }, label: {
-                Text(timelineUseCase.state.editTimeline ? "완료" : "편집")
+                Text(homeViewModel.state.isEditMode ? "완료" : "편집")
                     .font(.custom(AppFont.medium, size: 16))
                     .foregroundStyle(AppColor.mainBlue)
             })
@@ -59,7 +64,13 @@ fileprivate struct TimelineHeaderView: View {
 // MARK: - Body View
 fileprivate struct TimelineBodyView: View {
     
-    var timelineUseCase: TimelineUseCase
+    @Bindable private var homeViewModel: HomeViewModel
+    private var timelineUseCase: TimelineUseCase
+    
+    init(homeViewModel: HomeViewModel, timelineUseCase: TimelineUseCase) {
+        self.homeViewModel = homeViewModel
+        self.timelineUseCase = timelineUseCase
+    }
 
     fileprivate var body: some View {
         
@@ -69,7 +80,7 @@ fileprivate struct TimelineBodyView: View {
             
             Spacer().frame(width: 18)
             
-            TimelineContentView(timelineUseCase: timelineUseCase)
+            TimelineContentView(homeViewModel: homeViewModel, timelineUseCase: timelineUseCase)
             
         }
         .padding(.bottom, 50)
@@ -79,7 +90,11 @@ fileprivate struct TimelineBodyView: View {
 // MARK: - TimeMarkerView
 fileprivate struct TimeMarkerView: View {
     
-    var timelineUseCase: TimelineUseCase
+    private var timelineUseCase: TimelineUseCase
+    
+    init(timelineUseCase: TimelineUseCase) {
+        self.timelineUseCase = timelineUseCase
+    }
     
     fileprivate var body: some View {
         
@@ -132,14 +147,20 @@ fileprivate struct TimeMarkerView: View {
 // MARK: - TimelineContentView
 fileprivate struct TimelineContentView: View {
     
-    var timelineUseCase: TimelineUseCase
+    @Bindable private var homeViewModel: HomeViewModel
+    private var timelineUseCase: TimelineUseCase
+    
+    init(homeViewModel: HomeViewModel, timelineUseCase: TimelineUseCase) {
+        self.homeViewModel = homeViewModel
+        self.timelineUseCase = timelineUseCase
+    }
     
     fileprivate var body: some View {
         
         let timelines = timelineUseCase.state.timelines
         let groupedTimelines = timelineUseCase.groupedTimelines()
         
-        if timelineUseCase.state.editTimeline {
+        if homeViewModel.state.isEditMode {
             VStack(alignment: .leading, spacing:4) {
                 ForEach(timelines.indices, id: \.self) { index in
                     Button(action: {
@@ -221,7 +242,7 @@ fileprivate struct TimelineContentView: View {
 }
 
 #Preview {
-    TimelineView(timelineUseCase: TimelineUseCase(appSettingService: TestAppSettingsService(), dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false))
+    TimelineView(timelineUseCase: TimelineUseCase(appSettingService: TestAppSettingsService(), dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false)).environment(HomeViewModel())
 }
 
 class TestAppSettingsService: AppSettingRepository {
