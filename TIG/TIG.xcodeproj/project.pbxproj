@@ -12,6 +12,9 @@
 		0947BA9F2C53501F003F186A /* TimeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9E2C53501F003F186A /* TimeUseCase.swift */; };
 		356FF03C2C4A89F1005A078C /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimeLineView.swift */; };
 		35FD61A42C4CEA12002ABCC4 /* TimelineUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FD61A32C4CEA12002ABCC4 /* TimelineUseCase.swift */; };
+		571D38EA2C5670C600CA22E4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38E92C5670C600CA22E4 /* SettingView.swift */; };
+		571D38EC2C5670CE00CA22E4 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38EB2C5670CE00CA22E4 /* SettingViewModel.swift */; };
+		571D38EE2C56A9DA00CA22E4 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38ED2C56A9DA00CA22E4 /* Int+Ext.swift */; };
 		577B36552C4A955E0015C9A4 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36542C4A955E0015C9A4 /* Timeline.swift */; };
 		577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
 		577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
@@ -54,6 +57,9 @@
 		0947BA9E2C53501F003F186A /* TimeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUseCase.swift; sourceTree = "<group>"; };
 		356FF03B2C4A89F0005A078C /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 		35FD61A32C4CEA12002ABCC4 /* TimelineUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineUseCase.swift; sourceTree = "<group>"; };
+		571D38E92C5670C600CA22E4 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		571D38EB2C5670CE00CA22E4 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		571D38ED2C56A9DA00CA22E4 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		577B36542C4A955E0015C9A4 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeat.swift; sourceTree = "<group>"; };
 		577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContentSD.swift; sourceTree = "<group>"; };
@@ -103,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		571D38E82C5670BA00CA22E4 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				571D38E92C5670C600CA22E4 /* SettingView.swift */,
+				571D38EB2C5670CE00CA22E4 /* SettingViewModel.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		577B36582C4A984F0015C9A4 /* Mapping */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +141,7 @@
 			children = (
 				57B707372C53BEA600F51FD2 /* Time */,
 				57B707382C53BEAC00F51FD2 /* Timeline */,
+				571D38E82C5670BA00CA22E4 /* Setting */,
 				577B36712C51E8A60015C9A4 /* HomeView.swift */,
 				577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */,
 				0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */,
@@ -273,6 +289,7 @@
 			children = (
 				57A98F452C3CF49800863BC6 /* Date+Ext.swift */,
 				577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */,
+				571D38ED2C56A9DA00CA22E4 /* Int+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -403,6 +420,7 @@
 				577B366D2C4BF6240015C9A4 /* AppSetting.swift in Sources */,
 				57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */,
 				0947BA9F2C53501F003F186A /* TimeUseCase.swift in Sources */,
+				571D38EE2C56A9DA00CA22E4 /* Int+Ext.swift in Sources */,
 				57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */,
 				577B36742C51E8AD0015C9A4 /* HomeViewModel.swift in Sources */,
 				577B36722C51E8A60015C9A4 /* HomeView.swift in Sources */,
@@ -410,11 +428,13 @@
 				0947BA9B2C534A93003F186A /* TimerView.swift in Sources */,
 				577B36642C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift in Sources */,
 				0947BA9D2C534D87003F186A /* TimerAnnounceView.swift in Sources */,
+				571D38EC2C5670CE00CA22E4 /* SettingViewModel.swift in Sources */,
 				577B36662C4BEF8C0015C9A4 /* SwiftDataStorage.swift in Sources */,
 				577B366B2C4BF5E50015C9A4 /* UserDefaults+Ext.swift in Sources */,
 				57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */,
 				35FD61A42C4CEA12002ABCC4 /* TimelineUseCase.swift in Sources */,
 				57A98F242C3CD51300863BC6 /* DefaultDailyContentRepository.swift in Sources */,
+				571D38EA2C5670C600CA22E4 /* SettingView.swift in Sources */,
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
 				577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */,
 				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,

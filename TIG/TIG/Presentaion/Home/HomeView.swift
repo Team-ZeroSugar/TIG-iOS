@@ -98,12 +98,18 @@ struct HomeView: View {
     // MARK: - (F)MenuButton
     private func MenuButton() -> some View {
         Menu {
-            Button(action: {}, label: {
+            NavigationLink {
+                
+            } label: {
                 Label("반복 관리", systemImage: "clock.arrow.circlepath")
-            })
-            Button(action: {}, label: {
+            }
+
+            NavigationLink {
+                SettingView()
+            } label: {
                 Label("설정", systemImage: "gear")
-            })
+            }
+            
         } label: {
             Image(systemName: "ellipsis")
                 .foregroundStyle(AppColor.gray4)
