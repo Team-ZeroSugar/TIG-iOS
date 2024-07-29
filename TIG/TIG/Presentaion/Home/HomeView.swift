@@ -193,7 +193,7 @@ fileprivate struct ScrollableTabBar: View {
                             
                         // TODO: UseCase 주입 방법 재정리 필요
                         case .timeline:
-                            TimelineView(timelineUseCase: TimelineUseCase(appSettingService: TestAppSettingsService(), dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false))
+                            TimelineView(timelineUseCase: TimelineUseCase( dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false))
                         }
                     }
                     .frame(width: size.width)

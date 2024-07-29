@@ -15,8 +15,6 @@ class TimelineUseCase {
         // Data State
         var currentDate: Date = Date()
         var isWeekly: Bool = false
-        var wakeupTime: Date = Date()
-        var bedTime: Date = Date()
         var timelines: [Timeline] = []
         
         init(currentDate: Date, isWeekly: Bool) {
@@ -30,25 +28,19 @@ class TimelineUseCase {
         case tappedEditTimeline
     }
     
-    private var appSettingService: AppSettingRepository
     private var dailyDataService: DailyContentRepository
     //private var weeklyDataService: WeeklyRepeatRepository
     private(set) var state: State
     
-    init(appSettingService: AppSettingRepository,
-         dailyDataService: DailyContentRepository,
+    init(dailyDataService: DailyContentRepository,
          //weeklyDataService: WeeklyRepeatRepository,
          currentDate: Date = Date(),
          isWeelky: Bool = false
     ) {
-        self.appSettingService = appSettingService
         self.dailyDataService = dailyDataService
         //self.weeklyDataService = weeklyDataService
         self.state = State(currentDate: currentDate, isWeekly: isWeelky)
-        
-        let settings = appSettingService.getAppSettings()
-        state.wakeupTime = settings.wakeupTime
-        state.bedTime = settings.bedTime
+
         
         if !state.isWeekly {
             updateTimelinesForCurrentDate()
@@ -60,8 +52,6 @@ class TimelineUseCase {
     // MARK: - View Action
     func effect(_ action: Action) {
 //        switch action {
-//        case .tappedEditTimeline:
-//            self.state.editTimeline.toggle()
 //        }
     }
     

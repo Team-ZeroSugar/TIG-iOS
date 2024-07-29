@@ -242,7 +242,7 @@ fileprivate struct TimelineContentView: View {
 }
 
 #Preview {
-    TimelineView(timelineUseCase: TimelineUseCase(appSettingService: TestAppSettingsService(), dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false)).environment(HomeViewModel())
+    TimelineView(timelineUseCase: TimelineUseCase(dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false)).environment(HomeViewModel())
 }
 
 class TestAppSettingsService: AppSettingRepository {

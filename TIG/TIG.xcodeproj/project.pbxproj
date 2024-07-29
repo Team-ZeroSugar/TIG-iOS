@@ -10,7 +10,7 @@
 		0947BA9B2C534A93003F186A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9A2C534A93003F186A /* TimerView.swift */; };
 		0947BA9D2C534D87003F186A /* TimerAnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */; };
 		0947BA9F2C53501F003F186A /* TimeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9E2C53501F003F186A /* TimeUseCase.swift */; };
-		356FF03C2C4A89F1005A078C /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimeLineView.swift */; };
+		356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimelineView.swift */; };
 		35FD61A42C4CEA12002ABCC4 /* TimelineUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FD61A32C4CEA12002ABCC4 /* TimelineUseCase.swift */; };
 		577B36552C4A955E0015C9A4 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36542C4A955E0015C9A4 /* Timeline.swift */; };
 		577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
@@ -52,7 +52,7 @@
 		0947BA9A2C534A93003F186A /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAnnounceView.swift; sourceTree = "<group>"; };
 		0947BA9E2C53501F003F186A /* TimeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUseCase.swift; sourceTree = "<group>"; };
-		356FF03B2C4A89F0005A078C /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
+		356FF03B2C4A89F0005A078C /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		35FD61A32C4CEA12002ABCC4 /* TimelineUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineUseCase.swift; sourceTree = "<group>"; };
 		577B36542C4A955E0015C9A4 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeat.swift; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 		57B707382C53BEAC00F51FD2 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
-				356FF03B2C4A89F0005A078C /* TimeLineView.swift */,
+				356FF03B2C4A89F0005A078C /* TimelineView.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -424,7 +424,7 @@
 				57A98F202C3CD4D000863BC6 /* DailyContentRepository.swift in Sources */,
 				577B36602C4BAD0D0015C9A4 /* AppSettingRepository.swift in Sources */,
 				57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */,
-				356FF03C2C4A89F1005A078C /* TimeLineView.swift in Sources */,
+				356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
