@@ -12,13 +12,28 @@ final class DefaultAppSettingRepository {
 }
 
 extension DefaultAppSettingRepository: AppSettingRepository {
-    func updateAppSettings(_ appSetting: AppSetting) {
-        UserDefaults.standard.setAppSettingData(appSetting)
+    
+    func getSleetTime() -> SleepTime {
+        UserDefaults.standard.getSleepTime()
     }
     
-    func getAppSettings() -> AppSetting {
-        UserDefaults.standard.getAppSettingData()
+    func setSleepTime(_ sleepTime: SleepTime) {
+        UserDefaults.standard.setSleepTime(sleepTime)
     }
     
+    func getScreenMode() -> Bool {
+        UserDefaults.standard.bool(forKey: "screenMode")
+    }
     
+    func setScreenMode(_ screenMode: Bool) {
+        UserDefaults.standard.setValue(screenMode, forKey: "screenMode")
+    }
+    
+    func getNotification() -> Bool {
+        UserDefaults.standard.bool(forKey: "notification")
+    }
+    
+    func setNotification(_ isAllow: Bool) {
+        UserDefaults.standard.setValue(isAllow, forKey: "notification")
+    }
 }

@@ -24,4 +24,21 @@ extension UserDefaults {
         // TODO: 초기 기상, 취침 시간 수정 필요 (기상 : 09시 / 취침 : 24시)
         return AppSetting(wakeupTime: .now, bedTime: .now, isLightMode: true, allowNotifications: false)
     }
+    
+    func setSleepTime(_ sleepTime: SleepTime) {
+        if let encodedData = try? JSONEncoder().encode(sleepTime) {
+           self.set(encodedData, forKey: "sleepTime")
+       }
+    }
+    
+    func getSleepTime() -> SleepTime {
+        if let savedData = self.data(forKey: "sleepTime") {
+            if let decodedData = try? JSONDecoder().decode(SleepTime.self, from: savedData) {
+                return decodedData
+            }
+        }
+        
+        // TODO: 초기 기상, 취침 시간 수정 필요 (기상 : 09시 / 취침 : 24시)
+        return SleepTime(wakeup: .now, bed: .now)
+    }
 }

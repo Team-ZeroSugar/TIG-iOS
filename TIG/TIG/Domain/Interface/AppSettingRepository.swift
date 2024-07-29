@@ -8,6 +8,12 @@
 import Foundation
 
 protocol AppSettingRepository {
-    func updateAppSettings(_ appSetting: AppSetting)
-    func getAppSettings() -> AppSetting
+    func setSleepTime(_ sleepTime: SleepTime)
+    func getSleetTime() -> SleepTime
+    
+    func setScreenMode(_ screenMode: Bool)
+    func getScreenMode() -> Bool
+    
+    func setNotification(_ isAllow: Bool)
+    func getNotification() -> Bool
 }
