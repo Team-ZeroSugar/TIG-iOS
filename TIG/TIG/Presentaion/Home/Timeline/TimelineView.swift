@@ -8,14 +8,8 @@
 import SwiftUI
 
 struct TimelineView: View {
-    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
     
     @Environment(HomeViewModel.self) var homeViewModel
-    @State var timelineUseCase: TimelineUseCase
-    
-    init(timelineUseCase: TimelineUseCase) {
-        self.timelineUseCase = timelineUseCase
-    }
     
     var body: some View {
         ScrollView {
@@ -26,7 +20,7 @@ struct TimelineView: View {
                 
                 Spacer().frame(height: 51)
                 
-                TimelineBodyView(homeViewModel: homeViewModel, timelineUseCase: timelineUseCase)
+                TimelineBodyView(homeViewModel: homeViewModel)
             }
             .padding(.horizontal, 20)
         }
@@ -65,22 +59,20 @@ fileprivate struct TimelineHeaderView: View {
 fileprivate struct TimelineBodyView: View {
     
     @Bindable private var homeViewModel: HomeViewModel
-    private var timelineUseCase: TimelineUseCase
     
-    init(homeViewModel: HomeViewModel, timelineUseCase: TimelineUseCase) {
+    init(homeViewModel: HomeViewModel) {
         self.homeViewModel = homeViewModel
-        self.timelineUseCase = timelineUseCase
     }
 
     fileprivate var body: some View {
         
         HStack(spacing: 0) {
 
-            TimeMarkerView(timelineUseCase: timelineUseCase)
+            TimeMarkerView(homeViewModel: homeViewModel)
             
             Spacer().frame(width: 18)
             
-            TimelineContentView(homeViewModel: homeViewModel, timelineUseCase: timelineUseCase)
+            TimelineContentView(homeViewModel: homeViewModel)
             
         }
         .padding(.bottom, 50)
@@ -90,15 +82,15 @@ fileprivate struct TimelineBodyView: View {
 // MARK: - TimeMarkerView
 fileprivate struct TimeMarkerView: View {
     
-    private var timelineUseCase: TimelineUseCase
+    @Bindable private var homeViewModel: HomeViewModel
     
-    init(timelineUseCase: TimelineUseCase) {
-        self.timelineUseCase = timelineUseCase
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
     }
     
     fileprivate var body: some View {
         
-        let timelines = timelineUseCase.state.timelines
+        let timelines = homeViewModel.state.timelines
         
         VStack(alignment: .leading, spacing: 0) {
             ForEach(timelines.indices, id: \.self) { index in
@@ -148,17 +140,15 @@ fileprivate struct TimeMarkerView: View {
 fileprivate struct TimelineContentView: View {
     
     @Bindable private var homeViewModel: HomeViewModel
-    private var timelineUseCase: TimelineUseCase
     
-    init(homeViewModel: HomeViewModel, timelineUseCase: TimelineUseCase) {
+    init(homeViewModel: HomeViewModel) {
         self.homeViewModel = homeViewModel
-        self.timelineUseCase = timelineUseCase
     }
     
     fileprivate var body: some View {
         
-        let timelines = timelineUseCase.state.timelines
-        let groupedTimelines = timelineUseCase.groupedTimelines()
+        let timelines = homeViewModel.state.timelines
+        let groupedTimelines = homeViewModel.groupedTimelines()
         
         if homeViewModel.state.isEditMode {
             VStack(alignment: .leading, spacing:4) {
@@ -212,7 +202,7 @@ fileprivate struct TimelineContentView: View {
                                 
                                 HStack {
                                     Spacer()
-                                    Text("\(timelineUseCase.formattedDuration(from: item.count))")
+                                    Text("\(homeViewModel.formattedDuration(from: item.count))")
                                         .font(.custom(AppFont.semiBold, size: 20))
                                         .foregroundStyle(AppColor.gray4)
                                         .padding(.trailing, 20)
@@ -228,7 +218,7 @@ fileprivate struct TimelineContentView: View {
                                 .frame(width:4 ,height: totalHeight)
                                 .padding(.vertical, 2)
                             
-                            Text("일정 시간 (\(timelineUseCase.formattedDuration(from: item.count)))")
+                            Text("일정 시간 (\(homeViewModel.formattedDuration(from: item.count)))")
                                 .font(.custom(AppFont.medium, size: 12))
                                 .foregroundStyle(AppColor.gray3)
                                 .frame(height: 14)
@@ -242,50 +232,5 @@ fileprivate struct TimelineContentView: View {
 }
 
 #Preview {
-    TimelineView(timelineUseCase: TimelineUseCase(dailyDataService: TestDailyDataService(), currentDate: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, isWeelky: false)).environment(HomeViewModel())
-}
-
-class TestAppSettingsService: AppSettingRepository {
-    func updateAppSettings(_ appSetting: AppSetting) {
-        print("hello")
-    }
-    
-    func getAppSettings() -> AppSetting {
-        
-        let wakeupTime = Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))! // 7월 21일 오전 9시
-        let bedTime = Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 22, hour: 2, minute: 0))! // 7월 22일 오전 2시
-        
-        return AppSetting(wakeupTime: wakeupTime, bedTime: bedTime, isLightMode: true, allowNotifications: true)
-    }
-    
-    
-}
-
-class TestDailyDataService: DailyContentRepository {
-    func createDailyContent(_ dailyContent: DailyContent) {
-        print("hello")
-    }
-    
-    func fetchDailyContents() -> Result<[DailyContent], SwiftDataError> {
-        
-        let timelines = TestData.timelines
-        
-        let dailycontents = [
-            DailyContent(date: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, timelines: timelines, totalAvailabilityTime: 8),
-        ]
-        
-        do {
-            return .success(dailycontents)
-        } catch {
-            return .failure(.fetchError)
-        }
-    }
-    
-    func updateDailyContent(dailyContent: DailyContent, timelines: [Timeline]) {
-        print("hello")
-    }
-    
-    func deleteDailyContent(_ dailyContent: DailyContent) {
-        print("hello")
-    }
+    TimelineView().environment(HomeViewModel())
 }
