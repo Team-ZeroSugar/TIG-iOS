@@ -112,4 +112,8 @@ struct TestData {
                          end: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 22, hour: 2, minute: 0))!,
                          isAvailable: false)  // 2024/07/22 01:30 - 02:00
             ]
+    
+    static let dailycontents = [
+        DailyContent(date: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, timelines: timelines, totalAvailabilityTime: 8),
+    ]
 }
