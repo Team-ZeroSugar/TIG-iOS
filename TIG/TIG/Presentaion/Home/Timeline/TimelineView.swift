@@ -12,12 +12,14 @@ struct TimelineView: View {
     @Environment(HomeViewModel.self) var homeViewModel
     
     var body: some View {
+        
+        Spacer().frame(height: 47)
+        
+        TimelineHeaderView(homeViewModel: homeViewModel)
+            .padding(.horizontal, 20)
+        
         ScrollView {
             VStack {
-                Spacer().frame(height: 47)
-                
-                TimelineHeaderView(homeViewModel: homeViewModel)
-                
                 Spacer().frame(height: 51)
                 
                 TimelineBodyView(homeViewModel: homeViewModel)
