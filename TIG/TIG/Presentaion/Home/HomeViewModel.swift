@@ -11,21 +11,33 @@ import Foundation
 final class HomeViewModel {
     
     struct State {
+        // HomeView
         var activeTab: Tab = .time
         var isCalendarVisible: Bool = false
         var currentDate: Date = .now
+        
+        // TimelineView
+        var isEditMode: Bool = false
+        //var dailyContents: [DailyContent] = TestData.dailycontents
+        var timelines: [Timeline] = TestData.dailycontents[0].timelines
     }
     
     enum Action {
+        // HomeView
         case tabChange(_ tab: Tab)
         case calendarTapped
         case dateTapped(_ date: Date)
+        
+        // TimelineView
+        case editTapped
+        case timeSlotTapped(_ index: Int)
     }
     
     private(set) var state: State = .init()
     
     func effect(_ action: Action) {
         switch action {
+        // HomeView
         case .tabChange(let tab):
             self.state.activeTab = tab
         case .calendarTapped:
@@ -33,6 +45,47 @@ final class HomeViewModel {
         case .dateTapped(let date):
             self.state.currentDate = date
             self.state.isCalendarVisible = false
+            
+        // TimelineView
+        case .editTapped:
+            self.state.isEditMode.toggle()
+        case .timeSlotTapped(let index):
+            self.state.timelines[index].isAvailable.toggle()
         }
+    }
+}
+
+extension HomeViewModel {
+    
+    // MARK: - TimelineView Function
+    // timeline배열을 이어진 상태의 뷰를 짤 수 있도록 도와주는 구조로 변경 해주는 함수
+    func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: Date, end: Date)] {
+        var result: [(isAvailable: Bool, count: Int, start: Date, end: Date)] = []
+        let timelines = state.timelines
+        
+        if timelines.isEmpty {
+            return result
+        }
+        
+        var currentIsAvailable = timelines[0].isAvailable
+        var currentCount = 1
+        var currentStart = timelines[0].start
+        var currentEnd = timelines[0].end
+        
+        for index in 1..<timelines.count {
+            if timelines[index].isAvailable == currentIsAvailable {
+                currentCount += 1
+                currentEnd = timelines[index].end
+            } else {
+                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+                currentIsAvailable = timelines[index].isAvailable
+                currentCount = 1
+                currentStart = timelines[index].start
+                currentEnd = timelines[index].end
+            }
+        }
+        
+        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+        return result
     }
 }
