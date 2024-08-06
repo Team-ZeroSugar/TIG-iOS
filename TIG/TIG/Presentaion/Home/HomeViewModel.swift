@@ -18,6 +18,7 @@ final class HomeViewModel {
         
         // TimelineView
         var isEditMode: Bool = false
+        //var dailyContents: [DailyContent] = TestData.dailycontents
         var timelines: [Timeline] = TestData.dailycontents[0].timelines
     }
     
@@ -29,6 +30,7 @@ final class HomeViewModel {
         
         // TimelineView
         case editTapped
+        case timeSlotTapped(_ index: Int)
     }
     
     private(set) var state: State = .init()
@@ -47,6 +49,8 @@ final class HomeViewModel {
         // TimelineView
         case .editTapped:
             self.state.isEditMode.toggle()
+        case .timeSlotTapped(let index):
+            self.state.timelines[index].isAvailable.toggle()
         }
     }
 }

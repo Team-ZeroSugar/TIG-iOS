@@ -156,13 +156,16 @@ fileprivate struct TimelineContentView: View {
             VStack(alignment: .leading, spacing:4) {
                 ForEach(timelines.indices, id: \.self) { index in
                     Button(action: {
+                        homeViewModel.effect(.timeSlotTapped(index))
                     }, label: {
                         RoundedRectangle(cornerRadius: 8)
-                            .foregroundStyle(.timelineBlue)
-                            .frame(
-                                width: timelines[index].isAvailable ? nil : 4,
-                                height: 35
+                            .fill(timelines[index].isAvailable ? .timelineBlue : Color.clear)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(.timelineBlue, lineWidth: 2)
+                                    .opacity(timelines[index].isAvailable ? 0 : 1)
                             )
+                            .frame(height: 35)
                     })
                 }
             }
