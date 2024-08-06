@@ -207,7 +207,7 @@ fileprivate struct TimelineContentView: View {
                                 
                                 HStack {
                                     Spacer()
-                                    Text("\(homeViewModel.formattedDuration(from: item.count))")
+                                    Text("\(item.count.formattedDuration())")
                                         .font(.custom(AppFont.semiBold, size: 20))
                                         .foregroundStyle(AppColor.gray4)
                                         .padding(.trailing, 20)
@@ -223,7 +223,7 @@ fileprivate struct TimelineContentView: View {
                                 .frame(width:4 ,height: totalHeight)
                                 .padding(.vertical, 2)
                             
-                            Text("일정 시간 (\(homeViewModel.formattedDuration(from: item.count)))")
+                            Text("일정 시간 (\(item.count.formattedDuration()))")
                                 .font(.custom(AppFont.medium, size: 12))
                                 .foregroundStyle(AppColor.gray3)
                                 .frame(height: 14)

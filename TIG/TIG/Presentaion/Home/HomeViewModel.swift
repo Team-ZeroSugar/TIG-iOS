@@ -88,23 +88,4 @@ extension HomeViewModel {
         result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
     }
-    
-    // TimelineView 시간 표시 함수
-    func formattedDuration(from slots: Int) -> String {
-        let totalMinutes = slots * 30
-        let hours = totalMinutes / 60
-        let minutes = totalMinutes % 60
-        
-        var result = ""
-        if hours > 0 {
-            result += "\(hours)시간"
-        }
-        if minutes > 0 {
-            if !result.isEmpty {
-                result += " "
-            }
-            result += "\(minutes)분"
-        }
-        return result
-    }
 }
