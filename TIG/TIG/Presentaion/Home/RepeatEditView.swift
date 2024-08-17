@@ -7,7 +7,20 @@
 
 import SwiftUI
 
+enum Day: String, CaseIterable {
+    case sun = "일"
+    case mon = "월"
+    case tue = "화"
+    case wed = "수"
+    case thu = "목"
+    case fri = "금"
+    case sat = "토"
+}
+
 struct RepeatEditView: View {
+    
+    @Environment(HomeViewModel.self) var homeViewModel
+    
     var body: some View {
         VStack {
             TopNavigationView()
@@ -16,7 +29,10 @@ struct RepeatEditView: View {
                                     bottom: 11,
                                     trailing: 20))
             
+            Spacer().frame(height: 28)
             
+            DaySelectView(homeViewModel: homeViewModel)
+                .padding(.horizontal, 33)
             
             Spacer()
         }
@@ -62,8 +78,37 @@ fileprivate struct TopNavigationView: View {
 }
 
 // MARK: - (S)Day Select View
-fileprivate 
+fileprivate struct DaySelectView: View {
+    
+    private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
+
+    fileprivate var body: some View {
+        HStack(spacing: 0) {
+            ForEach(Day.allCases, id: \.self) { day in
+                
+                Button(action: {
+                    homeViewModel.effect(.dayChange(day))
+                }, label: {
+                    ZStack {
+                        Circle().frame(width: 35, height: 35)
+                            .foregroundColor(homeViewModel.state.selectedDay == day ? .mainBlue : .clear)
+                        
+                        Text(day.rawValue)
+                            .font(.custom(
+                                homeViewModel.state.selectedDay == day ? AppFont.semiBold : AppFont.medium, size: 14))
+                            .foregroundColor(homeViewModel.state.selectedDay == day ? .white : .gray4)
+                    }
+                })
+                .frame(maxWidth: .infinity)
+            }
+        }
+    }
+}
 
 #Preview {
-    RepeatEditView()
+    RepeatEditView().environment(HomeViewModel())
 }

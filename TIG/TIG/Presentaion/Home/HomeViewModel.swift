@@ -20,6 +20,9 @@ final class HomeViewModel {
         var isEditMode: Bool = false
         //var dailyContents: [DailyContent] = TestData.dailycontents
         var timelines: [Timeline] = TestData.dailycontents[0].timelines
+
+        // RepeatEditView
+        var selectedDay: Day = .sun
     }
     
     enum Action {
@@ -31,6 +34,9 @@ final class HomeViewModel {
         // TimelineView
         case editTapped
         case timeSlotTapped(_ index: Int)
+        
+        // RepeatEditView
+        case dayChange(_ day: Day)
     }
     
     private(set) var state: State = .init()
@@ -51,7 +57,14 @@ final class HomeViewModel {
             self.state.isEditMode.toggle()
         case .timeSlotTapped(let index):
             self.state.timelines[index].isAvailable.toggle()
+            
+        // RepeatEditView
+        case .dayChange(let selectDay):
+            self.state.selectedDay = selectDay
         }
+        
+        
+        
     }
 }
 
