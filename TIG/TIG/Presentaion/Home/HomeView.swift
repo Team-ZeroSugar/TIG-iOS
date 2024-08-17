@@ -52,7 +52,7 @@ struct HomeView: View {
             
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: 320, height: 320)
-                .foregroundStyle(AppColor.gray0)
+                .foregroundStyle(AppColor.gray01)
                 .overlay {
                     DatePicker(
                         "날짜 선택",
@@ -78,13 +78,13 @@ struct HomeView: View {
             HStack {
                 Text(currentDate.pickerFormat)
                     .font(.custom(AppFont.semiBold, size: 18))
-                    .foregroundStyle(AppColor.gray4)
+                    .foregroundStyle(AppColor.gray04)
                 
                 Image(systemName: "chevron.down")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 18, height: 18)
-                    .foregroundColor(AppColor.gray4)
+                    .foregroundColor(AppColor.gray04)
                     .rotationEffect(
                         .degrees(
                             homeViewModel.state.isCalendarVisible ? -180 : 0
@@ -98,15 +98,21 @@ struct HomeView: View {
     // MARK: - (F)MenuButton
     private func MenuButton() -> some View {
         Menu {
-            Button(action: {}, label: {
-                Label("반복 관리", systemImage: "clock.arrow.circlepath")
-            })
-            Button(action: {}, label: {
-                Label("설정", systemImage: "gear")
-            })
+          NavigationLink {
+
+          } label: {
+            Label("반복 관리", systemImage: "clock.arrow.circlepath")
+          }
+          
+          
+          NavigationLink {
+                         SettingView()
+          } label: {
+            Label("설정", systemImage: "gear")
+          }
         } label: {
             Image(systemName: "ellipsis")
-                .foregroundStyle(AppColor.gray4)
+                .foregroundStyle(AppColor.gray04)
         }
 
     }
@@ -164,8 +170,8 @@ fileprivate struct ScrollableTabBar: View {
                             .padding(.vertical, 12)
                             .foregroundStyle(
                                 homeViewModel.state.activeTab == tab
-                                ? AppColor.gray5
-                                : AppColor.gray2
+                                ? AppColor.gray05
+                                : AppColor.gray02
                             )
                             .contentShape(Rectangle())
                     })
@@ -174,7 +180,7 @@ fileprivate struct ScrollableTabBar: View {
         .overlay(
             Rectangle()
                 .frame(width: size.width / 2, height: 4)
-                .foregroundStyle(AppColor.mainBlue)
+                .foregroundStyle(AppColor.blueMain)
                 .offset(x: selectedTabOffset),
             alignment: .bottomLeading
         )

@@ -9,27 +9,31 @@ import Foundation
 import SwiftUI
 
 struct AppColor {
-    static let gray0 = Color(.gray0)
-    static let gray1 = Color(.gray1)
-    static let gray2 = Color(.gray2)
-    static let gray3 = Color(.gray3)
-    static let gray4 = Color(.gray4)
-    static let gray5 = Color(.gray5)
-    static let white = Color(.mainWhite)
-    static let mainBlue = Color(.mainBlue)
-    static let timelineBlue = Color(.timelineBlue)
-    static let timelineStroke = Color(.timelineStroke)
-    static let bgLight = Color(.bgLight)
+  static let gray01 = Color(.gray01)
+  static let gray02 = Color(.gray02)
+  static let gray03 = Color(.gray03)
+  static let gray04 = Color(.gray04)
+  static let gray05 = Color(.gray05)
+  
+  static let darkWhite = Color(.darkWhite)
+  static let darkOnboarding = Color(.darkOnboarding)
+  
+  static let blueMain = Color(.blueMain)
+  static let blueTimeline = Color(.blueTimeline)
+  
+  static let timelineStroke = Color(.timelineStroke)
+  
+  static let background = Color(.background)
 }
 
 extension LinearGradient {
-    static let main = Self(
-        colors: [
-            .linearGradientTop,
-            .linearGradientMid,
-            .linearGradientBot
-        ],
-        startPoint: .topTrailing,
-        endPoint: .bottomLeading
-    )
+  static let main = Self(
+    colors: [
+      .linearGradientTop,
+      .linearGradientMid,
+      .linearGradientBot
+    ],
+    startPoint: .topTrailing,
+    endPoint: .bottomLeading
+  )
 }

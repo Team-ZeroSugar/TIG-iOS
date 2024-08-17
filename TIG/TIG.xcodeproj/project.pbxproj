@@ -48,6 +48,7 @@
 		57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F412C3CE0FB00863BC6 /* AppFont.swift */; };
 		57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F432C3CE11D00863BC6 /* AppColor.swift */; };
 		57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F452C3CF49800863BC6 /* Date+Ext.swift */; };
+		57EFE27B2C708A6C0021DAE7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EFE27A2C708A6C0021DAE7 /* SettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		57A98F412C3CE0FB00863BC6 /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
 		57A98F432C3CE11D00863BC6 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 		57A98F452C3CF49800863BC6 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		57EFE27A2C708A6C0021DAE7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */,
 				0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */,
 				35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */,
+				57EFE27A2C708A6C0021DAE7 /* SettingView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				57A98F202C3CD4D000863BC6 /* DailyContentRepository.swift in Sources */,
 				577B36602C4BAD0D0015C9A4 /* AppSettingRepository.swift in Sources */,
 				57A98F082C3CCAB600863BC6 /* TIGApp.swift in Sources */,
+				57EFE27B2C708A6C0021DAE7 /* SettingView.swift in Sources */,
 				356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
