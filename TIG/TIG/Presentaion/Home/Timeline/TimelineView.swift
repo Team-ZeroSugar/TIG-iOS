@@ -204,7 +204,7 @@ fileprivate struct TimelineContentView: View {
                                             .padding(.vertical, 5)
                                             .background(Capsule().fill(AppColor.blueMain))
                                             .font(.custom(AppFont.medium, size: 12))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.darkWhite)
                                             
                                         
                                     }.padding(.leading, 20)
@@ -226,13 +226,13 @@ fileprivate struct TimelineContentView: View {
                     } else {
                         HStack(alignment: .top, spacing: 15) {
                             RoundedRectangle(cornerRadius: 5)
-                            .foregroundStyle(AppColor.blueTimeline)
+                            .foregroundStyle(AppColor.blueMain)
                                 .frame(width:4 ,height: totalHeight)
                                 .padding(.vertical, 2)
                             
                             Text("일정 시간 (\(item.count.formattedDuration()))")
                                 .font(.custom(AppFont.medium, size: 12))
-                                .foregroundStyle(AppColor.gray03)
+                                .foregroundStyle(AppColor.gray04)
                                 .frame(height: 14)
                                 .padding(.top, 12)
                         }

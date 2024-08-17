@@ -48,11 +48,11 @@ fileprivate struct TopNavigationView: View {
                 HStack(spacing: 3) {
                     Image(systemName: "chevron.left")
                         .font(.custom(AppFont.semiBold, size: 16))
-                        .foregroundColor(.mainBlue)
+                        .foregroundColor(.blueMain)
                     
                     Text("뒤로")
                         .font(.custom(AppFont.medium, size: 16))
-                        .foregroundColor(.mainBlue)
+                        .foregroundColor(.blueMain)
                 }
             })
             
@@ -70,7 +70,7 @@ fileprivate struct TopNavigationView: View {
                 
                 Text("완료")
                     .font(.custom(AppFont.semiBold, size: 16))
-                    .foregroundColor(.mainBlue)
+                    .foregroundColor(.blueMain)
             })
         }
     }
@@ -87,24 +87,25 @@ fileprivate struct DaySelectView: View {
 
     fileprivate var body: some View {
         HStack(spacing: 0) {
-            ForEach(Day.allCases, id: \.self) { day in
-                
+            ForEach(Array(Day.allCases.enumerated()), id: \.element) { index, day in
+                if index != 0 {
+                    Spacer()
+                }
                 Button(action: {
                     homeViewModel.effect(.dayChange(day))
                 }, label: {
                     ZStack {
                         Circle().frame(width: 35, height: 35)
-                            .foregroundColor(homeViewModel.state.selectedDay == day ? .mainBlue : .clear)
+                            .foregroundColor(homeViewModel.state.selectedDay == day ? .blueMain : .clear)
                         
                         Text(day.rawValue)
                             .font(.custom(
                                 homeViewModel.state.selectedDay == day ? AppFont.semiBold : AppFont.medium, size: 14))
-                            .foregroundColor(homeViewModel.state.selectedDay == day ? .white : .gray4)
+                            .foregroundColor(homeViewModel.state.selectedDay == day ? .darkWhite : .gray03)
                     }
                 })
-                .frame(maxWidth: .infinity)
             }
-        }
+        }.padding(.bottom, 10)
     }
 }
 
