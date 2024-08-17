@@ -34,7 +34,7 @@ struct RepeatEditView: View {
             DaySelectView(homeViewModel: homeViewModel)
                 .padding(.horizontal, 33)
             
-            Spacer()
+            TimelineView(isRepeatView: true)
         }
     }
 }
@@ -44,7 +44,6 @@ fileprivate struct TopNavigationView: View {
     fileprivate var body: some View {
         HStack {
             Button(action: {
-                
             }, label: {
                 HStack(spacing: 3) {
                     Image(systemName: "chevron.left")

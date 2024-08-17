@@ -10,17 +10,24 @@ import SwiftUI
 struct TimelineView: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
+    private var isRepeatView: Bool
+    
+    init(isRepeatView: Bool = false) {
+        self.isRepeatView = isRepeatView
+    }
     
     var body: some View {
         
-        Spacer().frame(height: 47)
-        
-        TimelineHeaderView(homeViewModel: homeViewModel)
-            .padding(.horizontal, 20)
+        if !isRepeatView {
+            Spacer().frame(height: 47)
+            
+            TimelineHeaderView(homeViewModel: homeViewModel)
+                .padding(.horizontal, 20)
+        }
         
         ScrollView {
             VStack {
-                Spacer().frame(height: 51)
+                Spacer().frame(height: 20)
                 
                 TimelineBodyView(homeViewModel: homeViewModel)
             }
