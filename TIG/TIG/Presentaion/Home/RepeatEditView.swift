@@ -23,12 +23,6 @@ struct RepeatEditView: View {
     
     var body: some View {
         VStack {
-            TopNavigationView()
-                .padding(EdgeInsets(top: 11,
-                                    leading: 8,
-                                    bottom: 11,
-                                    trailing: 20))
-            
             Spacer().frame(height: 28)
             
             DaySelectView(homeViewModel: homeViewModel)
@@ -36,43 +30,14 @@ struct RepeatEditView: View {
             
             TimelineView(isRepeatView: true)
         }
-    }
-}
-
-// MARK: - (S)Top Navigation View
-fileprivate struct TopNavigationView: View {
-    fileprivate var body: some View {
-        HStack {
-            Button(action: {
-            }, label: {
-                HStack(spacing: 3) {
-                    Image(systemName: "chevron.left")
-                        .font(.custom(AppFont.semiBold, size: 16))
-                        .foregroundColor(.blueMain)
-                    
-                    Text("뒤로")
-                        .font(.custom(AppFont.medium, size: 16))
-                        .foregroundColor(.blueMain)
-                }
-            })
-            
-            Spacer()
-            
-            Text("반복 일정 편집")
-                .font(.custom(AppFont.semiBold, size: 17))
-            
-            Spacer()
-            
-            Button(action: {
-                
-            }, label: {
-                Spacer().frame(width: 6)
-                
-                Text("완료")
-                    .font(.custom(AppFont.semiBold, size: 16))
-                    .foregroundColor(.blueMain)
-            })
-        }
+        .navigationTitle("반복 일정 관리")
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {}, label: {
+                    Text("확인")
+                })
+            }
+        })
     }
 }
 
