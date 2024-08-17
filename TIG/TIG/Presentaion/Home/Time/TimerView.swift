@@ -43,7 +43,7 @@ fileprivate struct TimerHeaderView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .frame(height: 79)
-                .foregroundStyle(AppColor.white)
+                .foregroundStyle(AppColor.darkWhite)
             HStack(spacing: 20) {
                 Image("AvailableIcon")
                     .resizable()
@@ -52,12 +52,12 @@ fileprivate struct TimerHeaderView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("오전 11시 - 오후 2시")
                         .font(.custom(AppFont.semiBold, size: 12))
-                        .foregroundStyle(AppColor.gray3)
+                        .foregroundStyle(AppColor.gray03)
                     HStack(spacing: 0) {
                         Text("지금은 ")
                         Text("활용할 수 있는 시간")
                             .font(.custom(AppFont.bold, size: 16))
-                            .foregroundStyle(AppColor.mainBlue)
+                            .foregroundStyle(AppColor.blueMain)
                         Text("이에요")
                     }
                     .font(.custom(AppFont.semiBold, size: 16))
@@ -93,10 +93,10 @@ fileprivate struct TimerBodyView: View {
                 VStack(spacing: 4) {
                     Text("남은 활용 가능 시간")
                         .font(.system(size: 16, weight: .regular))
-                        .foregroundStyle(AppColor.white)
+                        .foregroundStyle(AppColor.darkWhite)
                         .padding(.vertical, 6)
                         .padding(.horizontal, 11)
-                        .background(AppColor.mainBlue)
+                        .background(AppColor.blueMain)
                         .clipShape(Capsule())
                         .padding(.bottom, 6)
                     
@@ -119,7 +119,7 @@ fileprivate struct TimerTrack: View {
             .fill(Color.clear)
             .frame(height: 318)
             .overlay(
-                Circle().stroke(AppColor.white, lineWidth: 16)
+                Circle().stroke(AppColor.darkWhite, lineWidth: 16)
             )
     }
 }
