@@ -21,7 +21,7 @@ struct TimerAnnounceView: View {
                 Spacer().frame(height: 13)
                 Text("자유롭게 활용 가능한 시간을 알려줄게요")
                     .font(.custom(AppFont.regular, size: 16))
-                    .foregroundStyle(AppColor.gray4)
+                    .foregroundStyle(AppColor.gray04)
             }
             Spacer().frame(height: 42)
             Button(action: {
@@ -29,10 +29,10 @@ struct TimerAnnounceView: View {
             }, label: {
                 Text("설정하기")
                     .font(.custom(AppFont.regular, size: 16))
-                    .foregroundStyle(AppColor.white)
+                    .foregroundStyle(AppColor.darkWhite)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 20)
-                    .background(AppColor.mainBlue)
+                    .background(AppColor.blueMain)
                     .clipShape(Capsule())
             })
         }

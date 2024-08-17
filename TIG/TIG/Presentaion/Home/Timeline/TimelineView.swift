@@ -42,7 +42,7 @@ fileprivate struct TimelineHeaderView: View {
         HStack {
             Text(homeViewModel.state.isEditMode ? "오늘 일정 시간을 탭해서 지워주세요" : "지금은 활용 가능 시간이에요")
                 .font(.custom(AppFont.semiBold, size: 18))
-                .foregroundStyle(AppColor.gray5)
+                .foregroundStyle(AppColor.gray05)
             
             Spacer()
             
@@ -51,7 +51,7 @@ fileprivate struct TimelineHeaderView: View {
             }, label: {
                 Text(homeViewModel.state.isEditMode ? "완료" : "편집")
                     .font(.custom(AppFont.medium, size: 16))
-                    .foregroundStyle(AppColor.mainBlue)
+                    .foregroundStyle(AppColor.blueMain)
             })
         }
     }
@@ -103,7 +103,7 @@ fileprivate struct TimeMarkerView: View {
                     Text(timelines[index].start.formattedTimelineTime())
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
-                        .foregroundStyle(AppColor.gray3)
+                        .foregroundStyle(AppColor.gray03)
                         .opacity(isHour ? 1 : 0)
                         .offset(y: -7)
                     
@@ -111,7 +111,7 @@ fileprivate struct TimeMarkerView: View {
                     
                     Rectangle()
                         .frame(width: index % 2 == 0 ? 28 : 16, height: 1)
-                        .foregroundStyle(AppColor.gray2)
+                        .foregroundStyle(AppColor.gray02)
                 }
                 
             }
@@ -122,14 +122,14 @@ fileprivate struct TimeMarkerView: View {
                     Text(timelines.last!.end.formattedTimelineTime())
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
-                        .foregroundStyle(AppColor.gray3)
+                        .foregroundStyle(AppColor.gray03)
                         .offset(y: -7)
 
                     Spacer().frame(width: 14)
 
                     Rectangle()
                         .frame(width: timelines.count % 2 == 0 ? 28 : 16, height: 1)
-                        .foregroundStyle(AppColor.gray2)
+                        .foregroundStyle(AppColor.gray02)
                 }
             }
             .frame(height: 0)
@@ -159,10 +159,10 @@ fileprivate struct TimelineContentView: View {
                         homeViewModel.effect(.timeSlotTapped(index))
                     }, label: {
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(timelines[index].isAvailable ? .timelineBlue : Color.clear)
+                        .fill(timelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(.timelineBlue, lineWidth: 2)
+                                  .stroke(AppColor.timelineStroke, lineWidth: 2)
                                     .opacity(timelines[index].isAvailable ? 0 : 1)
                             )
                             .frame(height: 35)
@@ -179,7 +179,7 @@ fileprivate struct TimelineContentView: View {
                     if item.isAvailable {
                         ZStack(alignment: .topLeading) {
                             RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.timelineBlue)
+                            .foregroundStyle(AppColor.blueTimeline)
                                 .frame(height: totalHeight)
                                 .padding(.vertical, 2)
                             
@@ -190,12 +190,12 @@ fileprivate struct TimelineContentView: View {
                                     VStack(alignment: .leading, spacing: 8) {
                                         Text("\(item.start.formattedTimelineTime()) - \(item.end.formattedTimelineTime())")
                                             .font(.custom(AppFont.medium, size: 12))
-                                            .foregroundStyle(AppColor.gray4)
+                                            .foregroundStyle(AppColor.gray04)
                                         
                                         Text("활용 가능 시간")
                                             .padding(.horizontal, 12)
                                             .padding(.vertical, 5)
-                                            .background(Capsule().fill(AppColor.mainBlue))
+                                            .background(Capsule().fill(AppColor.blueMain))
                                             .font(.custom(AppFont.medium, size: 12))
                                             .foregroundColor(.white)
                                             
@@ -209,7 +209,7 @@ fileprivate struct TimelineContentView: View {
                                     Spacer()
                                     Text("\(item.count.formattedDuration())")
                                         .font(.custom(AppFont.semiBold, size: 20))
-                                        .foregroundStyle(AppColor.gray4)
+                                        .foregroundStyle(AppColor.gray04)
                                         .padding(.trailing, 20)
                                         .frame(height: 18)
                                 }
@@ -219,13 +219,13 @@ fileprivate struct TimelineContentView: View {
                     } else {
                         HStack(alignment: .top, spacing: 15) {
                             RoundedRectangle(cornerRadius: 5)
-                                .foregroundStyle(.timelineBlue)
+                            .foregroundStyle(AppColor.blueTimeline)
                                 .frame(width:4 ,height: totalHeight)
                                 .padding(.vertical, 2)
                             
                             Text("일정 시간 (\(item.count.formattedDuration()))")
                                 .font(.custom(AppFont.medium, size: 12))
-                                .foregroundStyle(AppColor.gray3)
+                                .foregroundStyle(AppColor.gray03)
                                 .frame(height: 14)
                                 .padding(.top, 12)
                         }
