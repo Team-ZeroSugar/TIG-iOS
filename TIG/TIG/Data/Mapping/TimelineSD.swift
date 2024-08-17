@@ -11,11 +11,11 @@ import SwiftData
 @Model
 final class TimelineSD {
     // TODO: Unique ID 추가 필요??
-    var start: Date
-    var end: Date
+    var start: DateComponents
+    var end: DateComponents
     var isAvailable: Bool
     
-    init(start: Date, end: Date, isAvailable: Bool) {
+    init(start: DateComponents, end: DateComponents, isAvailable: Bool) {
         self.start = start
         self.end = end
         self.isAvailable = isAvailable
