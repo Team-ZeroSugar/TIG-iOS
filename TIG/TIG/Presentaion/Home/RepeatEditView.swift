@@ -7,14 +7,33 @@
 
 import SwiftUI
 
-enum Day: String, CaseIterable {
-    case sun = "일"
-    case mon = "월"
-    case tue = "화"
-    case wed = "수"
-    case thu = "목"
-    case fri = "금"
-    case sat = "토"
+enum Day: Int, CaseIterable {
+    case sun = 1
+    case mon
+    case tue
+    case wed
+    case thu
+    case fri
+    case sat
+    
+    var value: String {
+        switch self {
+        case .sun:
+            "일"
+        case .mon:
+            "월"
+        case .tue:
+            "화"
+        case .wed:
+            "수"
+        case .thu:
+            "목"
+        case .fri:
+            "금"
+        case .sat:
+            "토"
+        }
+    }
 }
 
 struct RepeatEditView: View {
@@ -52,8 +71,8 @@ fileprivate struct DaySelectView: View {
 
     fileprivate var body: some View {
         HStack(spacing: 0) {
-            ForEach(Array(Day.allCases.enumerated()), id: \.element) { index, day in
-                if index != 0 {
+            ForEach(Day.allCases, id: \.self) { day in
+                if day.rawValue != 1 {
                     Spacer()
                 }
                 Button(action: {
@@ -63,7 +82,7 @@ fileprivate struct DaySelectView: View {
                         Circle().frame(width: 35, height: 35)
                             .foregroundColor(homeViewModel.state.selectedDay == day ? .blueMain : .clear)
                         
-                        Text(day.rawValue)
+                        Text(day.value)
                             .font(.custom(
                                 homeViewModel.state.selectedDay == day ? AppFont.semiBold : AppFont.medium, size: 14))
                             .foregroundColor(homeViewModel.state.selectedDay == day ? .darkWhite : .gray03)
