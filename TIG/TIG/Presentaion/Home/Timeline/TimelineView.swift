@@ -231,7 +231,7 @@ fileprivate struct TimelineContentView: View {
                                 .padding(.vertical, 2)
                             
                             Text("일정 시간 (\(item.count.formattedDuration()))")
-                                .font(.custom(AppFont.medium, size: 12))
+                                .font(.custom(AppFont.bold, size: 12))
                                 .foregroundStyle(AppColor.gray04)
                                 .frame(height: 14)
                                 .padding(.top, 12)
