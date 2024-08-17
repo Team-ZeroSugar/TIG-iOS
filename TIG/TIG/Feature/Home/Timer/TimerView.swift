@@ -43,7 +43,7 @@ fileprivate struct TimerHeaderView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .frame(height: 79)
-                .foregroundStyle(AppColor.darkWhite)
+                .foregroundStyle(AppColor.gray01)
             HStack(spacing: 20) {
                 Image("AvailableIcon")
                     .resizable()
@@ -64,7 +64,7 @@ fileprivate struct TimerHeaderView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 23)
+            .padding(.leading, 23)
             
         }
     }
