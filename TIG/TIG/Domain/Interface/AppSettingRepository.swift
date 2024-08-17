@@ -16,4 +16,6 @@ protocol AppSettingRepository {
     
     func setNotification(_ isAllow: Bool)
     func getNotification() -> Bool
+    
+    func getAppSettings() -> AppSetting
 }

@@ -36,4 +36,8 @@ extension DefaultAppSettingRepository: AppSettingRepository {
     func setNotification(_ isAllow: Bool) {
         UserDefaults.standard.setValue(isAllow, forKey: "notification")
     }
+    
+    func getAppSettings() -> AppSetting {
+        AppSetting(wakeupTime: .now, bedTime: .now, isLightMode: true, allowNotifications: true)
+    }
 }

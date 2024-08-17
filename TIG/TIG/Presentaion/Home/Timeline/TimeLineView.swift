@@ -225,6 +225,30 @@ fileprivate struct TimelineContentView: View {
 }
 
 class TestAppSettingsService: AppSettingRepository {
+    func setSleepTime(_ sleepTime: SleepTime) {
+        
+    }
+    
+    func getSleetTime() -> SleepTime {
+        return SleepTime(wakeup: .now, bed: .now)
+    }
+    
+    func setScreenMode(_ screenMode: Bool) {
+        
+    }
+    
+    func getScreenMode() -> Bool {
+        true
+    }
+    
+    func setNotification(_ isAllow: Bool) {
+        
+    }
+    
+    func getNotification() -> Bool {
+        true
+    }
+    
     func updateAppSettings(_ appSetting: AppSetting) {
         print("hello")
     }
