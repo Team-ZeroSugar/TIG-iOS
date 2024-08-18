@@ -13,7 +13,7 @@ let timer = Timer
 
 struct TimerView: View {
 //    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
-//    @Environment(HomeViewModel.self) var homeViewModel
+    @Environment(HomeViewModel.self) var homeViewModel
     
     @State var counter: Int = 0
     // 타이머가 끝나는 시간
@@ -39,13 +39,15 @@ struct TimerView: View {
 // MARK: - TimerHeaderView
 
 fileprivate struct TimerHeaderView: View {
+    @Bindable private var homeViewModel: HomeViewModel
+
     fileprivate var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .frame(height: 79)
                 .foregroundStyle(AppColor.gray01)
             HStack(spacing: 20) {
-                Image("AvailableIcon")
+                Image(homeViewModel.isCurrentTimeAvailable() ? "AvailableIcon" : "UnavailableIcon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 36)
@@ -55,7 +57,7 @@ fileprivate struct TimerHeaderView: View {
                         .foregroundStyle(AppColor.gray03)
                     HStack(spacing: 0) {
                         Text("지금은 ")
-                        Text("활용할 수 있는 시간")
+                        Text(homeViewModel.isCurrentTimeAvailable() ? "활용할 수 있는 시간" : "활용할 수 없는 시간")
                             .font(.custom(AppFont.bold, size: 16))
                             .foregroundStyle(AppColor.blueMain)
                         Text("이에요")

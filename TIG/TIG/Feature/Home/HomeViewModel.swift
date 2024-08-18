@@ -18,7 +18,7 @@ final class HomeViewModel {
         
         // TimelineView
         var isEditMode: Bool = false
-        //var dailyContents: [DailyContent] = TestData.dailycontents
+        var dailyContents: [DailyContent] = TestData.dailycontents
         var timelines: [Timeline] = TestData.dailycontents[0].timelines
 
         // RepeatEditView
@@ -103,5 +103,16 @@ extension HomeViewModel {
       // TODO: (Monfi) DateComponents에 맞게 저장
 //        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
+    }
+    
+    func isCurrentTimeAvailable() -> Bool {
+        for dailyContent in state.dailyContents {
+            for timeline in dailyContent.timelines {
+                if timeline.isAvailable && state.currentDate >= timeline.start && state.currentDate <= timeline.end {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
