@@ -21,7 +21,7 @@ struct TimerView: View {
     
     var body: some View {
         VStack {
-            TimerHeaderView()
+            TimerHeaderView(homeViewModel: homeViewModel)
             Spacer().frame(height: 52)
             TimerBodyView(counter: counter, countTo: countTo)
             Spacer()
@@ -40,6 +40,10 @@ struct TimerView: View {
 
 fileprivate struct TimerHeaderView: View {
     @Bindable private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
 
     fileprivate var body: some View {
         ZStack {
