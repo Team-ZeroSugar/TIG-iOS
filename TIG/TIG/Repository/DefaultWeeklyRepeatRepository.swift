@@ -57,6 +57,19 @@ extension DefaultWeeklyRepeatRepository: WeeklyRepeatRepository {
     }
   }
   
+  func readWeelkyRepeat(weekday: Int) -> Result<WeeklyRepeat, SwiftDataError> {
+    do {
+      let predicate = #Predicate<WeeklyRepeatSD> { $0.day == weekday }
+      let descriptor = FetchDescriptor(predicate: predicate)
+      
+      let datas = try modelContext.fetch(descriptor)
+      guard let data = datas.first else { return .failure(.notFound) }
+      return .success(data.toEntity())
+    } catch {
+      return .failure(.fetchError)
+    }
+  }
+  
   func updateWeeklyRepeat(weeklyRepeat: WeeklyRepeat, timelines: [Timeline]) {
     let result = findSwiftData(target: weeklyRepeat)
     

@@ -64,6 +64,19 @@ extension DefaultDailyContentRepository: DailyContentRepository {
     }
   }
   
+  func readDailyContent(date: Date) -> Result<DailyContent, SwiftDataError> {
+    do {
+      let predicate = #Predicate<DailyContentSD> { $0.date == date.formattedDate }
+      let descriptor = FetchDescriptor(predicate: predicate)
+      
+      let datas = try modelContext.fetch(descriptor)
+      guard let data = datas.first else { return .failure(.notFound) }
+      return .success(data.toEntity())
+    } catch {
+      return .failure(.fetchError)
+    }
+  }
+  
   func updateDailyContent(dailyContent: DailyContent, timelines: [Timeline]) {
     let result = findSwiftData(dailyContent)
     

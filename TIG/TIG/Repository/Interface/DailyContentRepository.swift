@@ -8,8 +8,9 @@
 import Foundation
 
 protocol DailyContentRepository {
-    func createDailyContent(_ dailyContent: DailyContent)
-    func fetchDailyContents() -> Result<[DailyContent], SwiftDataError>
-    func updateDailyContent(dailyContent: DailyContent, timelines: [Timeline])
-    func deleteDailyContent(_ dailyContent: DailyContent)
+  func createDailyContent(_ dailyContent: DailyContent)
+  func fetchDailyContents() -> Result<[DailyContent], SwiftDataError>
+  func readDailyContent(date: Date) -> Result<DailyContent, SwiftDataError>
+  func updateDailyContent(dailyContent: DailyContent, timelines: [Timeline])
+  func deleteDailyContent(_ dailyContent: DailyContent)
 }
