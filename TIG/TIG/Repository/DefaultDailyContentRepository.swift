@@ -19,7 +19,7 @@ final class DefaultDailyContentRepository {
     _ dailyContent: DailyContent
   ) -> Result<DailyContentSD, SwiftDataError> {
     
-    let date = dailyContent.date
+    let date = dailyContent.date.formattedDate
     let predicate = #Predicate<DailyContentSD> { $0.date == date }
     let descriptor = FetchDescriptor(predicate: predicate)
     
@@ -39,7 +39,7 @@ extension DefaultDailyContentRepository: DailyContentRepository {
   func createDailyContent(_ dailyContent: DailyContent) {
     // Entity -> SwiftData로 매핑
     let model = DailyContentSD(
-      date: dailyContent.date,
+      date: dailyContent.date.formattedDate,
       timelines: dailyContent.timelines.map {
         TimelineSD(start: $0.start, end: $0.end, isAvailable: $0.isAvailable)
       },
