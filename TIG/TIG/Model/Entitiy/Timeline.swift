@@ -8,7 +8,7 @@
 import Foundation
 
 struct Timeline {
-    var start: Date
-    var end: Date
+    var start: DateComponents
+    var end: DateComponents
     var isAvailable: Bool
 }

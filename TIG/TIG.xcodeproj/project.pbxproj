@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		0947BA9B2C534A93003F186A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9A2C534A93003F186A /* TimerView.swift */; };
 		0947BA9D2C534D87003F186A /* TimerAnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */; };
-		0947BA9F2C53501F003F186A /* TimeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9E2C53501F003F186A /* TimeUseCase.swift */; };
 		356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimelineView.swift */; };
 		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* RepeatEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */; };
+		573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */; };
 		577B36552C4A955E0015C9A4 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36542C4A955E0015C9A4 /* Timeline.swift */; };
 		577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
 		577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
@@ -54,11 +54,11 @@
 /* Begin PBXFileReference section */
 		0947BA9A2C534A93003F186A /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAnnounceView.swift; sourceTree = "<group>"; };
-		0947BA9E2C53501F003F186A /* TimeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUseCase.swift; sourceTree = "<group>"; };
 		356FF03B2C4A89F0005A078C /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		35B315172C573B6E00735F8F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatEditView.swift; sourceTree = "<group>"; };
+		573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
 		577B36542C4A955E0015C9A4 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeat.swift; sourceTree = "<group>"; };
 		577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContentSD.swift; sourceTree = "<group>"; };
@@ -109,14 +109,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		577B36582C4A984F0015C9A4 /* Mapping */ = {
+		573882CA2C747597009BD189 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				577B36582C4A984F0015C9A4 /* DTO */,
+				57A98F1E2C3CD46D00863BC6 /* Entitiy */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		573882CD2C74BA00009BD189 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */,
+				57EFE27A2C708A6C0021DAE7 /* SettingView.swift */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		577B36582C4A984F0015C9A4 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
 				577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */,
 				577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */,
 				577B365B2C4A98B90015C9A4 /* TimelineSD.swift */,
 			);
-			path = Mapping;
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		577B36672C4BF1E20015C9A4 /* Storage */ = {
@@ -130,13 +148,12 @@
 		577B36702C51E8930015C9A4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				57B707372C53BEA600F51FD2 /* Time */,
-				57B707382C53BEAC00F51FD2 /* Timeline */,
 				577B36712C51E8A60015C9A4 /* HomeView.swift */,
 				577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */,
 				0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */,
-				35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */,
-				57EFE27A2C708A6C0021DAE7 /* SettingView.swift */,
+				57B707372C53BEA600F51FD2 /* Timer */,
+				57B707382C53BEAC00F51FD2 /* Timeline */,
+				573882CD2C74BA00009BD189 /* More */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -161,10 +178,11 @@
 			isa = PBXGroup;
 			children = (
 				57A98F172C3CD3DF00863BC6 /* App */,
-				57A98F1A2C3CD41100863BC6 /* Data */,
-				57A98F192C3CD40C00863BC6 /* Domain */,
-				57A98F182C3CD3FA00863BC6 /* Presentaion */,
-				57A98F2A2C3CDAD600863BC6 /* Util */,
+				57A98F402C3CE0F200863BC6 /* Constant */,
+				57A98F2B2C3CDADF00863BC6 /* Extension */,
+				573882CA2C747597009BD189 /* Model */,
+				57A98F182C3CD3FA00863BC6 /* Feature */,
+				57A98F1A2C3CD41100863BC6 /* Repository */,
 				57A98F1B2C3CD41A00863BC6 /* Resource */,
 				57A98F0F2C3CCAB800863BC6 /* Preview Content */,
 			);
@@ -188,36 +206,26 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		57A98F182C3CD3FA00863BC6 /* Presentaion */ = {
+		57A98F182C3CD3FA00863BC6 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
 				57A98F252C3CD9A100863BC6 /* Onboarding */,
 				577B36702C51E8930015C9A4 /* Home */,
 			);
-			path = Presentaion;
+			path = Feature;
 			sourceTree = "<group>";
 		};
-		57A98F192C3CD40C00863BC6 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				57A98F1E2C3CD46D00863BC6 /* Entitiy */,
-				57A98F1D2C3CD46800863BC6 /* UseCase */,
-				57A98F1C2C3CD43100863BC6 /* Interface */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		57A98F1A2C3CD41100863BC6 /* Data */ = {
+		57A98F1A2C3CD41100863BC6 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				577B36672C4BF1E20015C9A4 /* Storage */,
-				577B36582C4A984F0015C9A4 /* Mapping */,
+				57A98F1C2C3CD43100863BC6 /* Interface */,
 				57A98F232C3CD51300863BC6 /* DefaultDailyContentRepository.swift */,
 				577B36632C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift */,
 				577B36682C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift */,
 				35B315172C573B6E00735F8F /* TestData.swift */,
 			);
-			path = Data;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		57A98F1B2C3CD41A00863BC6 /* Resource */ = {
@@ -240,14 +248,6 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
-		57A98F1D2C3CD46800863BC6 /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				0947BA9E2C53501F003F186A /* TimeUseCase.swift */,
-			);
-			path = UseCase;
-			sourceTree = "<group>";
-		};
 		57A98F1E2C3CD46D00863BC6 /* Entitiy */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,19 +267,11 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		57A98F2A2C3CDAD600863BC6 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				57A98F402C3CE0F200863BC6 /* Constant */,
-				57A98F2B2C3CDADF00863BC6 /* Extension */,
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
 		57A98F2B2C3CDADF00863BC6 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				57A98F452C3CF49800863BC6 /* Date+Ext.swift */,
+				573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */,
 				577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */,
 				35FF0B782C626EC7001583D2 /* Int+Ext.swift */,
 			);
@@ -311,12 +303,12 @@
 			path = Constant;
 			sourceTree = "<group>";
 		};
-		57B707372C53BEA600F51FD2 /* Time */ = {
+		57B707372C53BEA600F51FD2 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
 				0947BA9A2C534A93003F186A /* TimerView.swift */,
 			);
-			path = Time;
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		57B707382C53BEAC00F51FD2 /* Timeline */ = {
@@ -412,13 +404,13 @@
 				577B365C2C4A98B90015C9A4 /* TimelineSD.swift in Sources */,
 				577B366D2C4BF6240015C9A4 /* AppSetting.swift in Sources */,
 				57A98F0A2C3CCAB600863BC6 /* OnboardingView.swift in Sources */,
-				0947BA9F2C53501F003F186A /* TimeUseCase.swift in Sources */,
 				57A98F442C3CE11D00863BC6 /* AppColor.swift in Sources */,
 				577B36742C51E8AD0015C9A4 /* HomeViewModel.swift in Sources */,
 				35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */,
 				577B36722C51E8A60015C9A4 /* HomeView.swift in Sources */,
 				577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */,
 				0947BA9B2C534A93003F186A /* TimerView.swift in Sources */,
+				573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */,
 				577B36642C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift in Sources */,
 				0947BA9D2C534D87003F186A /* TimerAnnounceView.swift in Sources */,
 				577B36662C4BEF8C0015C9A4 /* SwiftDataStorage.swift in Sources */,

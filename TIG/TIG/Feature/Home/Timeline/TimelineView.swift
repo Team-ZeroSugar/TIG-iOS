@@ -105,9 +105,11 @@ fileprivate struct TimeMarkerView: View {
             ForEach(timelines.indices, id: \.self) { index in
                 HStack(alignment: .top, spacing: 0) {
                     
-                    let isHour = Calendar.current.component(.minute, from: timelines[index].start) == 0
+                  // TODO: (Monfi) 임의 수정 (확인해보고 수정)
+                  let isHour = timelines[index].start.minute! == 0
                     
-                    Text(timelines[index].start.formattedTimelineTime())
+                  // TODO: (Monfi) 임의 수정 (확인해보고 수정)
+                  Text(timelines[index].start.formattedTimelineTime()!)
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
                         .foregroundStyle(AppColor.gray03)
@@ -125,8 +127,12 @@ fileprivate struct TimeMarkerView: View {
             
             // 마지막 시간 표시
             HStack(alignment: .top, spacing: 0) {
-                if Calendar.current.component(.minute, from: timelines.last!.end) == 0 {
-                    Text(timelines.last!.end.formattedTimelineTime())
+              
+              // TODO: (Monfi) 임의 수정 (확인해보고 수정)
+              if timelines.last!.end.minute! == 0 {
+                
+                // TODO: (Monfi) 임의 수정 (확인해보고 수정)
+                    Text(timelines.last!.end.formattedTimelineTime()!)
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
                         .foregroundStyle(AppColor.gray03)

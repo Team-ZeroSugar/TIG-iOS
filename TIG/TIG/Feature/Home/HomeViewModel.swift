@@ -90,7 +90,9 @@ extension HomeViewModel {
                 currentCount += 1
                 currentEnd = timelines[index].end
             } else {
-                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+              
+              // TODO: (Monfi) DateComponents에 맞게 저장
+//                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
                 currentIsAvailable = timelines[index].isAvailable
                 currentCount = 1
                 currentStart = timelines[index].start
@@ -98,7 +100,8 @@ extension HomeViewModel {
             }
         }
         
-        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+      // TODO: (Monfi) DateComponents에 맞게 저장
+//        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
     }
 }
