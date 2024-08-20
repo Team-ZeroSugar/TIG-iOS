@@ -10,17 +10,24 @@ import SwiftUI
 struct TimelineView: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
+    private var isRepeatView: Bool
+    
+    init(isRepeatView: Bool = false) {
+        self.isRepeatView = isRepeatView
+    }
     
     var body: some View {
         
-        Spacer().frame(height: 47)
-        
-        TimelineHeaderView(homeViewModel: homeViewModel)
-            .padding(.horizontal, 20)
+        if !isRepeatView {
+            Spacer().frame(height: 47)
+            
+            TimelineHeaderView(homeViewModel: homeViewModel)
+                .padding(.horizontal, 20)
+        }
         
         ScrollView {
             VStack {
-                Spacer().frame(height: 51)
+                Spacer().frame(height: 20)
                 
                 TimelineBodyView(homeViewModel: homeViewModel)
             }
@@ -203,7 +210,7 @@ fileprivate struct TimelineContentView: View {
                                             .padding(.vertical, 5)
                                             .background(Capsule().fill(AppColor.blueMain))
                                             .font(.custom(AppFont.medium, size: 12))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.darkWhite)
                                             
                                         
                                     }.padding(.leading, 20)
@@ -225,13 +232,13 @@ fileprivate struct TimelineContentView: View {
                     } else {
                         HStack(alignment: .top, spacing: 15) {
                             RoundedRectangle(cornerRadius: 5)
-                            .foregroundStyle(AppColor.blueTimeline)
+                            .foregroundStyle(AppColor.blueMain)
                                 .frame(width:4 ,height: totalHeight)
                                 .padding(.vertical, 2)
                             
                             Text("일정 시간 (\(item.count.formattedDuration()))")
-                                .font(.custom(AppFont.medium, size: 12))
-                                .foregroundStyle(AppColor.gray03)
+                                .font(.custom(AppFont.bold, size: 12))
+                                .foregroundStyle(AppColor.gray04)
                                 .frame(height: 14)
                                 .padding(.top, 12)
                         }

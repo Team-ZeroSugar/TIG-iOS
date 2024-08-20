@@ -13,6 +13,7 @@
 		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */; };
+		35FF0B7B2C630BE1001583D2 /* RepeatEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */; };
 		577B36552C4A955E0015C9A4 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36542C4A955E0015C9A4 /* Timeline.swift */; };
 		577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
 		577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
@@ -57,6 +58,7 @@
 		35B315172C573B6E00735F8F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
+		35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatEditView.swift; sourceTree = "<group>"; };
 		577B36542C4A955E0015C9A4 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeat.swift; sourceTree = "<group>"; };
 		577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContentSD.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				577B36712C51E8A60015C9A4 /* HomeView.swift */,
 				577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */,
 				0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */,
+				35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */,
 				57EFE27A2C708A6C0021DAE7 /* SettingView.swift */,
 			);
 			path = Home;
@@ -345,11 +348,12 @@
 			};
 			buildConfigurationList = 57A98EFF2C3CCAB600863BC6 /* Build configuration list for PBXProject "TIG" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 57A98EFB2C3CCAB600863BC6;
 			productRefGroup = 57A98F052C3CCAB600863BC6 /* Products */;
@@ -410,6 +414,7 @@
 				35B315182C573B6E00735F8F /* TestData.swift in Sources */,
 				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,
 				577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */,
+				35FF0B7B2C630BE1001583D2 /* RepeatEditView.swift in Sources */,
 				577B365E2C4A98D40015C9A4 /* WeeklyRepeatSD.swift in Sources */,
 				57A98F272C3CDAB600863BC6 /* DailyContent.swift in Sources */,
 				57A98F202C3CD4D000863BC6 /* DailyContentRepository.swift in Sources */,
