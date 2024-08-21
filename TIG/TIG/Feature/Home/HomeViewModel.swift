@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @Observable
 final class HomeViewModel {
@@ -23,6 +24,11 @@ final class HomeViewModel {
 
         // RepeatEditView
         var selectedDay: Day = .sun
+        
+        // TimerView
+        var counter: Int = 0
+        var countTo: Int = 0
+        var timer: AnyCancellable?
     }
     
     enum Action {
@@ -40,6 +46,10 @@ final class HomeViewModel {
     }
     
     private(set) var state: State = .init()
+    
+    init() {
+        startTimer()
+    }
     
     func effect(_ action: Action) {
         switch action {
@@ -105,6 +115,7 @@ extension HomeViewModel {
         return result
     }
     
+    //MARK: - TimerView Function
     func isCurrentTimeAvailable() -> Bool {
         for dailyContent in state.dailyContents {
             for timeline in dailyContent.timelines {
@@ -116,5 +127,31 @@ extension HomeViewModel {
             }
         }
         return false
+    }
+    
+    func startTimer() {
+        state.timer = Timer.publish(every: 60, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.incrementCounter()
+            }
+    }
+    
+    func incrementCounter() {
+        if state.counter < state.countTo {
+            state.counter += 60
+        }
+    }
+    
+    func progress() -> CGFloat {
+        return CGFloat(state.counter) / CGFloat(state.countTo)
+    }
+    
+    func remainingTime() -> String {
+        let currentTime = state.countTo - state.counter
+        let hours = currentTime / 3600
+        let minutes = (currentTime % 3600) / 60
+        
+        return String(format: "%01d시간 %01d분", hours, minutes)
     }
 }

@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-let timer = Timer
-    .publish(every: 60, on: .main, in: .common)
-    .autoconnect()
-
 struct TimerView: View {
 //    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
     @Environment(HomeViewModel.self) var homeViewModel
@@ -23,13 +19,9 @@ struct TimerView: View {
         VStack {
             TimerHeaderView(homeViewModel: homeViewModel)
             Spacer().frame(height: 52)
-            TimerBodyView(counter: counter, countTo: countTo)
+            TimerBodyView(homeViewModel: homeViewModel)
             Spacer()
         
-        }.onReceive(timer) { time in
-            if (self.counter < self.countTo) {
-                self.counter += 60
-            }
         }
         .padding(.horizontal, 20)
         .padding(.top, 44)
@@ -79,9 +71,11 @@ fileprivate struct TimerHeaderView: View {
 // MARK: - TimerBodyView
 
 fileprivate struct TimerBodyView: View {
-    @State var counter: Int
-    // 타이머가 끝나는 시간
-    var countTo: Int
+    @Bindable private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
     
     fileprivate var body: some View {
         VStack(spacing: 48) {
@@ -94,7 +88,7 @@ fileprivate struct TimerBodyView: View {
             ZStack {
                 TimerTrack()
                 
-                TimerProgressBar(counter: counter, countTo: countTo)
+                TimerProgressBar(progress: homeViewModel.progress())
                 
                 VStack(spacing: 4) {
                     Text("남은 활용 가능 시간")
@@ -106,7 +100,8 @@ fileprivate struct TimerBodyView: View {
                         .clipShape(Capsule())
                         .padding(.bottom, 6)
                     
-                    Clock(counter: counter, countTo: countTo)
+                    Text(homeViewModel.remainingTime())
+                        .font(.custom(AppFont.semiBold, size: 36))
                     
                     Text("/ 8시간 30분")
                         .font(.custom(AppFont.medium, size: 13))
@@ -132,13 +127,12 @@ fileprivate struct TimerTrack: View {
 
 // 움직이는 원
 fileprivate struct TimerProgressBar: View {
-    var counter: Int
-    var countTo: Int
+    var progress: CGFloat
     
     fileprivate var body: some View {
         // 진행 상태를 나타내는 원
         Circle()
-            .trim(from: progress(), to: 1)
+            .trim(from: progress, to: 1)
             .stroke(
                 style: StrokeStyle(
                     lineWidth: 24,
@@ -150,32 +144,9 @@ fileprivate struct TimerProgressBar: View {
             .foregroundStyle(LinearGradient.main)
             .animation(
                 Animation.easeInOut(duration: 0.2),
-                value: counter
+                value: progress
             )
             .frame(height: 318)
-    }
-    func progress() -> CGFloat {
-        return (CGFloat(counter) / CGFloat(countTo))
-    }
-}
-
-fileprivate struct Clock: View {
-    var counter: Int
-    var countTo: Int
-    
-    fileprivate var body: some View {
-        VStack {
-            Text(counterToMinutes())
-                .font(.custom(AppFont.semiBold, size: 36))
-        }
-    }
-    
-    func counterToMinutes() -> String {
-        let currentTime = countTo - counter
-        let hours = currentTime / 3600
-        let minutes = (currentTime % 3600) / 60
-        
-        return String(format: "%01d시간 %01d분", hours, minutes)
     }
 }
 
