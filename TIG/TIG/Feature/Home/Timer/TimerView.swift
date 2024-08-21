@@ -48,7 +48,7 @@ fileprivate struct TimerHeaderView: View {
                         // Safely unwrap and format the start and end times
                         let startTime = timeline.start.formattedTimelineTime() ?? ""
                         let endTime = timeline.end.formattedTimelineTime() ?? ""
-                        Text("\(startTime) - \( endTime)")
+                        Text("\(startTime) - \(endTime)")
                             .font(.custom(AppFont.semiBold, size: 12))
                             .foregroundStyle(AppColor.gray03)
                     } else {
