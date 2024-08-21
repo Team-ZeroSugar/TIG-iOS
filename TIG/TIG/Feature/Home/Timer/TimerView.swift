@@ -12,12 +12,14 @@ struct TimerView: View {
     @Environment(HomeViewModel.self) var homeViewModel
     
     var body: some View {
+        let screenWidth = UIScreen.main.bounds.width
+        let isSmallScreen = screenWidth <= 350
+        
         VStack {
             TimerHeaderView(homeViewModel: homeViewModel)
-            Spacer().frame(height: 52)
+            Spacer().frame(height: isSmallScreen ? 26 : 52)
             TimerBodyView(homeViewModel: homeViewModel)
             Spacer()
-        
         }
         .padding(.horizontal, 20)
         .padding(.top, 44)
