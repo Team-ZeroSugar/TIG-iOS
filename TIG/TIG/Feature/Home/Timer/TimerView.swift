@@ -61,7 +61,7 @@ fileprivate struct TimerHeaderView: View {
                         Text("지금은 ")
                         Text(homeViewModel.currentTimeline()?.isAvailable == true ? "활용할 수 있는 시간" : "활용할 수 없는 시간")
                             .font(.custom(AppFont.bold, size: 16))
-                            .foregroundStyle(AppColor.blueMain)
+                            .foregroundStyle(homeViewModel.currentTimeline()?.isAvailable == true ? AppColor.blueMain : AppColor.gray04)
                         Text("이에요")
                     }
                     .font(.custom(AppFont.semiBold, size: 16))
@@ -98,7 +98,7 @@ fileprivate struct TimerBodyView: View {
                 
                 VStack(spacing: 4) {
                     Text("남은 활용 가능 시간")
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 12, weight: .regular))
                         .foregroundStyle(AppColor.darkWhite)
                         .padding(.vertical, 6)
                         .padding(.horizontal, 11)
