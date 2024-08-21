@@ -112,7 +112,7 @@ fileprivate struct TimerBodyView: View {
                         .font(.custom(AppFont.medium, size: 13))
                 }
             }
-//            .padding(.horizontal, 16)
+            .padding(.horizontal, 16)
         }
     }
 }
@@ -126,7 +126,7 @@ fileprivate struct TimerTrack: View {
             .overlay(
                 Circle().stroke(AppColor.darkWhite, lineWidth: 12)
             )
-            .padding(.horizontal, 42)
+            .padding(.horizontal, 4)
         
     }
 }
@@ -152,7 +152,7 @@ fileprivate struct TimerProgressBar: View {
                 Animation.easeInOut(duration: 0.2),
                 value: progress
             )
-            .padding(.horizontal, 42)
+            .padding(.horizontal, 4)
     }
 }
 
