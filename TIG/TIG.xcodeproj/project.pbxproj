@@ -17,6 +17,8 @@
 		359369EE2C759AEC00BE24FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359369ED2C759AEC00BE24FF /* Assets.xcassets */; };
 		359369F22C759AEC00BE24FF /* TIGWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 359369E22C759AEB00BE24FF /* TIGWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		359369F72C759C8600BE24FF /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F412C3CE0FB00863BC6 /* AppFont.swift */; };
+		359369F82C759D2D00BE24FF /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F432C3CE11D00863BC6 /* AppColor.swift */; };
+		359369F92C759D3300BE24FF /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F212C3CD4FA00863BC6 /* Colors.xcassets */; };
 		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* RepeatEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* RepeatEditView.swift */; };
@@ -472,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				359369EE2C759AEC00BE24FF /* Assets.xcassets in Resources */,
+				359369F92C759D3300BE24FF /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				359369EC2C759AEB00BE24FF /* TIGWidget.swift in Sources */,
+				359369F82C759D2D00BE24FF /* AppColor.swift in Sources */,
 				359369EA2C759AEB00BE24FF /* TIGWidgetBundle.swift in Sources */,
 				359369F72C759C8600BE24FF /* AppFont.swift in Sources */,
 			);
