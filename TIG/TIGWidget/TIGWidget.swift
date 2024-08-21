@@ -40,15 +40,53 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct TIGWidgetEntryView : View {
+    
+    @Environment(\.widgetFamily) var widgetFamily
+    
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+        switch widgetFamily {
+        case .systemSmall:
+            VStack(spacing: 0) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundStyle(.blueMain)
+                        .frame(width: 97, height: 22)
+                    
+                    Text("남은 활용 가능 시간")
+                        .foregroundStyle(.darkWhite)
+                        .font(.custom(AppFont.medium, size: 10))
+                }
+                
+                Spacer().frame(height: 12)
+                
+                Text("5시간 20분")
+                    .foregroundStyle(.gray05)
+                    .font(.custom(AppFont.semiBold, size: 24))
+                
+                Spacer().frame(height: 8)
+                
+                Text("/ 8시간 30분")
+                    .foregroundStyle(.gray05)
+                    .font(.custom(AppFont.medium, size: 12))
+            }
+            
+        case .accessoryRectangular:
+            VStack(alignment: .leading ,spacing: 2) {
+                HStack(spacing: 5.42) {
+                    Image("AvailableIcon")
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                    Text("시간가용")
+                        .font(.custom(AppFont.semiBold, size: 12))
+                    Spacer()
+                }
+                Text("오늘의 남은 활용 가능 시간")
+                Text("5시간 20분")
+            }.font(.custom(AppFont.medium, size: 13))
+        default:
+            VStack {}
         }
     }
 }
@@ -69,6 +107,7 @@ struct TIGWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .supportedFamilies([.systemSmall, .accessoryRectangular])
     }
 }
 
@@ -78,3 +117,4 @@ struct TIGWidget: Widget {
     SimpleEntry(date: .now, emoji: "😀")
     SimpleEntry(date: .now, emoji: "🤩")
 }
+
