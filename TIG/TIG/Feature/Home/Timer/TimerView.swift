@@ -11,10 +11,6 @@ struct TimerView: View {
 //    // homeViewModel에 저장된 DailyContent를 가지고 계산 필요
     @Environment(HomeViewModel.self) var homeViewModel
     
-    @State var counter: Int = 0
-    // 타이머가 끝나는 시간
-    var countTo: Int = 18000
-    
     var body: some View {
         VStack {
             TimerHeaderView(homeViewModel: homeViewModel)
@@ -43,17 +39,27 @@ fileprivate struct TimerHeaderView: View {
                 .frame(height: 79)
                 .foregroundStyle(AppColor.gray01)
             HStack(spacing: 20) {
-                Image(homeViewModel.isCurrentTimeAvailable() ? "AvailableIcon" : "UnavailableIcon")
+                Image(homeViewModel.currentTimeline()?.isAvailable == true ? "AvailableIcon" : "UnavailableIcon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 36)
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("오전 11시 - 오후 2시")
-                        .font(.custom(AppFont.semiBold, size: 12))
-                        .foregroundStyle(AppColor.gray03)
+                    if let timeline = homeViewModel.currentTimeline() {
+                        // Safely unwrap and format the start and end times
+                        let startTime = timeline.start.formattedTimelineTime() ?? ""
+                        let endTime = timeline.end.formattedTimelineTime() ?? ""
+                        Text("\(startTime) - \( endTime)")
+                            .font(.custom(AppFont.semiBold, size: 12))
+                            .foregroundStyle(AppColor.gray03)
+                    } else {
+                        Text("타임라인 정보 없음")
+                            .font(.custom(AppFont.semiBold, size: 12))
+                            .foregroundStyle(AppColor.gray03)
+                    }
+                        
                     HStack(spacing: 0) {
                         Text("지금은 ")
-                        Text(homeViewModel.isCurrentTimeAvailable() ? "활용할 수 있는 시간" : "활용할 수 없는 시간")
+                        Text(homeViewModel.currentTimeline()?.isAvailable == true ? "활용할 수 있는 시간" : "활용할 수 없는 시간")
                             .font(.custom(AppFont.bold, size: 16))
                             .foregroundStyle(AppColor.blueMain)
                         Text("이에요")
@@ -102,8 +108,7 @@ fileprivate struct TimerBodyView: View {
                     
                     Text(homeViewModel.remainingTime())
                         .font(.custom(AppFont.semiBold, size: 36))
-                    
-                    Text("/ 8시간 30분")
+                    Text("/ \(homeViewModel.getTotalAvailableTime())")
                         .font(.custom(AppFont.medium, size: 13))
                 }
             }

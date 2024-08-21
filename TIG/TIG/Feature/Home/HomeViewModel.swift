@@ -27,7 +27,13 @@ final class HomeViewModel {
         
         // TimerView
         var counter: Int = 0
-        var countTo: Int = 0
+        var countTo: Int {
+            if let selectedContent = dailyContents.first(where: { Calendar.current.isDate($0.date, inSameDayAs: currentDate) }) {
+                return selectedContent.totalAvailabilityTime
+            } else {
+                return 0
+            }
+        }
         var timer: AnyCancellable?
     }
     
@@ -100,9 +106,9 @@ extension HomeViewModel {
                 currentCount += 1
                 currentEnd = timelines[index].end
             } else {
-              
-              // TODO: (Monfi) DateComponents에 맞게 저장
-//                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+                
+                // TODO: (Monfi) DateComponents에 맞게 저장
+                //                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
                 currentIsAvailable = timelines[index].isAvailable
                 currentCount = 1
                 currentStart = timelines[index].start
@@ -110,23 +116,29 @@ extension HomeViewModel {
             }
         }
         
-      // TODO: (Monfi) DateComponents에 맞게 저장
-//        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+        // TODO: (Monfi) DateComponents에 맞게 저장
+        //        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
     }
     
     //MARK: - TimerView Function
-    func isCurrentTimeAvailable() -> Bool {
-        for dailyContent in state.dailyContents {
-            for timeline in dailyContent.timelines {
-                if let startDate = Calendar.current.date(from: timeline.start), 
-                   let endDate = Calendar.current.date(from: timeline.end),
-                   timeline.isAvailable && state.currentDate >= startDate && state.currentDate <= endDate {
-                    return true
-                }
+    func currentTimeline() -> (isAvailable: Bool, start: DateComponents, end: DateComponents)? {
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        let hour = calendar.component(.hour, from: now)
+        let minute = calendar.component(.minute, from: now)
+        
+        for timeline in state.timelines {
+            let start = ((timeline.start.hour! * 60) + timeline.start.minute!)
+            let end = ((timeline.end.hour! * 60) + timeline.end.minute!)
+            if ((hour * 60) + minute) >= start && ((hour * 60) + minute) <= end {
+                return (isAvailable: timeline.isAvailable, start: timeline.start, end: timeline.end)
             }
         }
-        return false
+
+        return nil
     }
     
     func startTimer() {
@@ -151,6 +163,14 @@ extension HomeViewModel {
         let currentTime = state.countTo - state.counter
         let hours = currentTime / 3600
         let minutes = (currentTime % 3600) / 60
+        
+        return String(format: "%01d시간 %01d분", hours, minutes)
+    }
+    
+    func getTotalAvailableTime() -> String {
+        let totalAvailableTime = state.countTo
+        let hours = totalAvailableTime / 3600
+        let minutes = (totalAvailableTime % 3600) / 60
         
         return String(format: "%01d시간 %01d분", hours, minutes)
     }
