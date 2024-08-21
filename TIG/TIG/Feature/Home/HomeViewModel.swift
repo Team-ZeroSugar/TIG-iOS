@@ -108,7 +108,9 @@ extension HomeViewModel {
     func isCurrentTimeAvailable() -> Bool {
         for dailyContent in state.dailyContents {
             for timeline in dailyContent.timelines {
-                if timeline.isAvailable && state.currentDate >= timeline.start && state.currentDate <= timeline.end {
+                if let startDate = Calendar.current.date(from: timeline.start), 
+                   let endDate = Calendar.current.date(from: timeline.end),
+                   timeline.isAvailable && state.currentDate >= startDate && state.currentDate <= endDate {
                     return true
                 }
             }
