@@ -80,7 +80,7 @@ struct HomeView: View {
         Image(systemName: "chevron.down")
           .resizable()
           .aspectRatio(contentMode: .fit)
-          .frame(width: 18, height: 18)
+          .frame(width: 16, height: 16)
           .foregroundColor(AppColor.gray04)
           .rotationEffect(
             .degrees(

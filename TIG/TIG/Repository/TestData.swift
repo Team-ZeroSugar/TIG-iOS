@@ -225,6 +225,6 @@ struct TestData {
             ]
     
     static let dailycontents = [
-      DailyContent(date: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 21, hour: 9, minute: 0))!, timelines: timelines, totalAvailabilityTime: 8)
+      DailyContent(date: Calendar.current.date(from: DateComponents(year: 2024, month: 8, day: 22, hour: 9, minute: 0))!, timelines: timelines, totalAvailabilityTime: 8 * 60)
     ]
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @Observable
 final class HomeViewModel {
@@ -18,12 +19,29 @@ final class HomeViewModel {
         
         // TimelineView
         var isEditMode: Bool = false
-        //var dailyContents: [DailyContent] = TestData.dailycontents
+        var dailyContents: [DailyContent] = TestData.dailycontents
         var timelines: [Timeline] = TestData.dailycontents[0].timelines
 
         // RepeatEditView
         var selectedDay: Day = .sun
     }
+    
+    // TimerView
+    private var counter: Int = 0
+    private var countTo: Int {
+//        if let selectedContent = state.dailyContents.first(where: { Calendar.current.isDate($0.date.formattedDate, inSameDayAs: state.currentDate.formattedDate) }) {
+//            return selectedContent.totalAvailabilityTime
+//        } else {
+//            return 0
+//        }
+        let content = state.dailyContents[0]
+        if content.date.formattedDate == .now.formattedDate {
+            return content.totalAvailabilityTime
+        } else {
+            return 0
+        }
+    }
+    private var timer: AnyCancellable?
     
     enum Action {
         // HomeView
@@ -40,6 +58,10 @@ final class HomeViewModel {
     }
     
     private(set) var state: State = .init()
+    
+    init() {
+        startTimer()
+    }
     
     func effect(_ action: Action) {
         switch action {
@@ -90,9 +112,9 @@ extension HomeViewModel {
                 currentCount += 1
                 currentEnd = timelines[index].end
             } else {
-              
-              // TODO: (Monfi) DateComponents에 맞게 저장
-//                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+                
+                // TODO: (Monfi) DateComponents에 맞게 저장
+                //                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
                 currentIsAvailable = timelines[index].isAvailable
                 currentCount = 1
                 currentStart = timelines[index].start
@@ -100,8 +122,56 @@ extension HomeViewModel {
             }
         }
         
-      // TODO: (Monfi) DateComponents에 맞게 저장
-//        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+        // TODO: (Monfi) DateComponents에 맞게 저장
+        //        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
+    }
+    
+    //MARK: - TimerView Function
+    func currentTimeline() -> (isAvailable: Bool, start: DateComponents, end: DateComponents)? {
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        let hour = calendar.component(.hour, from: now)
+        let minute = calendar.component(.minute, from: now)
+        
+        for timeline in state.timelines {
+            let start = ((timeline.start.hour! * 60) + timeline.start.minute!)
+            let end = ((timeline.end.hour! * 60) + timeline.end.minute!)
+            if ((hour * 60) + minute) >= start && ((hour * 60) + minute) <= end {
+                return (isAvailable: timeline.isAvailable, start: timeline.start, end: timeline.end)
+            }
+        }
+
+        return nil
+    }
+    
+    func startTimer() {
+        timer = Timer.publish(every: 60, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.incrementCounter()
+            }
+    }
+    
+    func incrementCounter() {
+        if counter < countTo {
+           counter += 60
+        }
+    }
+    
+    func progress() -> CGFloat {
+        return CGFloat(counter) / CGFloat(countTo)
+    }
+    
+    func remainingTime() -> String {
+        let currentTime = countTo - counter
+        return currentTime.formattedTime()
+    }
+    
+    func getTotalAvailableTime() -> String {
+        let totalAvailableTime = countTo
+        return totalAvailableTime.formattedTime()
     }
 }
