@@ -29,8 +29,14 @@ final class HomeViewModel {
     // TimerView
     private var counter: Int = 0
     private var countTo: Int {
-        if let selectedContent = state.dailyContents.first(where: { Calendar.current.isDate($0.date, inSameDayAs: state.currentDate) }) {
-            return selectedContent.totalAvailabilityTime
+//        if let selectedContent = state.dailyContents.first(where: { Calendar.current.isDate($0.date.formattedDate, inSameDayAs: state.currentDate.formattedDate) }) {
+//            return selectedContent.totalAvailabilityTime
+//        } else {
+//            return 0
+//        }
+        let content = state.dailyContents[0]
+        if content.date.formattedDate == .now.formattedDate {
+            return content.totalAvailabilityTime
         } else {
             return 0
         }

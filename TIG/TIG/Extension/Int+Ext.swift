@@ -31,8 +31,8 @@ extension Int {
   }
   
   func formattedTime() -> String {
-    let hours = self / 3600
-    let minutes = (self % 3600) / 60
+    let hours = self / 60
+    let minutes = (self % 60) / 60
     return String(format: "%01d시간 %01d분", hours, minutes)
   }
 }
