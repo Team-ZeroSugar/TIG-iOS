@@ -161,17 +161,11 @@ extension HomeViewModel {
     
     func remainingTime() -> String {
         let currentTime = state.countTo - state.counter
-        let hours = currentTime / 3600
-        let minutes = (currentTime % 3600) / 60
-        
-        return String(format: "%01d시간 %01d분", hours, minutes)
+        return currentTime.formattedTime()
     }
     
     func getTotalAvailableTime() -> String {
         let totalAvailableTime = state.countTo
-        let hours = totalAvailableTime / 3600
-        let minutes = (totalAvailableTime % 3600) / 60
-        
-        return String(format: "%01d시간 %01d분", hours, minutes)
+        return totalAvailableTime.formattedTime()
     }
 }
