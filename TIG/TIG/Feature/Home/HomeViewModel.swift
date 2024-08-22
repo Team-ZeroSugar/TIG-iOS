@@ -94,8 +94,8 @@ extension HomeViewModel {
     
     // MARK: - TimelineView Function
     // timeline배열을 이어진 상태의 뷰를 짤 수 있도록 도와주는 구조로 변경 해주는 함수
-    func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: Date, end: Date)] {
-        var result: [(isAvailable: Bool, count: Int, start: Date, end: Date)] = []
+    func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
+        var result: [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] = []
         let timelines = state.timelines
         
         if timelines.isEmpty {
@@ -112,9 +112,7 @@ extension HomeViewModel {
                 currentCount += 1
                 currentEnd = timelines[index].end
             } else {
-                
-                // TODO: (Monfi) DateComponents에 맞게 저장
-                //                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
                 currentIsAvailable = timelines[index].isAvailable
                 currentCount = 1
                 currentStart = timelines[index].start
@@ -122,8 +120,7 @@ extension HomeViewModel {
             }
         }
         
-        // TODO: (Monfi) DateComponents에 맞게 저장
-        //        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
     }
     
