@@ -24,18 +24,18 @@ final class HomeViewModel {
 
         // RepeatEditView
         var selectedDay: Day = .sun
-        
-        // TimerView
-        var counter: Int = 0
-        var countTo: Int {
-            if let selectedContent = dailyContents.first(where: { Calendar.current.isDate($0.date, inSameDayAs: currentDate) }) {
-                return selectedContent.totalAvailabilityTime
-            } else {
-                return 0
-            }
-        }
-        var timer: AnyCancellable?
     }
+    
+    // TimerView
+    private var counter: Int = 0
+    private var countTo: Int {
+        if let selectedContent = state.dailyContents.first(where: { Calendar.current.isDate($0.date, inSameDayAs: state.currentDate) }) {
+            return selectedContent.totalAvailabilityTime
+        } else {
+            return 0
+        }
+    }
+    private var timer: AnyCancellable?
     
     enum Action {
         // HomeView
@@ -142,7 +142,7 @@ extension HomeViewModel {
     }
     
     func startTimer() {
-        state.timer = Timer.publish(every: 60, on: .main, in: .common)
+        timer = Timer.publish(every: 60, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 self?.incrementCounter()
@@ -150,22 +150,22 @@ extension HomeViewModel {
     }
     
     func incrementCounter() {
-        if state.counter < state.countTo {
-            state.counter += 60
+        if counter < countTo {
+           counter += 60
         }
     }
     
     func progress() -> CGFloat {
-        return CGFloat(state.counter) / CGFloat(state.countTo)
+        return CGFloat(counter) / CGFloat(countTo)
     }
     
     func remainingTime() -> String {
-        let currentTime = state.countTo - state.counter
+        let currentTime = countTo - counter
         return currentTime.formattedTime()
     }
     
     func getTotalAvailableTime() -> String {
-        let totalAvailableTime = state.countTo
+        let totalAvailableTime = countTo
         return totalAvailableTime.formattedTime()
     }
 }
