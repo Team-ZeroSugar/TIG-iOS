@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct TimerAnnounceView: View {
+struct AnnounceView: View {
     @Environment(HomeViewModel.self) var homeViewModel
 
     var body: some View {
         VStack(alignment: .center) {
             VStack {
-                Image("AvailableIcon")
+                Image(.availableIcon)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 48)
@@ -42,5 +42,5 @@ struct TimerAnnounceView: View {
 }
 
 #Preview {
-    TimerAnnounceView()
+    AnnounceView()
 }
