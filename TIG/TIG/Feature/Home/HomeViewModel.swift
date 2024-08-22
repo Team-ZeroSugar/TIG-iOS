@@ -18,7 +18,8 @@ final class HomeViewModel {
         
         // TimelineView
         var isEditMode: Bool = false
-        //var dailyContents: [DailyContent] = TestData.dailycontents
+        
+        var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
         var timelines: [Timeline] = TestData.dailycontents[0].timelines
 
         // RepeatEditView
@@ -40,6 +41,26 @@ final class HomeViewModel {
     }
     
     private(set) var state: State = .init()
+  
+    private let dailyContentRepository: DailyContentRepository
+    private let weeklyRepeatRepository: WeeklyRepeatRepository
+    private let settingRepository: AppSettingRepository
+  
+    init() {
+      // TODO: DIContainer 주입으로 수정 필요
+        self.dailyContentRepository = DefaultDailyContentRepository()
+        self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
+        self.settingRepository = DefaultAppSettingRepository()
+      
+      let result = dailyContentRepository.readDailyContent(date: .now)
+      switch result {
+      case .success(let data):
+        self.state.dailyContent = data
+        print(self.state.dailyContent)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
     
     func effect(_ action: Action) {
         switch action {
@@ -61,10 +82,7 @@ final class HomeViewModel {
         // RepeatEditView
         case .dayChange(let selectDay):
             self.state.selectedDay = selectDay
-        }
-        
-        
-        
+        }  
     }
 }
 

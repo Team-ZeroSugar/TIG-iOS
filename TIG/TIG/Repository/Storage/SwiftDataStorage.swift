@@ -9,7 +9,11 @@ import Foundation
 import SwiftData
 
 final class SwiftDataStorage {
-  static let modelContext: ModelContext = {
+  
+  static let shared = SwiftDataStorage()
+  private init() {}
+  
+  let modelContext: ModelContext = {
     let schema = Schema([DailyContentSD.self, WeeklyRepeatSD.self])
     let configuration = ModelConfiguration(isStoredInMemoryOnly: false)
     do {

@@ -20,6 +20,8 @@ struct HomeView: View {
   var body: some View {
     NavigationStack {
       ZStack {
+        AppColor.background.ignoresSafeArea()
+        
         ScrollableTabBar(homeViewModel: homeViewModel)
           .ignoresSafeArea(edges: .bottom)
         
@@ -192,7 +194,6 @@ fileprivate struct ScrollableTabBar: View {
             case .time:
               TimerView()
               
-              // TODO: UseCase 주입 방법 재정리 필요
             case .timeline:
               TimelineView()
             }

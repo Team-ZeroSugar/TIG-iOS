@@ -10,7 +10,7 @@ import SwiftData
 
 final class DefaultWeeklyRepeatRepository {
   
-  let modelContext = SwiftDataStorage.modelContext
+  let modelContext = SwiftDataStorage.shared.modelContext
   
   /// 찾으려는 Entity 데이터가 SwiftData에 존재하는지 확인하고 해당 모델을 반환
   /// - Parameter weeklyRepeat: 변활할 WeeklyRepeat 데이터
