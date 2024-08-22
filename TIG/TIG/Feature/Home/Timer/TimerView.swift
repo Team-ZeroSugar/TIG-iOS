@@ -41,7 +41,7 @@ fileprivate struct TimerHeaderView: View {
                 .frame(height: 79)
                 .foregroundStyle(AppColor.gray01)
             HStack(spacing: 20) {
-                Image(homeViewModel.currentTimeline()?.isAvailable == true ? "AvailableIcon" : "UnavailableIcon")
+                Image(homeViewModel.currentTimeline()?.isAvailable == true ? .availableIcon : .unavailableIcon)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 36)
