@@ -7,11 +7,16 @@
 
 import SwiftUI
 
+enum DisplayMode {
+    case auto, light, dark
+}
+
 struct SettingView: View {
     @State private var isAm: Bool = true
     @State private var hour: Int = 12 * 50
     @State private var minute: Int = 0
     @State private var isSheet: Bool = false
+    @State private var selectedMode: DisplayMode = .auto
 
     let hours = [1,2,3,4,5,6,7,8,9,10,11,12]
     let minutes = [0, 30]
@@ -22,6 +27,8 @@ struct SettingView: View {
 
                     HStack {
                         Text("기상 시간")
+                            .font(.custom(AppFont.medium, size: 16))
+                            .foregroundStyle(AppColor.gray04)
                         Spacer()
                         Button(action: {
                             isSheet = true
@@ -38,6 +45,8 @@ struct SettingView: View {
 
                     HStack {
                         Text("취침 시간")
+                            .font(.custom(AppFont.medium, size: 16))
+                            .foregroundStyle(AppColor.gray04)
                         Spacer()
                         Button(action: {
                             isSheet = true
@@ -56,10 +65,15 @@ struct SettingView: View {
             }
 
             Section("화면 모드") {
-                Toggle(isOn: .constant(true), label: {
-                    Text("다크 모드")
-                })
-                .padding(3)
+//                Toggle(isOn: .constant(true), label: {
+//                    Text("다크 모드")
+//                })
+//                .padding(3)
+                ModeButton(selectedMode: $selectedMode, mode: .auto, title: "자동")
+                
+                ModeButton(selectedMode: $selectedMode, mode: .light, title: "라이트 모드")
+
+                ModeButton(selectedMode: $selectedMode, mode: .dark, title: "다크 모드")
             }
 
             Section {
@@ -111,6 +125,34 @@ struct SettingView: View {
         .pickerStyle(.wheel)
         .padding()
 
+    }
+}
+
+struct ModeButton: View {
+    @Binding var selectedMode: DisplayMode
+    let mode: DisplayMode
+    let title: String
+    
+    var body: some View {
+        Button(action: {
+            selectedMode = mode
+        }, label: {
+            HStack {
+                Text(title)
+                    .font(.custom(AppFont.medium, size: 16))
+                    .foregroundStyle(AppColor.gray04)
+                Spacer()
+                if selectedMode == mode {
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 18)
+                        .foregroundStyle(AppColor.blueMain)
+                }
+            }
+            .padding(6)
+        })
+        .padding(.vertical, 3)
     }
 }
 
