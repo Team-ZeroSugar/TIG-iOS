@@ -41,7 +41,11 @@ extension DefaultDailyContentRepository: DailyContentRepository {
     let model = DailyContentSD(
       date: dailyContent.date.formattedDate,
       timelines: dailyContent.timelines.map {
-        TimelineSD(start: $0.start, end: $0.end, isAvailable: $0.isAvailable)
+        TimelineSD(
+          start: $0.start.convertToDate(),
+          end: $0.end.convertToDate(),
+          isAvailable: $0.isAvailable
+        )
       },
       totalAvailabilityTime: dailyContent.totalAvailabilityTime
     )
@@ -87,7 +91,11 @@ extension DefaultDailyContentRepository: DailyContentRepository {
       
       // Entity -> SwiftData로 매핑 후 업데이트
       model.timelines = timelines.map {
-        TimelineSD(start: $0.start, end: $0.end, isAvailable: $0.isAvailable)
+        TimelineSD(
+          start: $0.start.convertToDate(),
+          end: $0.end.convertToDate(),
+          isAvailable: $0.isAvailable
+        )
       }
     case .failure(let error):
       print(error.localizedDescription)

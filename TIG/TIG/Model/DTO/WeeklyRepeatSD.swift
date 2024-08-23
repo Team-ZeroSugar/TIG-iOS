@@ -23,7 +23,20 @@ extension WeeklyRepeatSD {
     func toEntity() -> WeeklyRepeat {
         return WeeklyRepeat(
             day: self.day,
-            timelines: self.timelines.map { $0.toEntity() }
+            timelines: formatDateComponents(self.timelines)
         )
+    }
+  
+    private func formatDateComponents(_ timelines: [TimelineSD]) -> [Timeline] {
+        var timelineEntities = self.timelines.map { $0.toEntity() }
+        let curDay = timelineEntities[0].start.day!
+      
+        for (idx, entity) in timelineEntities.enumerated() {
+            if entity.start.day! != curDay {
+              timelineEntities[idx].start.hour! += 24
+            }
+        }
+        
+        return timelineEntities
     }
 }

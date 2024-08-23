@@ -25,7 +25,7 @@ final class SwiftDataStorage {
   }()
 }
 
-enum SwiftDataError: Error {
-  case notFound
-  case fetchError
+enum SwiftDataError: String, Error {
+  case notFound = "Not Found"
+  case fetchError = "Fetch Error"
 }

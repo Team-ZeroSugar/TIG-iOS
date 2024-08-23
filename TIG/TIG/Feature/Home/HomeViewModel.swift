@@ -58,7 +58,7 @@ final class HomeViewModel {
         self.state.dailyContent = data
         print(self.state.dailyContent)
       case .failure(let error):
-        print(error.localizedDescription)
+        print(error.rawValue)
       }
     }
     

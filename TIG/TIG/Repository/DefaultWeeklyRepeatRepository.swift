@@ -77,7 +77,11 @@ extension DefaultWeeklyRepeatRepository: WeeklyRepeatRepository {
     case .success(let model):
       model.timelines.forEach { modelContext.delete($0) }
       model.timelines = timelines.map {
-        TimelineSD(start: $0.start, end: $0.end, isAvailable: $0.isAvailable)
+        TimelineSD(
+          start: $0.start.convertToDate(),
+          end: $0.end.convertToDate(),
+          isAvailable: $0.isAvailable
+        )
       }
     case .failure(let error):
       print(error.localizedDescription)
