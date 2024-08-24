@@ -34,9 +34,11 @@ struct SettingView: View {
                             isSheet = true
                         }, label: {
                             Text("\(isAm ? "오전" : "오후") \(hours[(hour-1) % 12]) : \(minute.minutesFormat)")
+                                .font(.custom(AppFont.regular, size: 17))
+                                .foregroundStyle(AppColor.blueMain)
                         })
                         .padding(6)
-                        .background(.gray)
+                        .background(AppColor.gray00)
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
@@ -52,9 +54,12 @@ struct SettingView: View {
                             isSheet = true
                         }, label: {
                             Text("\(isAm ? "오전" : "오후") \(hours[(hour-1) % 12]) : \(minute.minutesFormat)")
+                                .font(.custom(AppFont.regular, size: 17))
+                                .foregroundStyle(AppColor.blueMain)
+
                         })
                         .padding(6)
-                        .background(.gray)
+                        .background(AppColor.gray00)
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
