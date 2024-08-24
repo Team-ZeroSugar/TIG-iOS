@@ -49,7 +49,7 @@ struct SettingView: View {
                             isSheet = true
                         }, label: {
                             Text("\(isAm ? "오전" : "오후") \(hours[(hour-1) % 12]) : \(minute.minutesFormat)")
-                                .font(.custom(AppFont.regular, size: 17))
+                                .font(.custom(AppFont.medium, size: 16))
                                 .foregroundStyle(AppColor.blueMain)
                         })
                         .padding(6)
@@ -69,7 +69,7 @@ struct SettingView: View {
                             isSheet = true
                         }, label: {
                             Text("\(isAm ? "오전" : "오후") \(hours[(hour-1) % 12]) : \(minute.minutesFormat)")
-                                .font(.custom(AppFont.regular, size: 17))
+                                .font(.custom(AppFont.medium, size: 16))
                                 .foregroundStyle(AppColor.blueMain)
 
                         })
@@ -79,18 +79,19 @@ struct SettingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                     .padding(3)
-
-
-
             }
 
             Section("화면 모드") {
                 Picker("화면 모드", selection: $selectedMode) {
                     ForEach(DisplayMode.allCases, id: \.self) { item in
                         Text(item.info.value)
+                            .font(.custom(AppFont.bold, size: 16))
                             .tag(item)
                     }
                 }
+                .font(.custom(AppFont.medium, size: 16))
+                .foregroundStyle(AppColor.gray04)
+                .padding(3)
                 .onChange(of: selectedMode) { _, newValue in
                     updateAppColorScheme()
                 }
@@ -102,6 +103,8 @@ struct SettingView: View {
             Section {
                 Toggle(isOn: .constant(true), label: {
                     Text("알림 허용")
+                        .font(.custom(AppFont.medium, size: 16))
+                        .foregroundStyle(AppColor.gray04)
                 })
                 .padding(3)
             } header: {
