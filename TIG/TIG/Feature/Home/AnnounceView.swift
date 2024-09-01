@@ -42,5 +42,5 @@ struct AnnounceView: View {
 }
 
 #Preview {
-    AnnounceView()
+    AnnounceView().environment(HomeViewModel())
 }
