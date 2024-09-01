@@ -10,7 +10,7 @@ import SwiftData
 
 final class DefaultDailyContentRepository {
   
-  let modelContext = SwiftDataStorage.modelContext
+  let modelContext = SwiftDataStorage.shared.modelContext
   
   /// 찾으려는 Entity 데이터가 SwiftData에 존재하는지 확인하고 해당 모델을 반환
   /// - Parameter dailyContent: 변활할 DailyContent 데이터
@@ -41,7 +41,11 @@ extension DefaultDailyContentRepository: DailyContentRepository {
     let model = DailyContentSD(
       date: dailyContent.date.formattedDate,
       timelines: dailyContent.timelines.map {
-        TimelineSD(start: $0.start, end: $0.end, isAvailable: $0.isAvailable)
+        TimelineSD(
+          start: $0.start.convertToDate(),
+          end: $0.end.convertToDate(),
+          isAvailable: $0.isAvailable
+        )
       },
       totalAvailabilityTime: dailyContent.totalAvailabilityTime
     )
@@ -87,7 +91,11 @@ extension DefaultDailyContentRepository: DailyContentRepository {
       
       // Entity -> SwiftData로 매핑 후 업데이트
       model.timelines = timelines.map {
-        TimelineSD(start: $0.start, end: $0.end, isAvailable: $0.isAvailable)
+        TimelineSD(
+          start: $0.start.convertToDate(),
+          end: $0.end.convertToDate(),
+          isAvailable: $0.isAvailable
+        )
       }
     case .failure(let error):
       print(error.localizedDescription)

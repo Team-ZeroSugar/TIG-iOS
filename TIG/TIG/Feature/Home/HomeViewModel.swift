@@ -19,7 +19,8 @@ final class HomeViewModel {
         
         // TimelineView
         var isEditMode: Bool = false
-        var dailyContents: [DailyContent] = TestData.dailycontents
+        
+        var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
         var timelines: [Timeline] = TestData.dailycontents[0].timelines
 
         // RepeatEditView
@@ -58,6 +59,19 @@ final class HomeViewModel {
     }
     
     private(set) var state: State = .init()
+  
+    private let dailyContentRepository: DailyContentRepository
+    private let weeklyRepeatRepository: WeeklyRepeatRepository
+    private let settingRepository: AppSettingRepository
+  
+    init() {
+      // TODO: DIContainer 주입으로 수정 필요
+        self.dailyContentRepository = DefaultDailyContentRepository()
+        self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
+        self.settingRepository = DefaultAppSettingRepository()
+      
+      self.state.dailyContent = self.readDailyContent(.now)
+    }
     
     init() {
         startTimer()
@@ -73,6 +87,7 @@ final class HomeViewModel {
         case .dateTapped(let date):
             self.state.currentDate = date
             self.state.isCalendarVisible = false
+          self.state.dailyContent = readDailyContent(date)
             
         // TimelineView
         case .editTapped:
@@ -83,10 +98,7 @@ final class HomeViewModel {
         // RepeatEditView
         case .dayChange(let selectDay):
             self.state.selectedDay = selectDay
-        }
-        
-        
-        
+        }  
     }
 }
 
@@ -171,4 +183,40 @@ extension HomeViewModel {
         let totalAvailableTime = countTo
         return totalAvailableTime.formattedTime()
     }
+}
+
+extension HomeViewModel {
+  private func readDailyContent(_ date: Date) -> DailyContent {
+    let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
+    
+    switch dailyContentResult {
+    case .success(let dailyContent):
+      print(dailyContent)
+      return dailyContent
+    case .failure(let error):
+      print(error.rawValue)
+      let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: date.weekday)
+      
+      switch weeklyRepeatResult {
+      case .success(let weeklyRepeat):
+        print(weeklyRepeat)
+        let dailyContent = DailyContent(
+          date: date,
+          timelines: weeklyRepeat.timelines,
+          totalAvailabilityTime: 0
+        )
+        
+        dailyContentRepository.createDailyContent(dailyContent)
+        
+        return dailyContent
+      case .failure(let error):
+        print(error.rawValue)
+        return DailyContent(
+          date: date,
+          timelines: [],
+          totalAvailabilityTime: 0
+        )
+      }
+    }
+  }
 }

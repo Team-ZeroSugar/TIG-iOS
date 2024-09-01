@@ -11,11 +11,11 @@ import SwiftData
 @Model
 final class TimelineSD {
     // TODO: Unique ID 추가 필요??
-    var start: DateComponents
-    var end: DateComponents
+    var start: Date
+    var end: Date
     var isAvailable: Bool
     
-    init(start: DateComponents, end: DateComponents, isAvailable: Bool) {
+    init(start: Date, end: Date, isAvailable: Bool) {
         self.start = start
         self.end = end
         self.isAvailable = isAvailable
@@ -25,8 +25,8 @@ final class TimelineSD {
 extension TimelineSD {
     func toEntity() -> Timeline {
         return Timeline(
-            start: self.start,
-            end: self.end,
+            start: self.start.convertToDateCompontents(),
+            end: self.end.convertToDateCompontents(),
             isAvailable: self.isAvailable
         )
     }
