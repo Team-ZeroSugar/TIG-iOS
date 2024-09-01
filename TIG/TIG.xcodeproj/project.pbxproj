@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0947BA9B2C534A93003F186A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9A2C534A93003F186A /* TimerView.swift */; };
-		0947BA9D2C534D87003F186A /* TimerAnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */; };
+		0947BA9D2C534D87003F186A /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* AnnounceView.swift */; };
 		356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimelineView.swift */; };
 		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
@@ -54,7 +54,7 @@
 
 /* Begin PBXFileReference section */
 		0947BA9A2C534A93003F186A /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
-		0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAnnounceView.swift; sourceTree = "<group>"; };
+		0947BA9C2C534D87003F186A /* AnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceView.swift; sourceTree = "<group>"; };
 		356FF03B2C4A89F0005A078C /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		35B315172C573B6E00735F8F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 			children = (
 				577B36712C51E8A60015C9A4 /* HomeView.swift */,
 				577B36732C51E8AD0015C9A4 /* HomeViewModel.swift */,
-				0947BA9C2C534D87003F186A /* TimerAnnounceView.swift */,
+				0947BA9C2C534D87003F186A /* AnnounceView.swift */,
 				57B707372C53BEA600F51FD2 /* Timer */,
 				57B707382C53BEAC00F51FD2 /* Timeline */,
 				573882CD2C74BA00009BD189 /* More */,
@@ -416,7 +416,7 @@
 				0947BA9B2C534A93003F186A /* TimerView.swift in Sources */,
 				573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */,
 				577B36642C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift in Sources */,
-				0947BA9D2C534D87003F186A /* TimerAnnounceView.swift in Sources */,
+				0947BA9D2C534D87003F186A /* AnnounceView.swift in Sources */,
 				577B36662C4BEF8C0015C9A4 /* SwiftDataStorage.swift in Sources */,
 				577B366B2C4BF5E50015C9A4 /* UserDefaults+Ext.swift in Sources */,
 				57A98F422C3CE0FB00863BC6 /* AppFont.swift in Sources */,
@@ -602,7 +602,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
-				DEVELOPMENT_TEAM = C3P52YR8KJ;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIG/App/Info.plist;

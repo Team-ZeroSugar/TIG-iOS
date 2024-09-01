@@ -105,10 +105,8 @@ fileprivate struct TimeMarkerView: View {
             ForEach(timelines.indices, id: \.self) { index in
                 HStack(alignment: .top, spacing: 0) {
                     
-                  // TODO: (Monfi) 임의 수정 (확인해보고 수정)
                   let isHour = timelines[index].start.minute! == 0
                     
-                  // TODO: (Monfi) 임의 수정 (확인해보고 수정)
                   Text(timelines[index].start.formattedTimelineTime()!)
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
@@ -197,36 +195,46 @@ fileprivate struct TimelineContentView: View {
                                 .padding(.vertical, 2)
                             
                             VStack(alignment: .leading, spacing: 0) {
-                                if item.count >= 2 {
-                                    Spacer().frame(height: 16)
+                                VStack(alignment: .leading, spacing: 0) {
                                     
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        Text("\(item.start.formattedTimelineTime()) - \(item.end.formattedTimelineTime())")
+                                    if item.count >= 2 {
+                                        Spacer().frame(height: 16)
+                                        
+                                        Text("\(item.start.formattedTimelineTime()!) - \(item.end.formattedTimelineTime()!)")
                                             .font(.custom(AppFont.medium, size: 12))
                                             .foregroundStyle(AppColor.gray04)
                                         
-                                        Text("활용 가능 시간")
-                                            .padding(.horizontal, 12)
-                                            .padding(.vertical, 5)
-                                            .background(Capsule().fill(AppColor.blueMain))
-                                            .font(.custom(AppFont.medium, size: 12))
-                                            .foregroundColor(.darkWhite)
-                                            
+                                        Spacer().frame(height: 8)
+                                    }
+                                    
+                                    HStack(alignment: .top) {
+                                        if item.count >= 2 {
+                                            Text("활용 가능 시간")
+                                                .padding(.horizontal, 12)
+                                                .padding(.vertical, 5)
+                                                .background(Capsule().fill(AppColor.blueMain))
+                                                .font(.custom(AppFont.medium, size: 12))
+                                                .foregroundColor(.darkWhite)
+                                        }
                                         
-                                    }.padding(.leading, 20)
-                                }
-                                
-                                Spacer()
-                                
-                                HStack {
-                                    Spacer()
-                                    Text("\(item.count.formattedDuration())")
-                                        .font(.custom(AppFont.semiBold, size: 20))
-                                        .foregroundStyle(AppColor.gray04)
-                                        .padding(.trailing, 20)
-                                        .frame(height: 18)
-                                }
-                                Spacer().frame(height: item.count >= 2 ? 16 : 10)
+                                        Spacer()
+                                        
+                                        VStack {
+                                            
+                                            Spacer()
+                                            
+                                            Text("\(item.count.formattedDuration())")
+                                                .font(.custom(AppFont.semiBold, size: 20))
+                                                .foregroundStyle(AppColor.gray04)
+                                                .padding(.trailing, 20)
+                                                .frame(height: 18)
+                                            
+                                            Spacer().frame(height: item.count >= 2 ? 16 : 10)
+                                            
+                                        }
+                                    }
+                                    
+                                }.padding(.leading, 20)
                             }
                         }
                     } else {
