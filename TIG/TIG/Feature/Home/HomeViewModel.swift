@@ -19,9 +19,7 @@ final class HomeViewModel {
         
         // TimelineView
         var isEditMode: Bool = false
-        
         var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
-        var timelines: [Timeline] = TestData.dailycontents[0].timelines
 
         // RepeatEditView
         var selectedDay: Day = .sun
@@ -91,7 +89,7 @@ final class HomeViewModel {
         case .editTapped:
             self.state.isEditMode.toggle()
         case .timeSlotTapped(let index):
-            self.state.timelines[index].isAvailable.toggle()
+            self.state.dailyContent.timelines[index].isAvailable.toggle()
             
         // RepeatEditView
         case .dayChange(let selectDay):
@@ -106,7 +104,7 @@ extension HomeViewModel {
     // timeline배열을 이어진 상태의 뷰를 짤 수 있도록 도와주는 구조로 변경 해주는 함수
     func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
         var result: [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] = []
-        let timelines = state.timelines
+        let timelines = state.dailyContent.timelines
         
         if timelines.isEmpty {
             return result
@@ -143,7 +141,7 @@ extension HomeViewModel {
         let hour = calendar.component(.hour, from: now)
         let minute = calendar.component(.minute, from: now)
         
-        for timeline in state.timelines {
+        for timeline in state.dailyContent.timelines {
             let start = ((timeline.start.hour! * 60) + timeline.start.minute!)
             let end = ((timeline.end.hour! * 60) + timeline.end.minute!)
             if ((hour * 60) + minute) >= start && ((hour * 60) + minute) <= end {
