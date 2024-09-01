@@ -35,7 +35,7 @@ final class HomeViewModel {
 //        } else {
 //            return 0
 //        }
-        let content = state.dailyContents[0]
+        let content = state.dailyContent
         if content.date.formattedDate == .now.formattedDate {
             return content.totalAvailabilityTime
         } else {
@@ -71,10 +71,8 @@ final class HomeViewModel {
         self.settingRepository = DefaultAppSettingRepository()
       
       self.state.dailyContent = self.readDailyContent(.now)
-    }
-    
-    init() {
-        startTimer()
+      
+      startTimer()
     }
     
     func effect(_ action: Action) {
