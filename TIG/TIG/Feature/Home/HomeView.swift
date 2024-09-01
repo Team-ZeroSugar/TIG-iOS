@@ -15,7 +15,6 @@ enum Tab: String, CaseIterable, Hashable {
 // MARK: - (S)HomeView
 struct HomeView: View {
   @Environment(HomeViewModel.self) var homeViewModel
-  @State private var currentDate = Date()
   
   var body: some View {
     NavigationStack {
@@ -55,15 +54,18 @@ struct HomeView: View {
         .overlay {
           DatePicker(
             "날짜 선택",
-            selection: $currentDate,
+            selection: .init(
+              get: { homeViewModel.state.currentDate },
+              set: { homeViewModel.effect(.dateTapped($0)) }
+            ),
             in: .now...,
             displayedComponents: [.date]
           )
           .datePickerStyle(.graphical)
           .frame(width: 300, height: 300)
-          .onChange(of: currentDate) { _, _ in
-            homeViewModel.effect(.dateTapped(currentDate))
-          }
+//          .onChange(of: currentDate) { _, _ in
+//            homeViewModel.effect(.dateTapped(currentDate))
+//          }
         }
         .padding()
     }
@@ -75,7 +77,7 @@ struct HomeView: View {
       homeViewModel.effect(.calendarTapped)
     }, label: {
       HStack {
-        Text(currentDate.pickerFormat)
+        Text(homeViewModel.state.currentDate.pickerFormat)
           .font(.custom(AppFont.semiBold, size: 18))
           .foregroundStyle(AppColor.gray04)
         

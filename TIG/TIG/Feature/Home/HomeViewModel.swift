@@ -52,14 +52,7 @@ final class HomeViewModel {
         self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
         self.settingRepository = DefaultAppSettingRepository()
       
-      let result = dailyContentRepository.readDailyContent(date: .now)
-      switch result {
-      case .success(let data):
-        self.state.dailyContent = data
-        print(self.state.dailyContent)
-      case .failure(let error):
-        print(error.rawValue)
-      }
+      self.state.dailyContent = self.readDailyContent(.now)
     }
     
     func effect(_ action: Action) {
@@ -72,6 +65,7 @@ final class HomeViewModel {
         case .dateTapped(let date):
             self.state.currentDate = date
             self.state.isCalendarVisible = false
+          self.state.dailyContent = readDailyContent(date)
             
         // TimelineView
         case .editTapped:
@@ -122,4 +116,40 @@ extension HomeViewModel {
 //        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
     }
+}
+
+extension HomeViewModel {
+  private func readDailyContent(_ date: Date) -> DailyContent {
+    let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
+    
+    switch dailyContentResult {
+    case .success(let dailyContent):
+      print(dailyContent)
+      return dailyContent
+    case .failure(let error):
+      print(error.rawValue)
+      let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: date.weekday)
+      
+      switch weeklyRepeatResult {
+      case .success(let weeklyRepeat):
+        print(weeklyRepeat)
+        let dailyContent = DailyContent(
+          date: date,
+          timelines: weeklyRepeat.timelines,
+          totalAvailabilityTime: 0
+        )
+        
+        dailyContentRepository.createDailyContent(dailyContent)
+        
+        return dailyContent
+      case .failure(let error):
+        print(error.rawValue)
+        return DailyContent(
+          date: date,
+          timelines: [],
+          totalAvailabilityTime: 0
+        )
+      }
+    }
+  }
 }
