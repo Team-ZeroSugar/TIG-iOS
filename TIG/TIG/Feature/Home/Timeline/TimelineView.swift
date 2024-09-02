@@ -256,6 +256,8 @@ fileprivate struct TimelineContentView: View {
                                 .foregroundStyle(AppColor.gray04)
                                 .frame(height: 14)
                                 .padding(.top, 12)
+                            
+                            Spacer()
                         }
                     }
                 }
