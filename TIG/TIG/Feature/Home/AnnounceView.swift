@@ -27,7 +27,8 @@ struct AnnounceView: View {
             }
             Spacer().frame(height: 32)
             Button(action: {
-                
+                homeViewModel.effect(.settingButtonTapped)
+                homeViewModel.effect(.editTapped)
             }, label: {
                 Text("설정하기")
                     .font(.custom(AppFont.regular, size: 16))
