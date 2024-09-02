@@ -18,23 +18,30 @@ struct TimelineView: View {
     
     var body: some View {
         
-        if !isRepeatView {
-            Spacer().frame(height: 47)
+        if homeViewModel.state.dailyContent.timelines.count == 0 {
             
-            TimelineHeaderView(homeViewModel: homeViewModel)
-                .padding(.horizontal, 20)
-        }
-        
-        ScrollView {
-            VStack {
-                Spacer().frame(height: 20)
+            AnnounceView()
+            
+        } else {
+            if !isRepeatView {
+                Spacer().frame(height: 47)
                 
-                TimelineBodyView(homeViewModel: homeViewModel)
+                TimelineHeaderView(homeViewModel: homeViewModel)
+                    .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
+            
+            ScrollView {
+                VStack {
+                    Spacer().frame(height: 20)
+                    
+                    TimelineBodyView(homeViewModel: homeViewModel)
+                }
+                .padding(.horizontal, 20)
+            }
         }
     }
 }
+
 
 // MARK: - Header View
 fileprivate struct TimelineHeaderView: View {
