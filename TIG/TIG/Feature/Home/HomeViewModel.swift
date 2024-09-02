@@ -20,6 +20,7 @@ final class HomeViewModel {
         // TimelineView
         var isEditMode: Bool = false
         var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
+        var appSetting: AppSetting = .init(wakeupTime: .now, bedTime: .now, isLightMode: false, allowNotifications: false)
 
         // RepeatEditView
         var selectedDay: Day = .sun
@@ -54,6 +55,9 @@ final class HomeViewModel {
         
         // RepeatEditView
         case dayChange(_ day: Day)
+        
+        // AnnounceView
+        case settingButtonTapped
     }
     
     private(set) var state: State = .init()
@@ -63,14 +67,15 @@ final class HomeViewModel {
     private let settingRepository: AppSettingRepository
   
     init() {
-      // TODO: DIContainer 주입으로 수정 필요
+        // TODO: DIContainer 주입으로 수정 필요
         self.dailyContentRepository = DefaultDailyContentRepository()
         self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
         self.settingRepository = DefaultAppSettingRepository()
-      
-      self.state.dailyContent = self.readDailyContent(.now)
-      
-      startTimer()
+        
+        self.state.dailyContent = self.readDailyContent(.now)
+        self.state.appSetting = self.settingRepository.getAppSettings()
+        
+        startTimer()
     }
     
     func effect(_ action: Action) {
@@ -94,7 +99,11 @@ final class HomeViewModel {
         // RepeatEditView
         case .dayChange(let selectDay):
             self.state.selectedDay = selectDay
-        }  
+            
+        // AnnounceView
+        case .settingButtonTapped:
+            self.createTimeline()
+        }
     }
 }
 
@@ -178,6 +187,32 @@ extension HomeViewModel {
     func getTotalAvailableTime() -> String {
         let totalAvailableTime = countTo
         return totalAvailableTime.formattedTime()
+    }
+    
+    // MARK: - AnnounceView Function
+    func createTimeline() {
+//        let wakeupTime = state.appSetting.wakeupTime
+//        let bedtime = state.appSetting.bedTime
+        let calendar = Calendar.current
+        let wakeupTime = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date())!
+//        let bedtime = calendar.date(bySettingHour: 2, minute: 0, second: 0, of: Date())!
+        let bedtime = calendar.date(bySettingHour: 2, minute: 0, second: 0, of: calendar.date(byAdding: .day, value: 1, to: Date())!)!
+        
+        print(wakeupTime, bedtime)
+        
+        var currentTime = wakeupTime
+        
+        while currentTime < bedtime {
+            let nextTime = calendar.date(byAdding: .minute, value: 30, to: currentTime)!
+            
+            let startComponents = calendar.dateComponents([.hour, .minute], from: currentTime)
+            let endComponents = calendar.dateComponents([.hour, .minute], from: nextTime)
+            
+            state.dailyContent.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+            
+            currentTime = nextTime
+        }
+        
     }
 }
 
