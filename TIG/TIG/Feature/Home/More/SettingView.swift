@@ -38,7 +38,7 @@ struct SettingView: View {
 
     var body: some View {
         List {
-            Section("기상/취침 시간 설정") {
+            Section("수면 시간 설정") {
 
                     HStack {
                         Text("기상 시간")
