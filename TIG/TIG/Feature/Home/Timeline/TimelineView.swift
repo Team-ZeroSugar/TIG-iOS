@@ -18,9 +18,11 @@ struct TimelineView: View {
     
     var body: some View {
         
-        if homeViewModel.state.dailyContent.timelines.count == 0 {
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : []
+        
+        if timelines.count == 0 {
             
-            AnnounceView()
+            AnnounceView(isRepeatView: selectedDay != nil)
             
         } else {
             if selectedDay == nil {

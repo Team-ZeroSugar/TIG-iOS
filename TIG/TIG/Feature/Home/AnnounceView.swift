@@ -9,6 +9,11 @@ import SwiftUI
 
 struct AnnounceView: View {
     @Environment(HomeViewModel.self) var homeViewModel
+    private var isRepeatView: Bool
+    
+    init(isRepeatView: Bool = false) {
+        self.isRepeatView = isRepeatView
+    }
 
     var body: some View {
         VStack(alignment: .center) {
@@ -17,13 +22,14 @@ struct AnnounceView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 48)
+                
                 Spacer().frame(height: 24)
-                Text("오늘 일정을 설정해 보세요")
-                    .font(.custom(AppFont.semiBold, size: 20))
+                
+                MainTextView()
+                
                 Spacer().frame(height: 12)
-                Text(homeViewModel.state.activeTab == .time ? "자유롭게 활용 가능한 시간을 알려줄게요" : "자유롭게 활용 가능한 타임라인을 알려줄게요")
-                    .font(.custom(AppFont.regular, size: 16))
-                    .foregroundStyle(AppColor.gray04)
+                
+                SubtextView()
             }
             Spacer().frame(height: 32)
             Button(action: {
@@ -38,6 +44,25 @@ struct AnnounceView: View {
                     .background(AppColor.blueMain)
                     .clipShape(Capsule())
             })
+        }
+    }
+    
+    // MARK: - (F)MainTextView
+    private func MainTextView() -> some View {
+        Text(isRepeatView ? "반복 일정을 설정해 보세요" : "오늘 일정을 설정해 보세요")
+            .font(.custom(AppFont.semiBold, size: 20))
+    }
+    
+    // MARK: - (F)SubtextView
+    private func SubtextView() -> some View {
+        if isRepeatView {
+            return Text("요일별로 고정된 일정을 반복할 수 있어요")
+                .font(.custom(AppFont.regular, size: 16))
+                .foregroundStyle(AppColor.gray04)
+        } else {
+            return Text(homeViewModel.state.activeTab == .time ? "자유롭게 활용 가능한 시간을 알려줄게요" : "자유롭게 활용 가능한 타임라인을 알려줄게요")
+                .font(.custom(AppFont.regular, size: 16))
+                .foregroundStyle(AppColor.gray04)
         }
     }
 }
