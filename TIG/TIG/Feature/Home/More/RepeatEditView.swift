@@ -47,13 +47,20 @@ struct RepeatEditView: View {
             DaySelectView(homeViewModel: homeViewModel)
                 .padding(.horizontal, 33)
             
-            TimelineView(isRepeatView: true)
+            Spacer()
+            
+            TimelineView(selectedDay: homeViewModel.state.selectedDay)
+            
+            Spacer()
         }
+        .ignoresSafeArea(edges: .bottom)
         .navigationTitle("반복 일정 관리")
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {}, label: {
-                    Text("확인")
+                Button(action: {
+                    homeViewModel.effect(.editTapped)
+                }, label: {
+                    Text(homeViewModel.state.isEditMode ? "확인" : "편집")
                 })
             }
         })
