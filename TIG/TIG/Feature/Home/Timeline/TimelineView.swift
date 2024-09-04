@@ -10,10 +10,10 @@ import SwiftUI
 struct TimelineView: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
-    private var isRepeatView: Bool
+    private var selectedDay: Day?
     
-    init(isRepeatView: Bool = false) {
-        self.isRepeatView = isRepeatView
+    init(selectedDay: Day? = nil) {
+        self.selectedDay = selectedDay
     }
     
     var body: some View {
@@ -23,7 +23,7 @@ struct TimelineView: View {
             AnnounceView()
             
         } else {
-            if !isRepeatView {
+            if selectedDay == nil {
                 Spacer().frame(height: 47)
                 
                 TimelineHeaderView(homeViewModel: homeViewModel)
@@ -34,7 +34,7 @@ struct TimelineView: View {
                 VStack {
                     Spacer().frame(height: 20)
                     
-                    TimelineBodyView(homeViewModel: homeViewModel)
+                    TimelineBodyView(homeViewModel: homeViewModel, selectedDay: selectedDay)
                 }
                 .padding(.horizontal, 20)
             }
@@ -75,9 +75,11 @@ fileprivate struct TimelineHeaderView: View {
 fileprivate struct TimelineBodyView: View {
     
     @Bindable private var homeViewModel: HomeViewModel
+    private var selectedDay: Day?
     
-    init(homeViewModel: HomeViewModel) {
+    init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
         self.homeViewModel = homeViewModel
+        self.selectedDay = selectedDay
     }
 
     fileprivate var body: some View {
@@ -99,14 +101,16 @@ fileprivate struct TimelineBodyView: View {
 fileprivate struct TimeMarkerView: View {
     
     @Bindable private var homeViewModel: HomeViewModel
+    private var selectedDay: Day?
     
-    init(homeViewModel: HomeViewModel) {
+    init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
         self.homeViewModel = homeViewModel
+        self.selectedDay = selectedDay
     }
     
     fileprivate var body: some View {
         
-        let timelines = homeViewModel.state.dailyContent.timelines
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeat.timelines
         
         VStack(alignment: .leading, spacing: 0) {
             ForEach(timelines.indices, id: \.self) { index in
@@ -160,15 +164,18 @@ fileprivate struct TimeMarkerView: View {
 fileprivate struct TimelineContentView: View {
     
     @Bindable private var homeViewModel: HomeViewModel
+    private var selectedDay: Day?
     
-    init(homeViewModel: HomeViewModel) {
+    init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
         self.homeViewModel = homeViewModel
+        self.selectedDay = selectedDay
     }
     
     fileprivate var body: some View {
         
-        let timelines = homeViewModel.state.dailyContent.timelines
-        let groupedTimelines = homeViewModel.groupedTimelines()
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeat.timelines
+        
+        let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
         
         if homeViewModel.state.isEditMode {
             VStack(alignment: .leading, spacing:4) {
