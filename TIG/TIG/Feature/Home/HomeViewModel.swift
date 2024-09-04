@@ -20,6 +20,7 @@ final class HomeViewModel {
         // TimelineView
         var isEditMode: Bool = false
         var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
+        var weeklyRepeats: [Day: WeeklyRepeat] = [:]
         var appSetting: AppSetting = .init(wakeupTime: .now, bedTime: .now, isLightMode: false, allowNotifications: false)
 
         // RepeatEditView
@@ -74,6 +75,7 @@ final class HomeViewModel {
         self.settingRepository = DefaultAppSettingRepository()
         
         self.state.dailyContent = self.readDailyContent(.now)
+        self.state.weeklyRepeats = self.readWeeklyRepeats()
         self.state.appSetting = self.settingRepository.getAppSettings()
         
         startTimer()
@@ -252,4 +254,26 @@ extension HomeViewModel {
       }
     }
   }
+    // weekly의 데이터를 가져올때는 모두 있거나, 모두 없거나?
+    
+    private func readWeeklyRepeats() -> [Day: WeeklyRepeat] {
+        // 1. 일~토의 데이터를 가져오기 시도
+        // 1-1. 성공하면 가져와서 데이터 넣기
+        // 1-2. 빈 딕셔너리 리턴
+        
+        var weeklyRepeats: [Day: WeeklyRepeat] = [:]
+        
+        Day.allCases.forEach { day in
+            let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: day.rawValue)
+            
+            switch weeklyRepeatResult {
+            case .success(let weeklyRepeat):
+                weeklyRepeats[day] = weeklyRepeat
+            case .failure(let error):
+                print(error.rawValue)
+            }
+        }
+        
+        return weeklyRepeats
+    }
 }
