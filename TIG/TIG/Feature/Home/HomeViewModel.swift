@@ -55,6 +55,7 @@ final class HomeViewModel {
         
         // RepeatEditView
         case dayChange(_ day: Day)
+        case resetEditMode
         
         // AnnounceView
         case settingButtonTapped
@@ -99,6 +100,8 @@ final class HomeViewModel {
         // RepeatEditView
         case .dayChange(let selectDay):
             self.state.selectedDay = selectDay
+        case .resetEditMode:
+            self.state.isEditMode = false
             
         // AnnounceView
         case .settingButtonTapped:

@@ -64,6 +64,9 @@ struct RepeatEditView: View {
                 })
             }
         })
+        .onAppear() {
+            homeViewModel.effect(.resetEditMode)
+        }
     }
 }
 
