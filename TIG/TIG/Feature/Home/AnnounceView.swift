@@ -33,7 +33,7 @@ struct AnnounceView: View {
             }
             Spacer().frame(height: 32)
             Button(action: {
-                homeViewModel.effect(.settingButtonTapped)
+                homeViewModel.effect(.settingButtonTapped(isWeeklyRepeat: isRepeatView))
                 homeViewModel.effect(.editTapped)
             }, label: {
                 Text("설정하기")

@@ -18,7 +18,7 @@ struct TimelineView: View {
     
     var body: some View {
         
-        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : []
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
         if timelines.count == 0 {
             
@@ -112,7 +112,7 @@ fileprivate struct TimeMarkerView: View {
     
     fileprivate var body: some View {
         
-        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : TestData.timelines
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
         VStack(alignment: .leading, spacing: 0) {
             ForEach(timelines.indices, id: \.self) { index in
@@ -175,7 +175,7 @@ fileprivate struct TimelineContentView: View {
     
     fileprivate var body: some View {
         
-        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : TestData.timelines
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
         let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
         

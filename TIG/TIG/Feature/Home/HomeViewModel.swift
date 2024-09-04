@@ -59,7 +59,7 @@ final class HomeViewModel {
         case resetEditMode
         
         // AnnounceView
-        case settingButtonTapped
+        case settingButtonTapped(isWeeklyRepeat: Bool)
     }
     
     private(set) var state: State = .init()
@@ -106,8 +106,8 @@ final class HomeViewModel {
             self.state.isEditMode = false
             
         // AnnounceView
-        case .settingButtonTapped:
-            self.createTimeline()
+        case .settingButtonTapped(let isWeelyRepeat):
+            self.createTimeline(isWeeklyRepeat: isWeelyRepeat)
         }
     }
 }
@@ -194,7 +194,7 @@ extension HomeViewModel {
     }
     
     // MARK: - AnnounceView Function
-    func createTimeline() {
+    func createTimeline(isWeeklyRepeat: Bool) {
 //        let wakeupTime = state.appSetting.wakeupTime
 //        let bedtime = state.appSetting.bedTime
         let calendar = Calendar.current
@@ -212,7 +212,13 @@ extension HomeViewModel {
             let startComponents = calendar.dateComponents([.hour, .minute], from: currentTime)
             let endComponents = calendar.dateComponents([.hour, .minute], from: nextTime)
             
-            state.dailyContent.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+            if isWeeklyRepeat {
+                Day.allCases.forEach { day in
+                    state.weeklyRepeats[day]?.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+                }
+            } else {
+                state.dailyContent.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+            }
             
             currentTime = nextTime
         }
@@ -271,6 +277,7 @@ extension HomeViewModel {
                 weeklyRepeats[day] = weeklyRepeat
             case .failure(let error):
                 print(error.rawValue)
+                weeklyRepeats[day] = WeeklyRepeat(day: day.rawValue, timelines: [])
             }
         }
         
