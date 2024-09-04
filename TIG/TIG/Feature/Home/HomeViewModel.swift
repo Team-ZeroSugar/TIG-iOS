@@ -52,7 +52,7 @@ final class HomeViewModel {
         
         // TimelineView
         case editTapped
-        case timeSlotTapped(_ index: Int)
+        case timeSlotTapped(_ index: Int, day: Day?)
         
         // RepeatEditView
         case dayChange(_ day: Day)
@@ -96,8 +96,8 @@ final class HomeViewModel {
         // TimelineView
         case .editTapped:
             self.state.isEditMode.toggle()
-        case .timeSlotTapped(let index):
-            self.state.dailyContent.timelines[index].isAvailable.toggle()
+        case .timeSlotTapped(let index, let day):
+            self.toggleTimeSlot(index, day: day)
             
         // RepeatEditView
         case .dayChange(let selectDay):
@@ -115,7 +115,6 @@ final class HomeViewModel {
 extension HomeViewModel {
     
     // MARK: - TimelineView Function
-    // timeline배열을 이어진 상태의 뷰를 짤 수 있도록 도와주는 구조로 변경 해주는 함수
     func groupedTimelines(timelines: [Timeline]) -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
         var result: [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] = []
         
@@ -143,6 +142,14 @@ extension HomeViewModel {
         
         result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
+    }
+    
+    func toggleTimeSlot(_ index: Int, day: Day?) {
+        if day == nil {
+            self.state.dailyContent.timelines[index].isAvailable.toggle()
+        } else {
+            self.state.weeklyRepeats[day!]?.timelines[index].isAvailable.toggle()
+        }
     }
     
     //MARK: - TimerView Function

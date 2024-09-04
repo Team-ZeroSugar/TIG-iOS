@@ -139,10 +139,7 @@ fileprivate struct TimeMarkerView: View {
             // 마지막 시간 표시
             HStack(alignment: .top, spacing: 0) {
               
-              // TODO: (Monfi) 임의 수정 (확인해보고 수정)
               if timelines.last!.end.minute! == 0 {
-                
-                // TODO: (Monfi) 임의 수정 (확인해보고 수정)
                     Text(timelines.last!.end.formattedTimelineTime()!)
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
@@ -183,7 +180,7 @@ fileprivate struct TimelineContentView: View {
             VStack(alignment: .leading, spacing:4) {
                 ForEach(timelines.indices, id: \.self) { index in
                     Button(action: {
-                        homeViewModel.effect(.timeSlotTapped(index))
+                        homeViewModel.effect(.timeSlotTapped(index, day: selectedDay))
                     }, label: {
                         RoundedRectangle(cornerRadius: 8)
                         .fill(timelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
