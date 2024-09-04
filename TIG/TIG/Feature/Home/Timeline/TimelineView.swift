@@ -86,11 +86,11 @@ fileprivate struct TimelineBodyView: View {
         
         HStack(spacing: 0) {
 
-            TimeMarkerView(homeViewModel: homeViewModel)
+            TimeMarkerView(homeViewModel: homeViewModel, selectedDay: selectedDay)
             
             Spacer().frame(width: 18)
             
-            TimelineContentView(homeViewModel: homeViewModel)
+            TimelineContentView(homeViewModel: homeViewModel, selectedDay: selectedDay)
             
         }
         .padding(.bottom, 50)
@@ -110,8 +110,7 @@ fileprivate struct TimeMarkerView: View {
     
     fileprivate var body: some View {
         
-        let timelines = homeViewModel.state.dailyContent.timelines
-//        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeat.timelines
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : TestData.timelines
         
         VStack(alignment: .leading, spacing: 0) {
             ForEach(timelines.indices, id: \.self) { index in
@@ -174,8 +173,7 @@ fileprivate struct TimelineContentView: View {
     
     fileprivate var body: some View {
         
-        let timelines = homeViewModel.state.dailyContent.timelines
-//        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeat.timelines
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : TestData.timelines
         
         let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
         
