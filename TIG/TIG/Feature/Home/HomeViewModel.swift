@@ -111,9 +111,8 @@ extension HomeViewModel {
     
     // MARK: - TimelineView Function
     // timeline배열을 이어진 상태의 뷰를 짤 수 있도록 도와주는 구조로 변경 해주는 함수
-    func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
+    func groupedTimelines(timelines: [Timeline]) -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
         var result: [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] = []
-        let timelines = state.dailyContent.timelines
         
         if timelines.isEmpty {
             return result
