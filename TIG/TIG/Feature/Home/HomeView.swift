@@ -99,7 +99,7 @@ struct HomeView: View {
   private func MenuButton() -> some View {
     Menu {
       NavigationLink {
-        
+        RepeatEditView()
       } label: {
         Label("반복 관리", systemImage: "clock.arrow.circlepath")
       }
