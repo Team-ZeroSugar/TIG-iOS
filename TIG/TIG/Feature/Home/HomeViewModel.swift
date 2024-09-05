@@ -206,7 +206,6 @@ extension HomeViewModel {
 //        let bedtime = state.appSetting.bedTime
         let calendar = Calendar.current
         let wakeupTime = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date())!
-//        let bedtime = calendar.date(bySettingHour: 2, minute: 0, second: 0, of: Date())!
         let bedtime = calendar.date(bySettingHour: 2, minute: 0, second: 0, of: calendar.date(byAdding: .day, value: 1, to: Date())!)!
         
         print(wakeupTime, bedtime)
@@ -230,7 +229,16 @@ extension HomeViewModel {
             currentTime = nextTime
         }
         
+        
+        if isWeeklyRepeat {
+            Day.allCases.forEach { day in
+                // Weekly도 create하는 코드
+            }
+        } else {
+            self.dailyContentRepository.createDailyContent(state.dailyContent)
+        }
     }
+    
 }
 
 extension HomeViewModel {
