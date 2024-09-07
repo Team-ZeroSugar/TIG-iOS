@@ -70,6 +70,11 @@ struct RepeatEditView: View {
         })
         .onAppear() {
             homeViewModel.effect(.resetEditMode)
+            homeViewModel.effect(.setRepeatView(true))
+        }
+        .onDisappear() {
+            homeViewModel.effect(.resetEditMode)
+            homeViewModel.effect(.setRepeatView(false))
         }
     }
 }

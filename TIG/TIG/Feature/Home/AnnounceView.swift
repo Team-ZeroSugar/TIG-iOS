@@ -9,11 +9,6 @@ import SwiftUI
 
 struct AnnounceView: View {
     @Environment(HomeViewModel.self) var homeViewModel
-    private var isRepeatView: Bool
-    
-    init(isRepeatView: Bool = false) {
-        self.isRepeatView = isRepeatView
-    }
 
     var body: some View {
         VStack(alignment: .center) {
@@ -33,7 +28,7 @@ struct AnnounceView: View {
             }
             Spacer().frame(height: 32)
             Button(action: {
-                homeViewModel.effect(.settingButtonTapped(isWeeklyRepeat: isRepeatView))
+                homeViewModel.effect(.settingButtonTapped)
                 homeViewModel.effect(.editTapped)
             }, label: {
                 Text("설정하기")
@@ -49,13 +44,13 @@ struct AnnounceView: View {
     
     // MARK: - (F)MainTextView
     private func MainTextView() -> some View {
-        Text(isRepeatView ? "반복 일정을 설정해 보세요" : "오늘 일정을 설정해 보세요")
+        Text(homeViewModel.state.isRepeatView ? "반복 일정을 설정해 보세요" : "오늘 일정을 설정해 보세요")
             .font(.custom(AppFont.semiBold, size: 20))
     }
     
     // MARK: - (F)SubtextView
     private func SubtextView() -> some View {
-        if isRepeatView {
+        if homeViewModel.state.isRepeatView {
             return Text("요일별로 고정된 일정을 반복할 수 있어요")
                 .font(.custom(AppFont.regular, size: 16))
                 .foregroundStyle(AppColor.gray04)

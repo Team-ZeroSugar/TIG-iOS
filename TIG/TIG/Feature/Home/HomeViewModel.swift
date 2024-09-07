@@ -25,6 +25,7 @@ final class HomeViewModel {
 
         // RepeatEditView
         var selectedDay: Day = .sun
+        var isRepeatView: Bool = false
     }
     
     // TimerView
@@ -57,9 +58,10 @@ final class HomeViewModel {
         // RepeatEditView
         case dayChange(_ day: Day)
         case resetEditMode
+        case setRepeatView(_ isRepeatView: Bool)
         
         // AnnounceView
-        case settingButtonTapped(isWeeklyRepeat: Bool)
+        case settingButtonTapped
     }
     
     private(set) var state: State = .init()
@@ -96,7 +98,7 @@ final class HomeViewModel {
         // TimelineView
         case .editTapped:
             if self.state.isEditMode {
-                updateTimeline(isWeeklyRepeat: false)
+                updateTimeline()
             }
             self.state.isEditMode.toggle()
         case .timeSlotTapped(let index, let day):
@@ -107,10 +109,12 @@ final class HomeViewModel {
             self.state.selectedDay = selectDay
         case .resetEditMode:
             self.state.isEditMode = false
+        case .setRepeatView(let isRepeatView):
+            self.state.isRepeatView = isRepeatView
             
         // AnnounceView
-        case .settingButtonTapped(let isWeelyRepeat):
-            self.createTimeline(isWeeklyRepeat: isWeelyRepeat)
+        case .settingButtonTapped:
+            self.createTimeline()
         }
     }
 }
@@ -155,9 +159,9 @@ extension HomeViewModel {
         }
     }
     
-    func updateTimeline(isWeeklyRepeat: Bool) {
-        if isWeeklyRepeat {
-            
+    func updateTimeline() {
+        if self.state.isRepeatView {
+            // TODO: 반복뷰에서 업데이트하는 기능
         } else {
             self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyContent.timelines)
         }
@@ -212,7 +216,7 @@ extension HomeViewModel {
     }
     
     // MARK: - AnnounceView Function
-    func createTimeline(isWeeklyRepeat: Bool) {
+    func createTimeline() {
 //        let wakeupTime = state.appSetting.wakeupTime
 //        let bedtime = state.appSetting.bedTime
         let calendar = Calendar.current
@@ -229,19 +233,19 @@ extension HomeViewModel {
             let startComponents = calendar.dateComponents([.day, .hour, .minute], from: currentTime)
             let endComponents = calendar.dateComponents([.day, .hour, .minute], from: nextTime)
             
-            if isWeeklyRepeat {
+            if self.state.isRepeatView {
                 Day.allCases.forEach { day in
-                    state.weeklyRepeats[day]?.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+                    self.state.weeklyRepeats[day]?.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
                 }
             } else {
-                state.dailyContent.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+                self.state.dailyContent.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
             }
             
             currentTime = nextTime
         }
         
         
-        if isWeeklyRepeat {
+        if self.state.isRepeatView {
             Day.allCases.forEach { day in
                 // Weekly도 create하는 코드
             }

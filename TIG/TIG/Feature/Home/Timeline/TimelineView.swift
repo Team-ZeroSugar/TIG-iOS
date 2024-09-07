@@ -22,7 +22,7 @@ struct TimelineView: View {
         
         if timelines.isEmpty {
             
-            AnnounceView(isRepeatView: selectedDay != nil)
+            AnnounceView()
             
         } else {
             if selectedDay == nil {
