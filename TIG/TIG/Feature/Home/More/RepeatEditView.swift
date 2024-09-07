@@ -42,10 +42,12 @@ struct RepeatEditView: View {
     
     var body: some View {
         VStack {
-            Spacer().frame(height: 28)
-            
-            DaySelectView(homeViewModel: homeViewModel)
-                .padding(.horizontal, 33)
+            if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
+                Spacer().frame(height: 28)
+                
+                DaySelectView(homeViewModel: homeViewModel)
+                    .padding(.horizontal, 33)
+            }
             
             Spacer()
             
@@ -57,11 +59,13 @@ struct RepeatEditView: View {
         .navigationTitle("반복 일정 관리")
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    homeViewModel.effect(.editTapped)
-                }, label: {
-                    Text(homeViewModel.state.isEditMode ? "확인" : "편집")
-                })
+                if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
+                    Button(action: {
+                        homeViewModel.effect(.editTapped)
+                    }, label: {
+                        Text(homeViewModel.state.isEditMode ? "확인" : "편집")
+                    })
+                }
             }
         })
         .onAppear() {
