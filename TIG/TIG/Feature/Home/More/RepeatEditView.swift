@@ -73,12 +73,10 @@ struct RepeatEditView: View {
             }
         })
         .onAppear() {
-            homeViewModel.effect(.resetEditMode)
-            homeViewModel.effect(.setRepeatView(true))
+            homeViewModel.effect(.enterRepeatView)
         }
         .onDisappear() {
-            homeViewModel.effect(.resetEditMode)
-            homeViewModel.effect(.setRepeatView(false))
+            homeViewModel.effect(.exitRepeatView)
         }
     }
 }

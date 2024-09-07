@@ -57,8 +57,8 @@ final class HomeViewModel {
         
         // RepeatEditView
         case dayChange(_ day: Day)
-        case resetEditMode
-        case setRepeatView(_ isRepeatView: Bool)
+        case enterRepeatView
+        case exitRepeatView
         
         // AnnounceView
         case settingButtonTapped
@@ -107,10 +107,12 @@ final class HomeViewModel {
         // RepeatEditView
         case .dayChange(let selectDay):
             self.state.selectedDay = selectDay
-        case .resetEditMode:
+        case .enterRepeatView:
             self.state.isEditMode = false
-        case .setRepeatView(let isRepeatView):
-            self.state.isRepeatView = isRepeatView
+            self.state.isRepeatView = true
+        case .exitRepeatView:
+            self.state.isEditMode = false
+            self.state.isRepeatView = false
             
         // AnnounceView
         case .settingButtonTapped:
