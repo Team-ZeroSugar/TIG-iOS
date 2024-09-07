@@ -139,7 +139,7 @@ fileprivate struct TimeMarkerView: View {
             // 마지막 시간 표시
             HStack(alignment: .top, spacing: 0) {
               
-              if timelines.last!.end.minute! == 0 {
+                if let endMinute = timelines.last?.end.minute, endMinute == 0 {
                     Text(timelines.last!.end.formattedTimelineTime()!)
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
