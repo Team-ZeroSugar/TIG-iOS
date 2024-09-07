@@ -95,6 +95,9 @@ final class HomeViewModel {
             
         // TimelineView
         case .editTapped:
+            if self.state.isEditMode {
+                updateTimeline(isWeeklyRepeat: false)
+            }
             self.state.isEditMode.toggle()
         case .timeSlotTapped(let index, let day):
             self.toggleTimeSlot(index, day: day)
@@ -149,6 +152,14 @@ extension HomeViewModel {
             self.state.dailyContent.timelines[index].isAvailable.toggle()
         } else {
             self.state.weeklyRepeats[day!]?.timelines[index].isAvailable.toggle()
+        }
+    }
+    
+    func updateTimeline(isWeeklyRepeat: Bool) {
+        if isWeeklyRepeat {
+            
+        } else {
+            self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyContent.timelines)
         }
     }
     
@@ -215,8 +226,8 @@ extension HomeViewModel {
         while currentTime < bedtime {
             let nextTime = calendar.date(byAdding: .minute, value: 30, to: currentTime)!
             
-            let startComponents = calendar.dateComponents([.hour, .minute], from: currentTime)
-            let endComponents = calendar.dateComponents([.hour, .minute], from: nextTime)
+            let startComponents = calendar.dateComponents([.day, .hour, .minute], from: currentTime)
+            let endComponents = calendar.dateComponents([.day, .hour, .minute], from: nextTime)
             
             if isWeeklyRepeat {
                 Day.allCases.forEach { day in
@@ -241,12 +252,14 @@ extension HomeViewModel {
     
 }
 
+
 extension HomeViewModel {
   private func readDailyContent(_ date: Date) -> DailyContent {
     let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
     
     switch dailyContentResult {
-    case .success(let dailyContent):
+    case .success(var dailyContent):
+      dailyContent.timelines = sortTimelines(dailyContent.timelines)
       print(dailyContent)
       return dailyContent
     case .failure(let error):
@@ -275,12 +288,8 @@ extension HomeViewModel {
       }
     }
   }
-    // weekly의 데이터를 가져올때는 모두 있거나, 모두 없거나?
     
     private func readWeeklyRepeats() -> [Day: WeeklyRepeat] {
-        // 1. 일~토의 데이터를 가져오기 시도
-        // 1-1. 성공하면 가져와서 데이터 넣기
-        // 1-2. 빈 딕셔너리 리턴
         
         var weeklyRepeats: [Day: WeeklyRepeat] = [:]
         
@@ -297,5 +306,14 @@ extension HomeViewModel {
         }
         
         return weeklyRepeats
+    }
+    
+    private func sortTimelines(_ timelines: [Timeline]) -> [Timeline] {
+        return timelines.sorted {
+            if $0.start.hour == $1.start.hour {
+                return $0.start.minute ?? 0 < $1.start.minute ?? 0
+            }
+            return $0.start.hour ?? 0 < $1.start.hour ?? 0
+        }
     }
 }
