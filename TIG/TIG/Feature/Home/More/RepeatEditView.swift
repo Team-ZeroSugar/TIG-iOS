@@ -41,19 +41,23 @@ struct RepeatEditView: View {
     @Environment(HomeViewModel.self) var homeViewModel
     
     var body: some View {
-        VStack {
-            if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
-                Spacer().frame(height: 28)
+        ZStack {
+            AppColor.background.ignoresSafeArea()
+            
+            VStack {
+                if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
+                    Spacer().frame(height: 28)
+                    
+                    DaySelectView(homeViewModel: homeViewModel)
+                        .padding(.horizontal, 33)
+                }
                 
-                DaySelectView(homeViewModel: homeViewModel)
-                    .padding(.horizontal, 33)
+                Spacer()
+                
+                TimelineView(selectedDay: homeViewModel.state.selectedDay)
+                
+                Spacer()
             }
-            
-            Spacer()
-            
-            TimelineView(selectedDay: homeViewModel.state.selectedDay)
-            
-            Spacer()
         }
         .ignoresSafeArea(edges: .bottom)
         .navigationTitle("반복 일정 관리")
