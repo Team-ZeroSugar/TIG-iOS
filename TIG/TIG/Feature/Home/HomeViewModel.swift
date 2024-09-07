@@ -161,7 +161,9 @@ extension HomeViewModel {
     
     func updateTimeline() {
         if self.state.isRepeatView {
-            // TODO: 반복뷰에서 업데이트하는 기능
+            Day.allCases.forEach { day in
+                self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyRepeats[day]!.timelines)
+            }
         } else {
             self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyContent.timelines)
         }
@@ -246,8 +248,9 @@ extension HomeViewModel {
         
         
         if self.state.isRepeatView {
+            self.weeklyRepeatRepository.initialWeeklyRepeats()
             Day.allCases.forEach { day in
-                // Weekly도 create하는 코드
+                self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyRepeats[day]!.timelines)
             }
         } else {
             self.dailyContentRepository.createDailyContent(state.dailyContent)
@@ -301,7 +304,8 @@ extension HomeViewModel {
             let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: day.rawValue)
             
             switch weeklyRepeatResult {
-            case .success(let weeklyRepeat):
+            case .success(var weeklyRepeat):
+                weeklyRepeat.timelines = sortTimelines(weeklyRepeat.timelines)
                 weeklyRepeats[day] = weeklyRepeat
             case .failure(let error):
                 print(error.rawValue)
