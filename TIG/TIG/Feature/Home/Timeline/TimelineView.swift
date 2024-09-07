@@ -20,7 +20,7 @@ struct TimelineView: View {
         
         let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
-        if timelines.count == 0 {
+        if timelines.isEmpty {
             
             AnnounceView(isRepeatView: selectedDay != nil)
             
