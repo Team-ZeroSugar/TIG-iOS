@@ -274,7 +274,8 @@ extension HomeViewModel {
       let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: date.weekday)
       
       switch weeklyRepeatResult {
-      case .success(let weeklyRepeat):
+      case .success(var weeklyRepeat):
+        weeklyRepeat.timelines = sortTimelines(weeklyRepeat.timelines)
         print(weeklyRepeat)
         let dailyContent = DailyContent(
           date: date,
