@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @Observable
 final class HomeViewModel {
@@ -18,12 +19,31 @@ final class HomeViewModel {
         
         // TimelineView
         var isEditMode: Bool = false
-        //var dailyContents: [DailyContent] = TestData.dailycontents
-        var timelines: [Timeline] = TestData.dailycontents[0].timelines
+        var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
+        var weeklyRepeats: [Day: WeeklyRepeat] = [:]
+        var appSetting: AppSetting = .init(wakeupTime: .now, bedTime: .now, isLightMode: false, allowNotifications: false)
 
-        // RepeatEditView
+        // WeeklyRepeatView
         var selectedDay: Day = .sun
+        var isRepeatView: Bool = false
     }
+    
+    // TimerView
+    private var counter: Int = 0
+    private var countTo: Int {
+//        if let selectedContent = state.dailyContents.first(where: { Calendar.current.isDate($0.date.formattedDate, inSameDayAs: state.currentDate.formattedDate) }) {
+//            return selectedContent.totalAvailabilityTime
+//        } else {
+//            return 0
+//        }
+        let content = state.dailyContent
+        if content.date.formattedDate == .now.formattedDate {
+            return content.totalAvailabilityTime
+        } else {
+            return 0
+        }
+    }
+    private var timer: AnyCancellable?
     
     enum Action {
         // HomeView
@@ -33,13 +53,35 @@ final class HomeViewModel {
         
         // TimelineView
         case editTapped
-        case timeSlotTapped(_ index: Int)
+        case timeSlotTapped(_ index: Int, day: Day?)
         
-        // RepeatEditView
+        // WeeklyRepeatView
         case dayChange(_ day: Day)
+        case enterRepeatView
+        case exitRepeatView
+        
+        // AnnounceView
+        case settingButtonTapped
     }
     
     private(set) var state: State = .init()
+  
+    private let dailyContentRepository: DailyContentRepository
+    private let weeklyRepeatRepository: WeeklyRepeatRepository
+    private let settingRepository: AppSettingRepository
+  
+    init() {
+        // TODO: DIContainer 주입으로 수정 필요
+        self.dailyContentRepository = DefaultDailyContentRepository()
+        self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
+        self.settingRepository = DefaultAppSettingRepository()
+        
+        self.state.dailyContent = self.readDailyContent(.now)
+        self.state.weeklyRepeats = self.readWeeklyRepeats()
+        self.state.appSetting = self.settingRepository.getAppSettings()
+        
+        startTimer()
+    }
     
     func effect(_ action: Action) {
         switch action {
@@ -51,30 +93,39 @@ final class HomeViewModel {
         case .dateTapped(let date):
             self.state.currentDate = date
             self.state.isCalendarVisible = false
+          self.state.dailyContent = readDailyContent(date)
             
         // TimelineView
         case .editTapped:
+            if self.state.isEditMode {
+                updateTimeline()
+            }
             self.state.isEditMode.toggle()
-        case .timeSlotTapped(let index):
-            self.state.timelines[index].isAvailable.toggle()
+        case .timeSlotTapped(let index, let day):
+            self.toggleTimeSlot(index, day: day)
             
-        // RepeatEditView
+        // WeeklyRepeatView
         case .dayChange(let selectDay):
             self.state.selectedDay = selectDay
+        case .enterRepeatView:
+            self.state.isEditMode = false
+            self.state.isRepeatView = true
+        case .exitRepeatView:
+            self.state.isEditMode = false
+            self.state.isRepeatView = false
+            
+        // AnnounceView
+        case .settingButtonTapped:
+            self.createTimeline()
         }
-        
-        
-        
     }
 }
 
 extension HomeViewModel {
     
     // MARK: - TimelineView Function
-    // timeline배열을 이어진 상태의 뷰를 짤 수 있도록 도와주는 구조로 변경 해주는 함수
-    func groupedTimelines() -> [(isAvailable: Bool, count: Int, start: Date, end: Date)] {
-        var result: [(isAvailable: Bool, count: Int, start: Date, end: Date)] = []
-        let timelines = state.timelines
+    func groupedTimelines(timelines: [Timeline]) -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
+        var result: [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] = []
         
         if timelines.isEmpty {
             return result
@@ -90,9 +141,7 @@ extension HomeViewModel {
                 currentCount += 1
                 currentEnd = timelines[index].end
             } else {
-              
-              // TODO: (Monfi) DateComponents에 맞게 저장
-//                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
                 currentIsAvailable = timelines[index].isAvailable
                 currentCount = 1
                 currentStart = timelines[index].start
@@ -100,8 +149,182 @@ extension HomeViewModel {
             }
         }
         
-      // TODO: (Monfi) DateComponents에 맞게 저장
-//        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
         return result
+    }
+    
+    func toggleTimeSlot(_ index: Int, day: Day?) {
+        if day == nil {
+            self.state.dailyContent.timelines[index].isAvailable.toggle()
+        } else {
+            self.state.weeklyRepeats[day!]?.timelines[index].isAvailable.toggle()
+        }
+    }
+    
+    func updateTimeline() {
+        if self.state.isRepeatView {
+            Day.allCases.forEach { day in
+                self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyRepeats[day]!.timelines)
+            }
+        } else {
+            self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyContent.timelines)
+        }
+    }
+    
+    //MARK: - TimerView Function
+    func currentTimeline() -> (isAvailable: Bool, start: DateComponents, end: DateComponents)? {
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        let hour = calendar.component(.hour, from: now)
+        let minute = calendar.component(.minute, from: now)
+        
+        for timeline in state.dailyContent.timelines {
+            let start = ((timeline.start.hour! * 60) + timeline.start.minute!)
+            let end = ((timeline.end.hour! * 60) + timeline.end.minute!)
+            if ((hour * 60) + minute) >= start && ((hour * 60) + minute) <= end {
+                return (isAvailable: timeline.isAvailable, start: timeline.start, end: timeline.end)
+            }
+        }
+
+        return nil
+    }
+    
+    func startTimer() {
+        timer = Timer.publish(every: 60, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.incrementCounter()
+            }
+    }
+    
+    func incrementCounter() {
+        if counter < countTo {
+           counter += 60
+        }
+    }
+    
+    func progress() -> CGFloat {
+        return CGFloat(counter) / CGFloat(countTo)
+    }
+    
+    func remainingTime() -> String {
+        let currentTime = countTo - counter
+        return currentTime.formattedTime()
+    }
+    
+    func getTotalAvailableTime() -> String {
+        let totalAvailableTime = countTo
+        return totalAvailableTime.formattedTime()
+    }
+    
+    // MARK: - AnnounceView Function
+    func createTimeline() {
+//        let wakeupTime = state.appSetting.wakeupTime
+//        let bedtime = state.appSetting.bedTime
+        let calendar = Calendar.current
+        let wakeupTime = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date())!
+        let bedtime = calendar.date(bySettingHour: 2, minute: 0, second: 0, of: calendar.date(byAdding: .day, value: 1, to: Date())!)!
+        
+        print(wakeupTime, bedtime)
+        
+        var currentTime = wakeupTime
+        
+        while currentTime < bedtime {
+            let nextTime = calendar.date(byAdding: .minute, value: 30, to: currentTime)!
+            
+            let startComponents = calendar.dateComponents([.day, .hour, .minute], from: currentTime)
+            let endComponents = calendar.dateComponents([.day, .hour, .minute], from: nextTime)
+            
+            if self.state.isRepeatView {
+                Day.allCases.forEach { day in
+                    self.state.weeklyRepeats[day]?.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+                }
+            } else {
+                self.state.dailyContent.timelines.append(Timeline(start: startComponents, end: endComponents, isAvailable: true))
+            }
+            
+            currentTime = nextTime
+        }
+        
+        
+        if self.state.isRepeatView {
+            self.weeklyRepeatRepository.initialWeeklyRepeats()
+            Day.allCases.forEach { day in
+                self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyRepeats[day]!.timelines)
+            }
+        } else {
+            self.dailyContentRepository.createDailyContent(state.dailyContent)
+        }
+    }
+    
+}
+
+
+extension HomeViewModel {
+  private func readDailyContent(_ date: Date) -> DailyContent {
+    let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
+    
+    switch dailyContentResult {
+    case .success(var dailyContent):
+      dailyContent.timelines = sortTimelines(dailyContent.timelines)
+      print(dailyContent)
+      return dailyContent
+    case .failure(let error):
+      print(error.rawValue)
+      let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: date.weekday)
+      
+      switch weeklyRepeatResult {
+      case .success(var weeklyRepeat):
+        weeklyRepeat.timelines = sortTimelines(weeklyRepeat.timelines)
+        print(weeklyRepeat)
+        let dailyContent = DailyContent(
+          date: date,
+          timelines: weeklyRepeat.timelines,
+          totalAvailabilityTime: 0
+        )
+        
+        dailyContentRepository.createDailyContent(dailyContent)
+        
+        return dailyContent
+      case .failure(let error):
+        print(error.rawValue)
+        return DailyContent(
+          date: date,
+          timelines: [],
+          totalAvailabilityTime: 0
+        )
+      }
+    }
+  }
+    
+    private func readWeeklyRepeats() -> [Day: WeeklyRepeat] {
+        
+        var weeklyRepeats: [Day: WeeklyRepeat] = [:]
+        
+        Day.allCases.forEach { day in
+            let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: day.rawValue)
+            
+            switch weeklyRepeatResult {
+            case .success(var weeklyRepeat):
+                weeklyRepeat.timelines = sortTimelines(weeklyRepeat.timelines)
+                weeklyRepeats[day] = weeklyRepeat
+            case .failure(let error):
+                print(error.rawValue)
+                weeklyRepeats[day] = WeeklyRepeat(day: day.rawValue, timelines: [])
+            }
+        }
+        
+        return weeklyRepeats
+    }
+    
+    private func sortTimelines(_ timelines: [Timeline]) -> [Timeline] {
+        return timelines.sorted {
+            if $0.start.hour == $1.start.hour {
+                return $0.start.minute ?? 0 < $1.start.minute ?? 0
+            }
+            return $0.start.hour ?? 0 < $1.start.hour ?? 0
+        }
     }
 }

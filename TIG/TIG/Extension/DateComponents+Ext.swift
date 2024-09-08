@@ -33,4 +33,8 @@ extension DateComponents {
             return formattedTime + " " + minutes + "분"
         }
     }
+  
+  func convertToDate() -> Date {
+      return Calendar.current.date(from: self)!
+  }
 }

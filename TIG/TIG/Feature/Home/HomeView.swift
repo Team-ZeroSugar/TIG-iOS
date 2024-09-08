@@ -15,11 +15,12 @@ enum Tab: String, CaseIterable, Hashable {
 // MARK: - (S)HomeView
 struct HomeView: View {
   @Environment(HomeViewModel.self) var homeViewModel
-  @State private var currentDate = Date()
   
   var body: some View {
     NavigationStack {
       ZStack {
+        AppColor.background.ignoresSafeArea()
+        
         ScrollableTabBar(homeViewModel: homeViewModel)
           .ignoresSafeArea(edges: .bottom)
         
@@ -53,15 +54,18 @@ struct HomeView: View {
         .overlay {
           DatePicker(
             "날짜 선택",
-            selection: $currentDate,
+            selection: .init(
+              get: { homeViewModel.state.currentDate },
+              set: { homeViewModel.effect(.dateTapped($0)) }
+            ),
             in: .now...,
             displayedComponents: [.date]
           )
           .datePickerStyle(.graphical)
           .frame(width: 300, height: 300)
-          .onChange(of: currentDate) { _, _ in
-            homeViewModel.effect(.dateTapped(currentDate))
-          }
+//          .onChange(of: currentDate) { _, _ in
+//            homeViewModel.effect(.dateTapped(currentDate))
+//          }
         }
         .padding()
     }
@@ -73,14 +77,14 @@ struct HomeView: View {
       homeViewModel.effect(.calendarTapped)
     }, label: {
       HStack {
-        Text(currentDate.pickerFormat)
+        Text(homeViewModel.state.currentDate.pickerFormat)
           .font(.custom(AppFont.semiBold, size: 18))
           .foregroundStyle(AppColor.gray04)
         
         Image(systemName: "chevron.down")
           .resizable()
           .aspectRatio(contentMode: .fit)
-          .frame(width: 18, height: 18)
+          .frame(width: 16, height: 16)
           .foregroundColor(AppColor.gray04)
           .rotationEffect(
             .degrees(
@@ -95,7 +99,7 @@ struct HomeView: View {
   private func MenuButton() -> some View {
     Menu {
       NavigationLink {
-        
+        WeeklyRepeatView()
       } label: {
         Label("반복 관리", systemImage: "clock.arrow.circlepath")
       }
@@ -192,7 +196,6 @@ fileprivate struct ScrollableTabBar: View {
             case .time:
               TimerView()
               
-              // TODO: UseCase 주입 방법 재정리 필요
             case .timeline:
               TimelineView()
             }

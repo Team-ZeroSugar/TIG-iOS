@@ -56,4 +56,9 @@ extension Date {
     }
     
   }
+  
+  func convertToDateCompontents() -> DateComponents {
+    let calendar = Calendar.current
+    return calendar.dateComponents([.day, .hour, .minute], from: self)
+  }
 }

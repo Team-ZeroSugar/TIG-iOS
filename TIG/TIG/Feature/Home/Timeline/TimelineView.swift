@@ -10,36 +10,45 @@ import SwiftUI
 struct TimelineView: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
-    private var isRepeatView: Bool
+    private var selectedDay: Day?
     
-    init(isRepeatView: Bool = false) {
-        self.isRepeatView = isRepeatView
+    init(selectedDay: Day? = nil) {
+        self.selectedDay = selectedDay
     }
     
     var body: some View {
         
-        if !isRepeatView {
-            Spacer().frame(height: 47)
-            
-            TimelineHeaderView(homeViewModel: homeViewModel)
-                .padding(.horizontal, 20)
-        }
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
-        ScrollView {
-            VStack {
-                Spacer().frame(height: 20)
+        if timelines.isEmpty {
+            
+            AnnounceView()
+            
+        } else {
+            if selectedDay == nil {
+                Spacer().frame(height: 47)
                 
-                TimelineBodyView(homeViewModel: homeViewModel)
+                TimelineHeaderView(homeViewModel: homeViewModel)
+                    .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
+            
+            ScrollView {
+                VStack {
+                    Spacer().frame(height: 20)
+                    
+                    TimelineBodyView(homeViewModel: homeViewModel, selectedDay: selectedDay)
+                }
+                .padding(.horizontal, 20)
+            }
         }
     }
 }
 
+
 // MARK: - Header View
 fileprivate struct TimelineHeaderView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
     
     init(homeViewModel: HomeViewModel) {
         self.homeViewModel = homeViewModel
@@ -67,21 +76,23 @@ fileprivate struct TimelineHeaderView: View {
 // MARK: - Body View
 fileprivate struct TimelineBodyView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
+    private var selectedDay: Day?
     
-    init(homeViewModel: HomeViewModel) {
+    init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
         self.homeViewModel = homeViewModel
+        self.selectedDay = selectedDay
     }
 
     fileprivate var body: some View {
         
         HStack(spacing: 0) {
 
-            TimeMarkerView(homeViewModel: homeViewModel)
+            TimeMarkerView(homeViewModel: homeViewModel, selectedDay: selectedDay)
             
             Spacer().frame(width: 18)
             
-            TimelineContentView(homeViewModel: homeViewModel)
+            TimelineContentView(homeViewModel: homeViewModel, selectedDay: selectedDay)
             
         }
         .padding(.bottom, 50)
@@ -91,24 +102,24 @@ fileprivate struct TimelineBodyView: View {
 // MARK: - TimeMarkerView
 fileprivate struct TimeMarkerView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
+    private var selectedDay: Day?
     
-    init(homeViewModel: HomeViewModel) {
+    init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
         self.homeViewModel = homeViewModel
+        self.selectedDay = selectedDay
     }
     
     fileprivate var body: some View {
         
-        let timelines = homeViewModel.state.timelines
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
         VStack(alignment: .leading, spacing: 0) {
             ForEach(timelines.indices, id: \.self) { index in
                 HStack(alignment: .top, spacing: 0) {
                     
-                  // TODO: (Monfi) 임의 수정 (확인해보고 수정)
                   let isHour = timelines[index].start.minute! == 0
                     
-                  // TODO: (Monfi) 임의 수정 (확인해보고 수정)
                   Text(timelines[index].start.formattedTimelineTime()!)
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
@@ -128,10 +139,7 @@ fileprivate struct TimeMarkerView: View {
             // 마지막 시간 표시
             HStack(alignment: .top, spacing: 0) {
               
-              // TODO: (Monfi) 임의 수정 (확인해보고 수정)
-              if timelines.last!.end.minute! == 0 {
-                
-                // TODO: (Monfi) 임의 수정 (확인해보고 수정)
+                if let endMinute = timelines.last?.end.minute, endMinute == 0 {
                     Text(timelines.last!.end.formattedTimelineTime()!)
                         .frame(width: 47, height: 14, alignment: .leading)
                         .font(.custom(AppFont.medium, size: 12))
@@ -154,22 +162,25 @@ fileprivate struct TimeMarkerView: View {
 // MARK: - TimelineContentView
 fileprivate struct TimelineContentView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
+    private var selectedDay: Day?
     
-    init(homeViewModel: HomeViewModel) {
+    init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
         self.homeViewModel = homeViewModel
+        self.selectedDay = selectedDay
     }
     
     fileprivate var body: some View {
         
-        let timelines = homeViewModel.state.timelines
-        let groupedTimelines = homeViewModel.groupedTimelines()
+        let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
+        
+        let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
         
         if homeViewModel.state.isEditMode {
             VStack(alignment: .leading, spacing:4) {
                 ForEach(timelines.indices, id: \.self) { index in
                     Button(action: {
-                        homeViewModel.effect(.timeSlotTapped(index))
+                        homeViewModel.effect(.timeSlotTapped(index, day: selectedDay))
                     }, label: {
                         RoundedRectangle(cornerRadius: 8)
                         .fill(timelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
@@ -197,36 +208,46 @@ fileprivate struct TimelineContentView: View {
                                 .padding(.vertical, 2)
                             
                             VStack(alignment: .leading, spacing: 0) {
-                                if item.count >= 2 {
-                                    Spacer().frame(height: 16)
+                                VStack(alignment: .leading, spacing: 0) {
                                     
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        Text("\(item.start.formattedTimelineTime()) - \(item.end.formattedTimelineTime())")
+                                    if item.count >= 2 {
+                                        Spacer().frame(height: 16)
+                                        
+                                        Text("\(item.start.formattedTimelineTime()!) - \(item.end.formattedTimelineTime()!)")
                                             .font(.custom(AppFont.medium, size: 12))
                                             .foregroundStyle(AppColor.gray04)
                                         
-                                        Text("활용 가능 시간")
-                                            .padding(.horizontal, 12)
-                                            .padding(.vertical, 5)
-                                            .background(Capsule().fill(AppColor.blueMain))
-                                            .font(.custom(AppFont.medium, size: 12))
-                                            .foregroundColor(.darkWhite)
-                                            
+                                        Spacer().frame(height: 8)
+                                    }
+                                    
+                                    HStack(alignment: .top) {
+                                        if item.count >= 2 {
+                                            Text("활용 가능 시간")
+                                                .padding(.horizontal, 12)
+                                                .padding(.vertical, 5)
+                                                .background(Capsule().fill(AppColor.blueMain))
+                                                .font(.custom(AppFont.medium, size: 12))
+                                                .foregroundColor(.darkWhite)
+                                        }
                                         
-                                    }.padding(.leading, 20)
-                                }
-                                
-                                Spacer()
-                                
-                                HStack {
-                                    Spacer()
-                                    Text("\(item.count.formattedDuration())")
-                                        .font(.custom(AppFont.semiBold, size: 20))
-                                        .foregroundStyle(AppColor.gray04)
-                                        .padding(.trailing, 20)
-                                        .frame(height: 18)
-                                }
-                                Spacer().frame(height: item.count >= 2 ? 16 : 10)
+                                        Spacer()
+                                        
+                                        VStack {
+                                            
+                                            Spacer()
+                                            
+                                            Text("\(item.count.formattedDuration())")
+                                                .font(.custom(AppFont.semiBold, size: 20))
+                                                .foregroundStyle(AppColor.gray04)
+                                                .padding(.trailing, 20)
+                                                .frame(height: 18)
+                                            
+                                            Spacer().frame(height: item.count >= 2 ? 16 : 10)
+                                            
+                                        }
+                                    }
+                                    
+                                }.padding(.leading, 20)
                             }
                         }
                     } else {
@@ -241,6 +262,8 @@ fileprivate struct TimelineContentView: View {
                                 .foregroundStyle(AppColor.gray04)
                                 .frame(height: 14)
                                 .padding(.top, 12)
+                            
+                            Spacer()
                         }
                     }
                 }
