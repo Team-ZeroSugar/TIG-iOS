@@ -48,7 +48,7 @@ struct TimelineView: View {
 // MARK: - Header View
 fileprivate struct TimelineHeaderView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
     
     init(homeViewModel: HomeViewModel) {
         self.homeViewModel = homeViewModel
@@ -76,7 +76,7 @@ fileprivate struct TimelineHeaderView: View {
 // MARK: - Body View
 fileprivate struct TimelineBodyView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
     private var selectedDay: Day?
     
     init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
@@ -102,7 +102,7 @@ fileprivate struct TimelineBodyView: View {
 // MARK: - TimeMarkerView
 fileprivate struct TimeMarkerView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
     private var selectedDay: Day?
     
     init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
@@ -162,7 +162,7 @@ fileprivate struct TimeMarkerView: View {
 // MARK: - TimelineContentView
 fileprivate struct TimelineContentView: View {
     
-    @Bindable private var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel
     private var selectedDay: Day?
     
     init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
