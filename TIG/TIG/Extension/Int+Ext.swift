@@ -35,4 +35,12 @@ extension Int {
     let minutes = (self % 60) / 60
     return String(format: "%01d시간 %01d분", hours, minutes)
   }
+  
+  func convertKoreanTimeFormat() -> String {
+    let ampm = self / 24 == 1 ? "오후" : "오전"
+    var hour = "\(self / 2)"
+    let minute = self % 2 == 0 ? "00" : "30"
+    
+    return "\(ampm) \(hour):\(minute)"
+  }
 }
