@@ -36,7 +36,7 @@ enum Day: Int, CaseIterable {
     }
 }
 
-struct RepeatEditView: View {
+struct WeeklyRepeatView: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
     
@@ -115,5 +115,5 @@ fileprivate struct DaySelectView: View {
 }
 
 #Preview {
-    RepeatEditView().environment(HomeViewModel())
+    WeeklyRepeatView().environment(HomeViewModel())
 }

@@ -23,7 +23,7 @@ final class HomeViewModel {
         var weeklyRepeats: [Day: WeeklyRepeat] = [:]
         var appSetting: AppSetting = .init(wakeupTime: .now, bedTime: .now, isLightMode: false, allowNotifications: false)
 
-        // RepeatEditView
+        // WeeklyRepeatView
         var selectedDay: Day = .sun
         var isRepeatView: Bool = false
     }
@@ -55,7 +55,7 @@ final class HomeViewModel {
         case editTapped
         case timeSlotTapped(_ index: Int, day: Day?)
         
-        // RepeatEditView
+        // WeeklyRepeatView
         case dayChange(_ day: Day)
         case enterRepeatView
         case exitRepeatView
@@ -104,7 +104,7 @@ final class HomeViewModel {
         case .timeSlotTapped(let index, let day):
             self.toggleTimeSlot(index, day: day)
             
-        // RepeatEditView
+        // WeeklyRepeatView
         case .dayChange(let selectDay):
             self.state.selectedDay = selectDay
         case .enterRepeatView:
