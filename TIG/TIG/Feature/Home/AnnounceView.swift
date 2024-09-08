@@ -24,7 +24,7 @@ struct AnnounceView: View {
                 
                 Spacer().frame(height: 12)
                 
-                SubtextView()
+                SubTextView()
             }
             Spacer().frame(height: 32)
             Button(action: {
@@ -48,8 +48,8 @@ struct AnnounceView: View {
             .font(.custom(AppFont.semiBold, size: 20))
     }
     
-    // MARK: - (F)SubtextView
-    private func SubtextView() -> some View {
+    // MARK: - (F)SubTextView
+    private func SubTextView() -> some View {
         if homeViewModel.state.isRepeatView {
             return Text("요일별로 고정된 일정을 반복할 수 있어요")
                 .font(.custom(AppFont.regular, size: 16))
