@@ -88,6 +88,8 @@
 /* Begin PBXFileReference section */
 		0947BA9A2C534A93003F186A /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		0947BA9C2C534D87003F186A /* AnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceView.swift; sourceTree = "<group>"; };
+		35529A7D2C8EA59E005A579D /* TIG.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TIG.entitlements; sourceTree = "<group>"; };
+		35529A7E2C8EA614005A579D /* TIGWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TIGWidgetExtension.entitlements; sourceTree = "<group>"; };
 		356FF03B2C4A89F0005A078C /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		359369E22C759AEB00BE24FF /* TIGWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TIGWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		359369E42C759AEB00BE24FF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -232,6 +234,7 @@
 		57A98EFB2C3CCAB600863BC6 = {
 			isa = PBXGroup;
 			children = (
+				35529A7E2C8EA614005A579D /* TIGWidgetExtension.entitlements */,
 				57A98F062C3CCAB600863BC6 /* TIG */,
 				359369E82C759AEB00BE24FF /* TIGWidget */,
 				359369E32C759AEB00BE24FF /* Frameworks */,
@@ -251,6 +254,7 @@
 		57A98F062C3CCAB600863BC6 /* TIG */ = {
 			isa = PBXGroup;
 			children = (
+				35529A7D2C8EA59E005A579D /* TIG.entitlements */,
 				57A98F172C3CD3DF00863BC6 /* App */,
 				57A98F402C3CE0F200863BC6 /* Constant */,
 				57A98F2B2C3CDADF00863BC6 /* Extension */,
@@ -568,6 +572,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TIGWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C3P52YR8KJ;
@@ -595,6 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TIGWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C3P52YR8KJ;
@@ -742,6 +748,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TIG/TIG.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
@@ -778,6 +785,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TIG/TIG.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
