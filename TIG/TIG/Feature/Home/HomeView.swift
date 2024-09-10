@@ -161,7 +161,7 @@ fileprivate struct ScrollableTabBar: View {
           },
           label: {
             Text(tab.rawValue)
-              .font(.custom(AppFont.semiBold, size: 20))
+              .font(.custom(AppFont.semiBold, size: 18))
               .frame(
                 width: (size.width) / 2,
                 height: 40

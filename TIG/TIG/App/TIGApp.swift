@@ -11,12 +11,15 @@ import SwiftUI
 struct TIGApp: App {
 
     @State private var homeViewModel = HomeViewModel()
+    @StateObject private var appSettings = AppSettings(settings: AppSetting(wakeupTime: Date(), bedTime: Date(), isLightMode: true, allowNotifications: true))
     
     var body: some Scene {
         WindowGroup {
 //            OnboardingView()
             HomeView()
                 .environment(homeViewModel)
+                .environmentObject(appSettings)
+                .preferredColorScheme(appSettings.colorScheme)
         }
     }
 }
