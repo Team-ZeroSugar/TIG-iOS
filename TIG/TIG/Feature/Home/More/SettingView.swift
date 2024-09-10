@@ -50,9 +50,6 @@ struct SettingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                     .padding(3)
-
-
-
             }
 
             Section("화면 모드") {
