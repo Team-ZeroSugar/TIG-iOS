@@ -12,6 +12,7 @@ struct TIGApp: App {
   
   @AppStorage(UserDefaultsKey.isOnboarding) private var isOnboarding: Bool = true
   @State private var homeViewModel = HomeViewModel()
+  @StateObject private var appSettings = AppSettings(settings: AppSetting(wakeupTime: Date(), bedTime: Date(), isLightMode: true, allowNotifications: true))
   
   var body: some Scene {
     WindowGroup {
@@ -21,6 +22,8 @@ struct TIGApp: App {
       } else {
         HomeView()
           .environment(homeViewModel)
+          .environmentObject(appSettings)
+          .preferredColorScheme(appSettings.colorScheme)
       }
     }
   }
