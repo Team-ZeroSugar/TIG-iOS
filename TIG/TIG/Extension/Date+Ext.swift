@@ -26,14 +26,14 @@ extension Date {
     // 타임존(UTC 시간관련된 개념) 설정
     calendar.timeZone = .current
     
-    var dateComponent = calendar.dateComponents([.year, .month, .day, .weekday], from: self)
+    let dateComponent = calendar.dateComponents([.year, .month, .day, .weekday], from: self)
     
     return calendar.date(from: dateComponent)!
   }
   
   /// 요일을 반환 (일: 1 ~ 토: 7)
   var weekday: Int {
-    var dateComponent = Calendar.current.dateComponents([.weekday], from: self)
+    let dateComponent = Calendar.current.dateComponents([.weekday], from: self)
     return dateComponent.weekday!
   }
   
