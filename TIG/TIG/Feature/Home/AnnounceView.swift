@@ -34,7 +34,6 @@ struct AnnounceView: View {
             Spacer().frame(height: 32)
             Button(action: {
                 homeViewModel.effect(.settingButtonTapped)
-                homeViewModel.effect(.editTapped)
                 
                 if !isTimelineView {
                     homeViewModel.effect(.tabChange(.timeline))
