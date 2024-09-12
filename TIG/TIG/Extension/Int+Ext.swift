@@ -30,9 +30,35 @@ extension Int {
     return result
   }
   
+  
   func formattedTime() -> String {
     let hours = self / 60
     let minutes = (self % 60) / 60
     return String(format: "%01d시간 %01d분", hours, minutes)
+  }
+  
+  /// 0..<48 범위에 존재하는 값을 시간으로 변환
+  /// 0 : 오전 12:00 / 1 : 오전 12:30 / ... / 47 : 오후 11:30
+  /// - Returns: ex) 오전 12:00
+  func convertKoreanTimeFormat() -> String {
+    let ampm = self / 24 == 1 ? "오후" : "오전"
+    var hour = self < 26 ? self / 2 : self / 2 - 12
+    if hour == 0 { hour = 12 }
+    
+    let minute = self % 2 == 0 ? "00" : "30"
+    
+    return String(format: "%@ %2d:%@", ampm, hour, minute)
+  }
+  
+  func convertDateFormat() -> Date {
+    let hour = self / 2
+    let minute = self % 2 == 0 ? 0 : 30
+    
+    var components = DateComponents()
+    components.year = 2024
+    components.hour = hour
+    components.minute = minute
+    
+    return Calendar.current.date(from: components)!
   }
 }
