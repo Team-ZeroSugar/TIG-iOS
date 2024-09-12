@@ -221,13 +221,9 @@ extension HomeViewModel {
     
     // MARK: - AnnounceView Function
     func createTimeline() {
-//        let wakeupTime = state.appSetting.wakeupTime
-//        let bedtime = state.appSetting.bedTime
+        let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex).convertDateFormat()
+        let bedtime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex).convertDateFormat()
         let calendar = Calendar.current
-        let wakeupTime = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: Date())!
-        let bedtime = calendar.date(bySettingHour: 2, minute: 0, second: 0, of: calendar.date(byAdding: .day, value: 1, to: Date())!)!
-        
-        print(wakeupTime, bedtime)
         
         var currentTime = wakeupTime
         
