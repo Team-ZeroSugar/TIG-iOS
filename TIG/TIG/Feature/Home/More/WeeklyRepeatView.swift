@@ -36,27 +36,48 @@ enum Day: Int, CaseIterable {
     }
 }
 
-struct RepeatEditView: View {
+struct WeeklyRepeatView: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
     
     var body: some View {
-        VStack {
-            Spacer().frame(height: 28)
+        ZStack {
+            AppColor.background.ignoresSafeArea()
             
-            DaySelectView(homeViewModel: homeViewModel)
-                .padding(.horizontal, 33)
-            
-            TimelineView(isRepeatView: true)
+            VStack {
+                if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
+                    Spacer().frame(height: 28)
+                    
+                    DaySelectView(homeViewModel: homeViewModel)
+                        .padding(.horizontal, 33)
+                }
+                
+                Spacer()
+                
+                TimelineView(selectedDay: homeViewModel.state.selectedDay)
+                
+                Spacer()
+            }
         }
+        .ignoresSafeArea(edges: .bottom)
         .navigationTitle("반복 일정 관리")
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {}, label: {
-                    Text("확인")
-                })
+                if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
+                    Button(action: {
+                        homeViewModel.effect(.editTapped)
+                    }, label: {
+                        Text(homeViewModel.state.isEditMode ? "확인" : "편집")
+                    })
+                }
             }
         })
+        .onAppear() {
+            homeViewModel.effect(.enterRepeatView)
+        }
+        .onDisappear() {
+            homeViewModel.effect(.exitRepeatView)
+        }
     }
 }
 
@@ -94,5 +115,5 @@ fileprivate struct DaySelectView: View {
 }
 
 #Preview {
-    RepeatEditView().environment(HomeViewModel())
+    WeeklyRepeatView().environment(HomeViewModel())
 }

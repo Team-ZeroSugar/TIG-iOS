@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct AppColor {
+  static let gray00 = Color(.gray00)
   static let gray01 = Color(.gray01)
   static let gray02 = Color(.gray02)
   static let gray03 = Color(.gray03)
