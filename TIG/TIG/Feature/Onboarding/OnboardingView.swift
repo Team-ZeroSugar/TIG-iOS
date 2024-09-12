@@ -166,12 +166,18 @@ fileprivate struct SleepTimeSettingView: View {
       
       Spacer()
       
-      CustomWheelPicker(selectedIndex: $selectedIndex)
-        .background {
-          RoundedRectangle(cornerRadius: 10)
-            .fill(AppColor.blueTimeline)
-            .frame(width: 200, height: 40)
+      Image(.circles)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .overlay {
+          CustomWheelPicker(selectedIndex: $selectedIndex)
+            .background {
+              RoundedRectangle(cornerRadius: 10)
+                .fill(AppColor.blueMain.opacity(0.5))
+                .frame(width: 200, height: 40)
+            }
         }
+      
       Spacer()
     }
   }
