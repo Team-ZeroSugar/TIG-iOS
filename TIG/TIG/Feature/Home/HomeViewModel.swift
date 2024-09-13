@@ -284,9 +284,6 @@ extension HomeViewModel {
           timelines: weeklyRepeat.timelines,
           totalAvailabilityTime: 0
         )
-        
-        dailyContentRepository.createDailyContent(dailyContent)
-        
         return dailyContent
       case .failure(let error):
         print(error.rawValue)

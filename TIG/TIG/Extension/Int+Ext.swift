@@ -40,7 +40,7 @@ extension Int {
   /// 0..<48 범위에 존재하는 값을 시간으로 변환
   /// 0 : 오전 12:00 / 1 : 오전 12:30 / ... / 47 : 오후 11:30
   /// - Returns: ex) 오전 12:00
-  func convertKoreanTimeFormat() -> String {
+  func convertToKoreanTimeFormat() -> String {
     let ampm = self / 24 == 1 ? "오후" : "오전"
     var hour = self < 26 ? self / 2 : self / 2 - 12
     if hour == 0 { hour = 12 }
@@ -50,7 +50,10 @@ extension Int {
     return String(format: "%@ %2d:%@", ampm, hour, minute)
   }
   
-  func convertDateFormat() -> Date {
+  /// 0..<48 범위에 존재하는 값을 Date로 변환
+  /// 0 : 00:00 / 1 : 00:30 / ... / 47 : 23:30
+  /// - Returns: ex) 00:00
+  func convertToDateFormat() -> Date {
     let hour = self / 2
     let minute = self % 2 == 0 ? 0 : 30
     
@@ -60,5 +63,15 @@ extension Int {
     components.minute = minute
     
     return Calendar.current.date(from: components)!
+  }
+  
+  /// 0..<48 범위에 존재하는 값을 DateComponents로 변환
+  /// 0 : 00:00 / 1 : 00:30 / ... / 47 : 23:30
+  /// - Returns: ex) 00:00
+  func convertToDateComponents() -> DateComponents {
+    return DateComponents(
+      hour: self / 2,
+      minute: self % 2 == 0 ? 0 : 30
+    )
   }
 }

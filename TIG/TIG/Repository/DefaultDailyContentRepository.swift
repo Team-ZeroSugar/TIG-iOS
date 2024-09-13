@@ -56,6 +56,8 @@ extension DefaultDailyContentRepository: DailyContentRepository {
   
   func fetchDailyContents() -> Result<[DailyContent], SwiftDataError> {
     do {
+      // 조건 지정 (현재 날짜부터)
+      let predicate = #Predicate<DailyContentSD> { $0.date >= .now.formattedDate }
       // 정렬 방식 지정 (날짜순)
       let sort = SortDescriptor(\DailyContentSD.date, order: .forward)
       let descriptor = FetchDescriptor(sortBy: [sort])

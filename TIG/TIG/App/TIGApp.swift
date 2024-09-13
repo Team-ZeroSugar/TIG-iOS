@@ -17,6 +17,8 @@ struct TIGApp: App {
   var body: some Scene {
     WindowGroup {
       
+      // TODO: Onboarding 화면에서 HomeViewModel Init이 호출 안되도록 수정 필요
+      // HomeViewModel Init에 SwiftData Fetch 코드가 있음
       if isOnboarding {
         OnboardingView()
       } else {
