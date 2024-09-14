@@ -79,11 +79,11 @@ final class HomeViewModel {
         self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
         self.settingRepository = DefaultAppSettingRepository()
         
-        self.state.dailyContent = self.readDailyContent(.now)
-        self.state.weeklyRepeats = self.readWeeklyRepeats()
-        self.state.appSetting = self.settingRepository.getAppSettings()
-        
-        startTimer()
+//        self.state.dailyContent = self.readDailyContent(.now)
+//        self.state.weeklyRepeats = self.readWeeklyRepeats()
+//        self.state.appSetting = self.settingRepository.getAppSettings()
+//        
+//        startTimer()
     }
     
     func effect(_ action: Action) {
@@ -126,6 +126,14 @@ final class HomeViewModel {
           self.state.dailyContent = self.readDailyContent(.now)
         }
     }
+  
+  func initData() {
+    self.state.dailyContent = self.readDailyContent(.now)
+    self.state.weeklyRepeats = self.readWeeklyRepeats()
+    self.state.appSetting = self.settingRepository.getAppSettings()
+    
+    startTimer()
+  }
 }
 
 extension HomeViewModel {
