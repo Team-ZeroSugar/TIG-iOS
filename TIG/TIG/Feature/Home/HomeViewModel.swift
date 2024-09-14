@@ -62,6 +62,9 @@ final class HomeViewModel {
         
         // AnnounceView
         case settingButtonTapped
+      
+        // SettingView
+        case updateSleepTimeButtonTapped
     }
     
     private(set) var state: State = .init()
@@ -117,6 +120,10 @@ final class HomeViewModel {
         // AnnounceView
         case .settingButtonTapped:
             self.createTimeline()
+          
+          // SettingView
+        case .updateSleepTimeButtonTapped:
+          self.state.dailyContent = self.readDailyContent(.now)
         }
     }
 }
