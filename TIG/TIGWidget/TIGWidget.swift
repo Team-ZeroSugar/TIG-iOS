@@ -10,34 +10,42 @@ import SwiftUI
 import SwiftData
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    @MainActor func placeholder(in context: Context) -> SimpleEntry {
+        SimpleEntry(date: Date(), dailyContent: getDailyContent())
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    @MainActor func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let entry = SimpleEntry(date: Date(), dailyContent: getDailyContent())
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
-        }
-
-        let timeline = WidgetKit.Timeline(entries: entries, policy: .atEnd)
+    @MainActor func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<Entry>) -> ()) {
+        
+        let timeline = WidgetKit.Timeline(entries: [SimpleEntry(date: .now, dailyContent: getDailyContent())], policy: .after(.now.advanced(by: 60)))
         completion(timeline)
+    }
+    
+    @MainActor
+    private func getDailyContent() -> DailyContent? {
+        let modelContext = SwiftDataStorage.shared.modelContext
+        let date: Date = .now
+        
+        do {
+            let predicate = #Predicate<DailyContentSD> { $0.date == date.formattedDate }
+            let descriptor = FetchDescriptor(predicate: predicate)
+            
+            let datas = try modelContext.fetch(descriptor)
+            guard let data = datas.first else { return nil }
+            return data.toEntity()
+        } catch {
+            return nil
+        }
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let emoji: String
+    let dailyContent: DailyContent?
 }
 
 struct TIGWidgetEntryView : View {
@@ -115,7 +123,7 @@ struct TIGWidget: Widget {
 #Preview(as: .systemSmall) {
     TIGWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    SimpleEntry(date: .now, dailyContent: nil)
+    SimpleEntry(date: .now, dailyContent: nil)
 }
 
