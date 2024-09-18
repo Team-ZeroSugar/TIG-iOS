@@ -145,6 +145,9 @@ fileprivate struct ScrollableTabBar: View {
           selectedTabOffset = (proxy.size.width / 2) * CGFloat(Tab.allCases.firstIndex(of: new.unsafelyUnwrapped) ?? 0)
         }
       }
+      .onChange(of: homeViewModel.state.activeTab) { oldValue, newValue in
+          scrollPosition = newValue
+      }
     }
     
   }
@@ -161,7 +164,7 @@ fileprivate struct ScrollableTabBar: View {
           },
           label: {
             Text(tab.rawValue)
-              .font(.custom(AppFont.semiBold, size: 20))
+              .font(.custom(AppFont.semiBold, size: 18))
               .frame(
                 width: (size.width) / 2,
                 height: 40
@@ -194,10 +197,18 @@ fileprivate struct ScrollableTabBar: View {
           VStack {
             switch tab {
             case .time:
-              TimerView()
+                if homeViewModel.state.dailyContent.timelines.isEmpty {
+                    AnnounceView()
+                } else {
+                    TimerView()
+                }
               
             case .timeline:
-              TimelineView()
+                if homeViewModel.state.dailyContent.timelines.isEmpty {
+                    AnnounceView(isTimelineView: true)
+                } else {
+                    TimelineView()
+                }
             }
           }
           .frame(width: size.width)
