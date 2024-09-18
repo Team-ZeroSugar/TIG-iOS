@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		0947BA9B2C534A93003F186A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9A2C534A93003F186A /* TimerView.swift */; };
 		0947BA9D2C534D87003F186A /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* AnnounceView.swift */; };
+		355E48AA2C9ABC4800F9C768 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
+		355E48AB2C9ABC4A00F9C768 /* WeeklyRepeatSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */; };
+		355E48AC2C9ABC4C00F9C768 /* TimelineSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365B2C4A98B90015C9A4 /* TimelineSD.swift */; };
+		355E48AD2C9ABC5100F9C768 /* DailyContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F262C3CDAB600863BC6 /* DailyContent.swift */; };
+		355E48AE2C9ABC5300F9C768 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36542C4A955E0015C9A4 /* Timeline.swift */; };
+		355E48AF2C9ABC5400F9C768 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
+		355E48B02C9ABC6200F9C768 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F452C3CF49800863BC6 /* Date+Ext.swift */; };
 		356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimelineView.swift */; };
 		359369E52C759AEB00BE24FF /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359369E42C759AEB00BE24FF /* WidgetKit.framework */; };
 		359369E72C759AEB00BE24FF /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359369E62C759AEB00BE24FF /* SwiftUI.framework */; };
@@ -517,9 +524,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				355E48AE2C9ABC5300F9C768 /* Timeline.swift in Sources */,
+				355E48AF2C9ABC5400F9C768 /* WeeklyRepeat.swift in Sources */,
 				359369EC2C759AEB00BE24FF /* TIGWidget.swift in Sources */,
+				355E48AA2C9ABC4800F9C768 /* DailyContentSD.swift in Sources */,
 				359369F82C759D2D00BE24FF /* AppColor.swift in Sources */,
+				355E48AD2C9ABC5100F9C768 /* DailyContent.swift in Sources */,
+				355E48B02C9ABC6200F9C768 /* Date+Ext.swift in Sources */,
+				355E48AC2C9ABC4C00F9C768 /* TimelineSD.swift in Sources */,
 				359369EA2C759AEB00BE24FF /* TIGWidgetBundle.swift in Sources */,
+				355E48AB2C9ABC4A00F9C768 /* WeeklyRepeatSD.swift in Sources */,
 				359369F72C759C8600BE24FF /* AppFont.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
