@@ -48,13 +48,24 @@ struct SettingView: View {
               Text("\(wakeupTimeIndex.convertToKoreanTimeFormat())")
                 .font(.custom(AppFont.medium, size: 16))
                 .foregroundStyle(AppColor.blueMain)
+                .padding(4)
             })
             .padding(6)
             .background(AppColor.gray00)
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 5))
+            .buttonStyle(.plain)
+            .popover(isPresented: $isPresentWakeupTimePicker, attachmentAnchor: .point(.bottom)) {
+              CustomWheelPicker(selectedIndex: $wakeupTimeIndex)
+                .frame(width: 250, height: 200)
+                .background {
+                  RoundedRectangle(cornerRadius: 10)
+                    .fill(AppColor.blueMain.opacity(0.5))
+                    .frame(width: 200, height: 40)
+                }
+                .presentationCompactAdaptation(.popover)
+            }
           }
-          .padding(3)
           
           
           HStack {
@@ -68,14 +79,24 @@ struct SettingView: View {
               Text("\(bedTimeIndex.convertToKoreanTimeFormat())")
                 .font(.custom(AppFont.medium, size: 16))
                 .foregroundStyle(AppColor.blueMain)
-              
+                .padding(4)
             })
             .padding(6)
             .background(AppColor.gray00)
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 5))
+            .buttonStyle(.plain)
+            .popover(isPresented: $isPresentBedTimePicker, attachmentAnchor: .point(.bottom)) {
+              CustomWheelPicker(selectedIndex: $bedTimeIndex)
+                .frame(width: 250, height: 200)
+                .background {
+                  RoundedRectangle(cornerRadius: 10)
+                    .fill(AppColor.blueMain.opacity(0.5))
+                    .frame(width: 200, height: 40)
+                }
+                .presentationCompactAdaptation(.popover)
+            }
           }
-          .padding(3)
           
           Button {
             settingViewModel.effect(.updateSleepTimeButtonTapped(
@@ -86,6 +107,7 @@ struct SettingView: View {
           } label: {
             Text("저장")
           }
+          
       }
       
       //            Section("화면 모드") {
@@ -117,18 +139,6 @@ struct SettingView: View {
       
     }
     .navigationTitle("설정")
-    .sheet(isPresented: $isPresentWakeupTimePicker, content: {
-      CustomWheelPicker(selectedIndex: $wakeupTimeIndex)
-        .presentationDetents([
-          .fraction(0.4)
-        ])
-    })
-    .sheet(isPresented: $isPresentBedTimePicker, content: {
-      CustomWheelPicker(selectedIndex: $bedTimeIndex)
-        .presentationDetents([
-          .fraction(0.4)
-        ])
-    })
   }
   
   //    private func CustomDatePicker() -> some View {

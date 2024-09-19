@@ -136,6 +136,14 @@
 			path = More;
 			sourceTree = "<group>";
 		};
+		574BBABC2C9BC584008D0C7F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				573882D22C905BD5009BD189 /* CustomWheelPicker.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		577B36582C4A984F0015C9A4 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +227,7 @@
 		57A98F182C3CD3FA00863BC6 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				574BBABC2C9BC584008D0C7F /* Component */,
 				57A98F252C3CD9A100863BC6 /* Onboarding */,
 				577B36702C51E8930015C9A4 /* Home */,
 			);
@@ -273,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				57A98F092C3CCAB600863BC6 /* OnboardingView.swift */,
-				573882D22C905BD5009BD189 /* CustomWheelPicker.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
