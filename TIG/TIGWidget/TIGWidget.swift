@@ -20,16 +20,19 @@ struct Provider: TimelineProvider {
         let entry = TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
         completion(entry)
     }
-
+    
     @MainActor func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<Entry>) -> ()) {
         
         let dailyContent = getDailyContent()
         let timelines = dailyContent?.timelines
         let totalAvailabilityTime = (timelines?.filter { $0.isAvailable }.count)!
         
+        let remainAvailabilityTime = calRemainingAvailableTime(timelines: timelines!) ?? DateComponents(hour:0, minute: 0)
         
+        print("total: " + totalAvailabilityTime.formattedDuration())
+        print("remain: \(remainAvailabilityTime)")
         
-        let widgetTimeline = WidgetKit.Timeline(entries: [TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))], policy: .after(.now.advanced(by: 60)))
+        let widgetTimeline = WidgetKit.Timeline(entries: [TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)], policy: .after(.now.advanced(by: 60)))
         completion(widgetTimeline)
     }
     
@@ -50,6 +53,55 @@ struct Provider: TimelineProvider {
         }
     }
     
+    private func calRemainingAvailableTime(timelines: [Timeline]) -> DateComponents? {
+        let now = Calendar.current.dateComponents([.hour, .minute], from: Date())
+        
+        let timelines = sortTimelines(timelines)
+        
+        guard let currentTimelineIndex = timelines.firstIndex(where: { timeline in
+            guard let startDate = Calendar.current.date(from: timeline.start),
+                  let endDate = Calendar.current.date(from: timeline.end),
+                  let nowDate = Calendar.current.date(from: now) else {
+                return false
+            }
+            return startDate <= nowDate && nowDate <= endDate
+        }) else {
+            return nil
+        }
+        
+        let currentTimeline = timelines[currentTimelineIndex]
+        print(currentTimeline)
+        
+        
+        var remainingTimeInCurrentTimeline = 0.0
+        if currentTimeline.isAvailable {
+            guard let endDate = Calendar.current.date(from: currentTimeline.end),
+                  let nowDate = Calendar.current.date(from: now) else {
+                return nil
+            }
+            
+            remainingTimeInCurrentTimeline = endDate.timeIntervalSince(nowDate) / 60
+        }
+        
+        
+        let availableTimeAfterCurrent = Double(timelines.suffix(from: currentTimelineIndex + 1).filter{ $0.isAvailable }.count * 30)
+        print(timelines.suffix(from: currentTimelineIndex + 1))
+        
+        let totalAvailableTimeInMinutes = remainingTimeInCurrentTimeline + availableTimeAfterCurrent
+        
+        let hours = Int(totalAvailableTimeInMinutes) / 60
+        let minutes = Int(totalAvailableTimeInMinutes) % 60
+        return DateComponents(hour: hours, minute: minutes)
+    }
+    
+    private func sortTimelines(_ timelines: [Timeline]) -> [Timeline] {
+        return timelines.sorted {
+            if $0.start.hour == $1.start.hour {
+                return $0.start.minute ?? 0 < $1.start.minute ?? 0
+            }
+            return $0.start.hour ?? 0 < $1.start.hour ?? 0
+        }
+    }
 }
 
 struct TIGEntry: TimelineEntry {
@@ -80,7 +132,7 @@ struct TIGWidgetEntryView : View {
                 
                 Spacer().frame(height: 12)
                 
-                Text("5시간 20분")
+                Text(entry.remainAvailabilityTime.formattedDuration())
                     .foregroundStyle(.gray05)
                     .font(.custom(AppFont.semiBold, size: 24))
                 
@@ -102,7 +154,7 @@ struct TIGWidgetEntryView : View {
                     Spacer()
                 }
                 Text("오늘의 남은 활용 가능 시간")
-                Text("5시간 20분")
+                Text(entry.remainAvailabilityTime.formattedDuration())
             }.font(.custom(AppFont.medium, size: 13))
         default:
             VStack {}
