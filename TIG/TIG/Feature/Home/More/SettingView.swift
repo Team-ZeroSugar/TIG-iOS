@@ -13,8 +13,15 @@ struct SettingView: View {
   
   @State private var wakeupTimeIndex: Int = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
   @State private var bedTimeIndex: Int = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
+  
+  @State private var wakeupPickerIndex: Int = 0
+  @State private var bedPickerIndex: Int = 0
+  
   @State private var isPresentWakeupTimePicker: Bool = false
   @State private var isPresentBedTimePicker: Bool = false
+  
+  @State private var isShownWakeupAlert: Bool = false
+  @State private var isShownBedAlert: Bool = false
   
   var body: some View {
     List {
@@ -27,6 +34,7 @@ struct SettingView: View {
             Spacer()
             Button(action: {
               isPresentWakeupTimePicker = true
+              wakeupPickerIndex = wakeupTimeIndex
             }, label: {
               Text("\(wakeupTimeIndex.convertToKoreanTimeFormat())")
                 .font(.custom(AppFont.medium, size: 16))
@@ -39,7 +47,7 @@ struct SettingView: View {
             .clipShape(RoundedRectangle(cornerRadius: 5))
             .buttonStyle(.plain)
             .confirmationDialog(isPresented: $isPresentWakeupTimePicker) {
-              CustomWheelPicker(selectedIndex: $wakeupTimeIndex)
+              CustomWheelPicker(selectedIndex: $wakeupPickerIndex)
                 .background {
                   RoundedRectangle(cornerRadius: 10)
                     .fill(AppColor.blueMain.opacity(0.5))
@@ -47,7 +55,7 @@ struct SettingView: View {
                 }
             } actions: {
               SheetAction(title: "ok", role: .default) {
-                
+                isShownWakeupAlert = true
               }
               SheetAction(title: "cancel", role: .cancel)
             }
@@ -62,6 +70,7 @@ struct SettingView: View {
             Spacer()
             Button(action: {
               isPresentBedTimePicker = true
+              bedPickerIndex = bedTimeIndex
             }, label: {
               Text("\(bedTimeIndex.convertToKoreanTimeFormat())")
                 .font(.custom(AppFont.medium, size: 16))
@@ -73,18 +82,20 @@ struct SettingView: View {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 5))
             .buttonStyle(.plain)
+            .confirmationDialog(isPresented: $isPresentBedTimePicker) {
+              CustomWheelPicker(selectedIndex: $bedPickerIndex)
+                .background {
+                  RoundedRectangle(cornerRadius: 10)
+                    .fill(AppColor.blueMain.opacity(0.5))
+                    .frame(width: 300, height: 40)
+                }
+            } actions: {
+              SheetAction(title: "ok", role: .default) {
+                isShownBedAlert = true
+              }
+              SheetAction(title: "cancel", role: .cancel)
+            }
           }
-          
-          Button {
-            settingViewModel.effect(.updateSleepTimeButtonTapped(
-              wakeupTimeIndex,
-              bedTimeIndex
-            ))
-            homeViewModel.effect(.updateSleepTimeButtonTapped)
-          } label: {
-            Text("저장")
-          }
-          
       }
       
       //            Section("화면 모드") {
@@ -116,6 +127,53 @@ struct SettingView: View {
       
     }
     .navigationTitle("설정")
+    .alert("기상 시간 변경하기",
+           isPresented: $isShownWakeupAlert) {
+      Button(role: .cancel) {
+        
+      } label: {
+        Text("취소")
+      }
+      Button {
+        wakeupTimeIndex = wakeupPickerIndex
+        
+        settingViewModel.effect(.updateSleepTimeButtonTapped(
+          wakeupTimeIndex,
+          bedTimeIndex
+        ))
+        homeViewModel.effect(.updateSleepTimeButtonTapped)
+      } label: {
+        Text("확인")
+      }
+    } message: {
+      let before = wakeupTimeIndex.convertToKoreanTimeFormat()
+      let after = wakeupPickerIndex.convertToKoreanTimeFormat()
+      Text("\(before)에서 \(after)로 변경하시겠습니까?")
+    }
+    .alert("취침 시간 변경하기",
+           isPresented: $isShownBedAlert) {
+      Button(role: .cancel) {
+        
+      } label: {
+        Text("취소")
+      }
+      Button {
+        bedTimeIndex = bedPickerIndex
+        
+        settingViewModel.effect(.updateSleepTimeButtonTapped(
+          wakeupTimeIndex,
+          bedTimeIndex
+        ))
+        homeViewModel.effect(.updateSleepTimeButtonTapped)
+      } label: {
+        Text("확인")
+      }
+    } message: {
+      let before = bedTimeIndex.convertToKoreanTimeFormat()
+      let after = bedPickerIndex.convertToKoreanTimeFormat()
+      Text("\(before)에서 \(after)로 변경하시겠습니까?")
+    }
+
   }
   
 }
