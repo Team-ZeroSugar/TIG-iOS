@@ -9,6 +9,11 @@ import SwiftUI
 
 struct AnnounceView: View {
     @Environment(HomeViewModel.self) var homeViewModel
+    private var isTimelineView: Bool
+    
+    init(isTimelineView: Bool = false) {
+        self.isTimelineView = isTimelineView
+    }
 
     var body: some View {
         VStack(alignment: .center) {
@@ -29,7 +34,11 @@ struct AnnounceView: View {
             Spacer().frame(height: 32)
             Button(action: {
                 homeViewModel.effect(.settingButtonTapped)
-                homeViewModel.effect(.editTapped)
+                
+                if !isTimelineView {
+                    homeViewModel.effect(.tabChange(.timeline))
+                }
+                
             }, label: {
                 Text("설정하기")
                     .font(.custom(AppFont.regular, size: 16))
@@ -55,7 +64,7 @@ struct AnnounceView: View {
                 .font(.custom(AppFont.regular, size: 16))
                 .foregroundStyle(AppColor.gray04)
         } else {
-            return Text(homeViewModel.state.activeTab == .time ? "자유롭게 활용 가능한 시간을 알려줄게요" : "자유롭게 활용 가능한 타임라인을 알려줄게요")
+            return Text(isTimelineView ? "자유롭게 활용 가능한 타임라인을 알려줄게요" : "자유롭게 활용 가능한 시간을 알려줄게요")
                 .font(.custom(AppFont.regular, size: 16))
                 .foregroundStyle(AppColor.gray04)
         }

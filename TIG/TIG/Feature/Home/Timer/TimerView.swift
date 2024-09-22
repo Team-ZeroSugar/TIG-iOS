@@ -160,4 +160,5 @@ fileprivate struct TimerProgressBar: View {
 
 #Preview {
     TimerView()
+        .environment(HomeViewModel())
 }
