@@ -28,8 +28,9 @@ struct Provider: TimelineProvider {
         let totalAvailabilityTime = (timelines?.filter { $0.isAvailable }.count)!
         
         
-        let timeline = WidgetKit.Timeline(entries: [TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))], policy: .after(.now.advanced(by: 60)))
-        completion(timeline)
+        
+        let widgetTimeline = WidgetKit.Timeline(entries: [TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))], policy: .after(.now.advanced(by: 60)))
+        completion(widgetTimeline)
     }
     
     @MainActor
@@ -48,6 +49,7 @@ struct Provider: TimelineProvider {
             return nil
         }
     }
+    
 }
 
 struct TIGEntry: TimelineEntry {
