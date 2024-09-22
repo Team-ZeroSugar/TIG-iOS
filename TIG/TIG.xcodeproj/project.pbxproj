@@ -13,10 +13,12 @@
 		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
+		5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */; };
 		573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */; };
 		573882CF2C74C59D009BD189 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CE2C74C59D009BD189 /* DIContainer.swift */; };
 		573882D32C905BD5009BD189 /* CustomWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882D22C905BD5009BD189 /* CustomWheelPicker.swift */; };
 		573882D52C90709F009BD189 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882D42C90709F009BD189 /* UserDefaultsKey.swift */; };
+		573882D72C9564ED009BD189 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882D62C9564ED009BD189 /* SettingViewModel.swift */; };
 		577B36552C4A955E0015C9A4 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36542C4A955E0015C9A4 /* Timeline.swift */; };
 		577B36572C4A958F0015C9A4 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
 		577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
@@ -61,10 +63,12 @@
 		35B315172C573B6E00735F8F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatView.swift; sourceTree = "<group>"; };
+		5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
 		573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
 		573882CE2C74C59D009BD189 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		573882D22C905BD5009BD189 /* CustomWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWheelPicker.swift; sourceTree = "<group>"; };
 		573882D42C90709F009BD189 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
+		573882D62C9564ED009BD189 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		577B36542C4A955E0015C9A4 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeat.swift; sourceTree = "<group>"; };
 		577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyContentSD.swift; sourceTree = "<group>"; };
@@ -129,8 +133,18 @@
 			children = (
 				35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */,
 				57EFE27A2C708A6C0021DAE7 /* SettingView.swift */,
+				573882D62C9564ED009BD189 /* SettingViewModel.swift */,
 			);
 			path = More;
+			sourceTree = "<group>";
+		};
+		574BBABC2C9BC584008D0C7F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				573882D22C905BD5009BD189 /* CustomWheelPicker.swift */,
+				5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		577B36582C4A984F0015C9A4 /* DTO */ = {
@@ -216,6 +230,7 @@
 		57A98F182C3CD3FA00863BC6 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				574BBABC2C9BC584008D0C7F /* Component */,
 				57A98F252C3CD9A100863BC6 /* Onboarding */,
 				577B36702C51E8930015C9A4 /* Home */,
 			);
@@ -270,7 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				57A98F092C3CCAB600863BC6 /* OnboardingView.swift */,
-				573882D22C905BD5009BD189 /* CustomWheelPicker.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -431,7 +445,9 @@
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
 				577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */,
 				35B315182C573B6E00735F8F /* TestData.swift in Sources */,
+				5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */,
 				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,
+				573882D72C9564ED009BD189 /* SettingViewModel.swift in Sources */,
 				577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */,
 				35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */,
 				577B365E2C4A98D40015C9A4 /* WeeklyRepeatSD.swift in Sources */,

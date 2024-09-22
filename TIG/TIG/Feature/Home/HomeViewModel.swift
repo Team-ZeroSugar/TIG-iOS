@@ -62,6 +62,9 @@ final class HomeViewModel {
         
         // AnnounceView
         case settingButtonTapped
+      
+        // SettingView
+        case updateSleepTimeButtonTapped
     }
     
     private(set) var state: State = .init()
@@ -76,11 +79,11 @@ final class HomeViewModel {
         self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
         self.settingRepository = DefaultAppSettingRepository()
         
-        self.state.dailyContent = self.readDailyContent(.now)
-        self.state.weeklyRepeats = self.readWeeklyRepeats()
-        self.state.appSetting = self.settingRepository.getAppSettings()
-        
-        startTimer()
+//        self.state.dailyContent = self.readDailyContent(.now)
+//        self.state.weeklyRepeats = self.readWeeklyRepeats()
+//        self.state.appSetting = self.settingRepository.getAppSettings()
+//        
+//        startTimer()
     }
     
     func effect(_ action: Action) {
@@ -117,9 +120,20 @@ final class HomeViewModel {
         // AnnounceView
         case .settingButtonTapped:
             self.createTimeline()
-            self.state.isEditMode = true
+          
+        // SettingView
+        case .updateSleepTimeButtonTapped:
+          self.state.dailyContent = self.readDailyContent(.now)
         }
     }
+  
+  func initData() {
+    self.state.dailyContent = self.readDailyContent(.now)
+    self.state.weeklyRepeats = self.readWeeklyRepeats()
+    self.state.appSetting = self.settingRepository.getAppSettings()
+    
+    startTimer()
+  }
 }
 
 extension HomeViewModel {
@@ -281,9 +295,6 @@ extension HomeViewModel {
           timelines: weeklyRepeat.timelines,
           totalAvailabilityTime: 0
         )
-        
-        dailyContentRepository.createDailyContent(dailyContent)
-        
         return dailyContent
       case .failure(let error):
         print(error.rawValue)

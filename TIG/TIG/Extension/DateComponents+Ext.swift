@@ -37,4 +37,8 @@ extension DateComponents {
   func convertToDate() -> Date {
       return Calendar.current.date(from: self)!
   }
+  
+  func convertTotalMinutes() -> Int {
+    return self.hour! * 60 + self.minute!
+  }
 }

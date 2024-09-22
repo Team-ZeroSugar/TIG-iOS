@@ -48,7 +48,7 @@ struct CustomWheelPicker: UIViewRepresentable {
       let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
       let rowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
       
-      rowLabel.text = row.convertKoreanTimeFormat()
+      rowLabel.text = row.convertToKoreanTimeFormat()
       rowLabel.font = UIFont(name: AppFont.medium, size: 20)
       
       rowLabel.textAlignment = .center

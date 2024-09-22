@@ -65,6 +65,8 @@ struct OnboardingView: View {
   }
 }
 
+// TODO: OnboardingView들을 재사용 가능한 코드로 수정 필요
+
 // MARK: - FirstView
 fileprivate struct OnboardingFirstView: View {
   
