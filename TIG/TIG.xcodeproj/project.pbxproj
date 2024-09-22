@@ -13,6 +13,7 @@
 		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
+		5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */; };
 		573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */; };
 		573882CF2C74C59D009BD189 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CE2C74C59D009BD189 /* DIContainer.swift */; };
 		573882D32C905BD5009BD189 /* CustomWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882D22C905BD5009BD189 /* CustomWheelPicker.swift */; };
@@ -62,6 +63,7 @@
 		35B315172C573B6E00735F8F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatView.swift; sourceTree = "<group>"; };
+		5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
 		573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
 		573882CE2C74C59D009BD189 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		573882D22C905BD5009BD189 /* CustomWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWheelPicker.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				573882D22C905BD5009BD189 /* CustomWheelPicker.swift */,
+				5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
 				577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */,
 				35B315182C573B6E00735F8F /* TestData.swift in Sources */,
+				5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */,
 				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,
 				573882D72C9564ED009BD189 /* SettingViewModel.swift in Sources */,
 				577B365A2C4A98AB0015C9A4 /* DailyContentSD.swift in Sources */,

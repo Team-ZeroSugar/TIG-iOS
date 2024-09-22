@@ -48,7 +48,7 @@ extension SettingViewModel {
     
     // TODO: 저장된 모든 Timeline들을 가져오기
     // 1. DailyContents의 Timeline
-    var dailyContentsResult = dailyContentRepository.fetchDailyContents()
+    let dailyContentsResult = dailyContentRepository.fetchDailyContents()
     switch dailyContentsResult {
     case .success(let dailyContents):
       for dailyContent in dailyContents {
@@ -67,7 +67,7 @@ extension SettingViewModel {
       print(error)
     }
     
-    var weeklyRepeatResult = weeklyRepeatRepository.fetchWeeklyRepeats()
+    let weeklyRepeatResult = weeklyRepeatRepository.fetchWeeklyRepeats()
     switch weeklyRepeatResult {
     case .success(let weeklyRepeats):
       for weeklyRepeat in weeklyRepeats {

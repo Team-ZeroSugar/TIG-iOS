@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-enum DisplayMode: Int, CaseIterable{
-  case light = 0
-  case dark = 1
-  case system = 2
-  
-  var info: (id: Int, value: String) {
-    switch self {
-    case .light:
-      return (self.rawValue, "라이트")
-    case .dark:
-      return (self.rawValue, "다크")
-    case .system:
-      return (self.rawValue, "시스템과 동일")
-    }
-  }
-}
-
 struct SettingView: View {
   @Environment(HomeViewModel.self) private var homeViewModel
   @State private var settingViewModel = SettingViewModel()
@@ -55,16 +38,20 @@ struct SettingView: View {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 5))
             .buttonStyle(.plain)
-            .popover(isPresented: $isPresentWakeupTimePicker, attachmentAnchor: .point(.bottom)) {
+            .confirmationDialog(isPresented: $isPresentWakeupTimePicker) {
               CustomWheelPicker(selectedIndex: $wakeupTimeIndex)
-                .frame(width: 250, height: 200)
                 .background {
                   RoundedRectangle(cornerRadius: 10)
                     .fill(AppColor.blueMain.opacity(0.5))
-                    .frame(width: 200, height: 40)
+                    .frame(width: 300, height: 40)
                 }
-                .presentationCompactAdaptation(.popover)
+            } actions: {
+              SheetAction(title: "ok", role: .default) {
+                
+              }
+              SheetAction(title: "cancel", role: .cancel)
             }
+
           }
           
           
@@ -86,16 +73,6 @@ struct SettingView: View {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 5))
             .buttonStyle(.plain)
-            .popover(isPresented: $isPresentBedTimePicker, attachmentAnchor: .point(.bottom)) {
-              CustomWheelPicker(selectedIndex: $bedTimeIndex)
-                .frame(width: 250, height: 200)
-                .background {
-                  RoundedRectangle(cornerRadius: 10)
-                    .fill(AppColor.blueMain.opacity(0.5))
-                    .frame(width: 200, height: 40)
-                }
-                .presentationCompactAdaptation(.popover)
-            }
           }
           
           Button {
@@ -141,34 +118,6 @@ struct SettingView: View {
     .navigationTitle("설정")
   }
   
-  //    private func CustomDatePicker() -> some View {
-  //        HStack {
-  //            Picker("AMPM", selection: $isAm) {
-  //                ForEach([true, false], id: \.self) { state in
-  //                    Text("\(state ? "오전" : "오후")")
-  //
-  //                }
-  //            }
-  //            Picker("Hour", selection: $hour) {
-  //                ForEach(
-  //                    1..<Array(
-  //                        repeating: hours,
-  //                        count: 100
-  //                    ).flatMap { $0 }.count + 1,
-  //                    id: \.self)
-  //                { hour in
-  //                    Text("\(hours[(hour-1) % 12])")
-  //                }
-  //            }
-  //            Picker("Minuts", selection: $minute) {
-  //                ForEach(minutes, id: \.self) { minute in
-  //                    Text("\(minute)")
-  //                }
-  //            }
-  //        }
-  //        .pickerStyle(.wheel)
-  //        .padding()
-  //    }
 }
 
 
