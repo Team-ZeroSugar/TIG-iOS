@@ -37,7 +37,7 @@ struct Provider: TimelineProvider {
             let currentDate = Date()
             
             for minuteOffset in 0..<5 {
-                let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
+//                let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
                 let entry = TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)
                 entries.append(entry)
             }
@@ -46,6 +46,7 @@ struct Provider: TimelineProvider {
             let entry = TIGEntry(date: .now, totalAvailabilityTime: nil, remainAvailabilityTime: DateComponents(hour:1, minute: 1))
             entries.append(entry)
         }
+        
         let widgetTimeline = WidgetKit.Timeline(entries: entries, policy: .atEnd)
         
         completion(widgetTimeline)
@@ -172,15 +173,15 @@ struct TIGWidgetEntryView : View {
         case .accessoryRectangular:
             HStack {
                 VStack(alignment: .leading ,spacing: 2) {
+                    Text("남은 활용 가능 시간")
+                        .font(.custom(AppFont.medium, size: 13))
+                    
                     if entry.totalAvailabilityTime != nil {
-                        Text("남은 활용 가능 시간")
-                            .font(.custom(AppFont.medium, size: 13))
                         Text(entry.remainAvailabilityTime.formattedDuration())
                             .font(.custom(AppFont.bold, size: 16))
                     } else {
-                        Text("오늘 일정을 설정하여\n남은 시간을 확인해 보세요!")
-                            .lineSpacing(8)
-                            .font(.custom(AppFont.medium, size: 13))
+                        Text("설정 필요")
+                            .font(.custom(AppFont.medium, size: 16))
                     }
                 }
                 
