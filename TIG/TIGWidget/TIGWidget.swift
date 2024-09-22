@@ -11,17 +11,17 @@ import SwiftData
 
 struct Provider: TimelineProvider {
     // 위젯이 로드되기 전에 보여줄 기본 데이터
-    @MainActor func placeholder(in context: Context) -> TIGEntry {
+    func placeholder(in context: Context) -> TIGEntry {
         TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
     }
     
     // 위젯 미리보기
-    @MainActor func getSnapshot(in context: Context, completion: @escaping (TIGEntry) -> ()) {
+    func getSnapshot(in context: Context, completion: @escaping (TIGEntry) -> ()) {
         let entry = TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
         completion(entry)
     }
     
-    @MainActor func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<Entry>) -> ()) {
+    func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<Entry>) -> ()) {
         
         let dailyContent = getDailyContent()
         let timelines = dailyContent?.timelines
@@ -36,7 +36,6 @@ struct Provider: TimelineProvider {
         completion(widgetTimeline)
     }
     
-    @MainActor
     private func getDailyContent() -> DailyContent? {
         let modelContext = SwiftDataStorage.shared.modelContext
         let date: Date = .now
@@ -144,18 +143,16 @@ struct TIGWidgetEntryView : View {
             }
             
         case .accessoryRectangular:
-            VStack(alignment: .leading ,spacing: 2) {
-                HStack(spacing: 5.42) {
-                    Image("AvailableIcon")
-                        .resizable()
-                        .frame(width: 14, height: 14)
-                    Text("시간가용")
-                        .font(.custom(AppFont.semiBold, size: 12))
-                    Spacer()
+            HStack {
+                VStack(alignment: .leading ,spacing: 2) {
+                    Text("남은 활용 가능 시간")
+                        .font(.custom(AppFont.medium, size: 13))
+                    Text(entry.remainAvailabilityTime.formattedDuration())
+                        .font(.custom(AppFont.bold, size: 16))
                 }
-                Text("오늘의 남은 활용 가능 시간")
-                Text(entry.remainAvailabilityTime.formattedDuration())
-            }.font(.custom(AppFont.medium, size: 13))
+                
+                Spacer()
+            }
         default:
             VStack {}
         }
