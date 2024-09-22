@@ -230,7 +230,9 @@ extension HomeViewModel {
     }
     
     func getTotalAvailableTime() -> String {
-        let totalAvailableTime = countTo
+        let availableCount = state.dailyContent.timelines.filter { $0.isAvailable }.count
+        let totalAvailableTime = availableCount * 30
+        
         return totalAvailableTime.formattedTime()
     }
     
