@@ -10,18 +10,25 @@ import SwiftUI
 import SwiftData
 
 struct Provider: TimelineProvider {
-    @MainActor func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), dailyContent: getDailyContent())
+    // 위젯이 로드되기 전에 보여줄 기본 데이터
+    @MainActor func placeholder(in context: Context) -> TIGEntry {
+        TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
     }
-
-    @MainActor func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), dailyContent: getDailyContent())
+    
+    // 위젯 미리보기
+    @MainActor func getSnapshot(in context: Context, completion: @escaping (TIGEntry) -> ()) {
+        let entry = TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
         completion(entry)
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<Entry>) -> ()) {
         
-        let timeline = WidgetKit.Timeline(entries: [SimpleEntry(date: .now, dailyContent: getDailyContent())], policy: .after(.now.advanced(by: 60)))
+        let dailyContent = getDailyContent()
+        let timelines = dailyContent?.timelines
+        let totalAvailabilityTime = (timelines?.filter { $0.isAvailable }.count)!
+        
+        
+        let timeline = WidgetKit.Timeline(entries: [TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))], policy: .after(.now.advanced(by: 60)))
         completion(timeline)
     }
     
@@ -43,9 +50,10 @@ struct Provider: TimelineProvider {
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct TIGEntry: TimelineEntry {
     let date: Date
-    let dailyContent: DailyContent?
+    let totalAvailabilityTime: Int
+    let remainAvailabilityTime: DateComponents
 }
 
 struct TIGWidgetEntryView : View {
@@ -76,7 +84,7 @@ struct TIGWidgetEntryView : View {
                 
                 Spacer().frame(height: 8)
                 
-                Text("/ 8시간 30분")
+                Text("/ " + entry.totalAvailabilityTime.formattedDuration())
                     .foregroundStyle(.gray05)
                     .font(.custom(AppFont.medium, size: 12))
             }
@@ -123,7 +131,7 @@ struct TIGWidget: Widget {
 #Preview(as: .systemSmall) {
     TIGWidget()
 } timeline: {
-    SimpleEntry(date: .now, dailyContent: nil)
-    SimpleEntry(date: .now, dailyContent: nil)
+    TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
+    TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
 }
 

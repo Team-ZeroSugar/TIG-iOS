@@ -17,6 +17,7 @@
 		355E48AF2C9ABC5400F9C768 /* WeeklyRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36562C4A958F0015C9A4 /* WeeklyRepeat.swift */; };
 		355E48B02C9ABC6200F9C768 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F452C3CF49800863BC6 /* Date+Ext.swift */; };
 		355E48B22C9ABDBA00F9C768 /* SwiftDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36652C4BEF8C0015C9A4 /* SwiftDataStorage.swift */; };
+		355E48B42C9FCE9500F9C768 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimelineView.swift */; };
 		359369E52C759AEB00BE24FF /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359369E42C759AEB00BE24FF /* WidgetKit.framework */; };
 		359369E72C759AEB00BE24FF /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 359369E62C759AEB00BE24FF /* SwiftUI.framework */; };
@@ -534,6 +535,7 @@
 				355E48AD2C9ABC5100F9C768 /* DailyContent.swift in Sources */,
 				355E48B02C9ABC6200F9C768 /* Date+Ext.swift in Sources */,
 				355E48AC2C9ABC4C00F9C768 /* TimelineSD.swift in Sources */,
+				355E48B42C9FCE9500F9C768 /* Int+Ext.swift in Sources */,
 				359369EA2C759AEB00BE24FF /* TIGWidgetBundle.swift in Sources */,
 				355E48AB2C9ABC4A00F9C768 /* WeeklyRepeatSD.swift in Sources */,
 				359369F72C759C8600BE24FF /* AppFont.swift in Sources */,
