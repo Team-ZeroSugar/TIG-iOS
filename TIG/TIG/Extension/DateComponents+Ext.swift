@@ -33,6 +33,20 @@ extension DateComponents {
             return formattedTime + " " + minutes + "분"
         }
     }
+    
+    func formattedDuration() -> String {
+        var components: [String] = []
+        
+        if let hours = self.hour, hours > 0 {
+            components.append("\(hours)시간")
+        }
+        
+        if let minutes = self.minute, minutes > 0 {
+            components.append("\(minutes)분")
+        }
+        
+        return components.joined(separator: " ")
+    }
   
   func convertToDate() -> Date {
       return Calendar.current.date(from: self)!
