@@ -12,27 +12,42 @@ import SwiftData
 struct Provider: TimelineProvider {
     // 위젯이 로드되기 전에 보여줄 기본 데이터
     func placeholder(in context: Context) -> TIGEntry {
-        TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
+        TIGEntry(date: .now, totalAvailabilityTime: 8, remainAvailabilityTime: DateComponents(hour: 4, minute: 30))
     }
     
     // 위젯 미리보기
     func getSnapshot(in context: Context, completion: @escaping (TIGEntry) -> ()) {
-        let entry = TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
+        let entry = TIGEntry(date: .now, totalAvailabilityTime: 15, remainAvailabilityTime: DateComponents(hour: 2, minute: 30))
         completion(entry)
     }
     
     func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<Entry>) -> ()) {
         
+        var entries: [TIGEntry] = []
+        
         let dailyContent = getDailyContent()
-        let timelines = dailyContent?.timelines
-        let totalAvailabilityTime = (timelines?.filter { $0.isAvailable }.count)!
+        if let timelines = dailyContent?.timelines {
+            let totalAvailabilityTime = (timelines.filter { $0.isAvailable }.count)
+            
+            let remainAvailabilityTime = calRemainingAvailableTime(timelines: timelines) ?? DateComponents(hour:0, minute: 0)
+            
+            print("total: " + totalAvailabilityTime.formattedDuration())
+            print("remain: \(remainAvailabilityTime)")
+            
+            let currentDate = Date()
+            
+            for minuteOffset in 0..<5 {
+                let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
+                let entry = TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)
+                entries.append(entry)
+            }
+            
+        } else {
+            let entry = TIGEntry(date: .now, totalAvailabilityTime: nil, remainAvailabilityTime: DateComponents(hour:1, minute: 1))
+            entries.append(entry)
+        }
+        let widgetTimeline = WidgetKit.Timeline(entries: entries, policy: .atEnd)
         
-        let remainAvailabilityTime = calRemainingAvailableTime(timelines: timelines!) ?? DateComponents(hour:0, minute: 0)
-        
-        print("total: " + totalAvailabilityTime.formattedDuration())
-        print("remain: \(remainAvailabilityTime)")
-        
-        let widgetTimeline = WidgetKit.Timeline(entries: [TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)], policy: .after(.now.advanced(by: 60)))
         completion(widgetTimeline)
     }
     
@@ -105,7 +120,7 @@ struct Provider: TimelineProvider {
 
 struct TIGEntry: TimelineEntry {
     let date: Date
-    let totalAvailabilityTime: Int
+    let totalAvailabilityTime: Int?
     let remainAvailabilityTime: DateComponents
 }
 
@@ -129,26 +144,44 @@ struct TIGWidgetEntryView : View {
                         .font(.custom(AppFont.medium, size: 10))
                 }
                 
-                Spacer().frame(height: 12)
                 
-                Text(entry.remainAvailabilityTime.formattedDuration())
-                    .foregroundStyle(.gray05)
-                    .font(.custom(AppFont.semiBold, size: 24))
                 
-                Spacer().frame(height: 8)
-                
-                Text("/ " + entry.totalAvailabilityTime.formattedDuration())
-                    .foregroundStyle(.gray05)
-                    .font(.custom(AppFont.medium, size: 12))
+                if let totalAvailTime = entry.totalAvailabilityTime {
+                    Spacer().frame(height: 12)
+                    
+                    Text(entry.remainAvailabilityTime.formattedDuration())
+                        .foregroundStyle(.gray05)
+                        .font(.custom(AppFont.semiBold, size: 24))
+                    
+                    Spacer().frame(height: 8)
+                    
+                    Text("/ " + totalAvailTime.formattedDuration())
+                        .foregroundStyle(.gray05)
+                        .font(.custom(AppFont.medium, size: 12))
+                } else {
+                    Spacer().frame(height: 20)
+                    
+                    Text("오늘 일정을 설정하여\n남은 시간을 확인해 보세요!")
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(8)
+                        .foregroundStyle(.gray05)
+                        .font(.custom(AppFont.medium, size: 11))
+                }
             }
             
         case .accessoryRectangular:
             HStack {
                 VStack(alignment: .leading ,spacing: 2) {
-                    Text("남은 활용 가능 시간")
-                        .font(.custom(AppFont.medium, size: 13))
-                    Text(entry.remainAvailabilityTime.formattedDuration())
-                        .font(.custom(AppFont.bold, size: 16))
+                    if entry.totalAvailabilityTime != nil {
+                        Text("남은 활용 가능 시간")
+                            .font(.custom(AppFont.medium, size: 13))
+                        Text(entry.remainAvailabilityTime.formattedDuration())
+                            .font(.custom(AppFont.bold, size: 16))
+                    } else {
+                        Text("오늘 일정을 설정하여\n남은 시간을 확인해 보세요!")
+                            .lineSpacing(8)
+                            .font(.custom(AppFont.medium, size: 13))
+                    }
                 }
                 
                 Spacer()
@@ -182,7 +215,7 @@ struct TIGWidget: Widget {
 #Preview(as: .systemSmall) {
     TIGWidget()
 } timeline: {
-    TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
-    TIGEntry(date: .now, totalAvailabilityTime: 1, remainAvailabilityTime: DateComponents(hour: 1, minute: 30))
+    TIGEntry(date: .now, totalAvailabilityTime: 8, remainAvailabilityTime: DateComponents(hour: 4, minute: 30))
+    TIGEntry(date: .now, totalAvailabilityTime: 8, remainAvailabilityTime: DateComponents(hour: 4, minute: 30))
 }
 
