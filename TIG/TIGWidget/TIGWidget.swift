@@ -27,21 +27,23 @@ struct Provider: TimelineProvider {
         
         let dailyContent = getDailyContent()
         if let timelines = dailyContent?.timelines {
-            let totalAvailabilityTime = (timelines.filter { $0.isAvailable }.count)
             
-            let remainAvailabilityTime = calRemainingAvailableTime(timelines: timelines) ?? DateComponents(hour:0, minute: 0)
-            
-            print("total: " + totalAvailabilityTime.formattedDuration())
-            print("remain: \(remainAvailabilityTime)")
             
             let currentDate = Date()
             
             for minuteOffset in 0..<5 {
-//                let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
+                let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
+                
+                let totalAvailabilityTime = (timelines.filter { $0.isAvailable }.count)
+                
+                let remainAvailabilityTime = calRemainingAvailableTime(timelines: timelines, referenceDate: entryDate) ?? DateComponents(hour:0, minute: 0)
+                
+                print("total: " + totalAvailabilityTime.formattedDuration())
+                print("remain: \(remainAvailabilityTime)")
+                
                 let entry = TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)
                 entries.append(entry)
             }
-            
         } else {
             let entry = TIGEntry(date: .now, totalAvailabilityTime: nil, remainAvailabilityTime: DateComponents(hour:1, minute: 1))
             entries.append(entry)
@@ -68,8 +70,8 @@ struct Provider: TimelineProvider {
         }
     }
     
-    private func calRemainingAvailableTime(timelines: [Timeline]) -> DateComponents? {
-        let now = Calendar.current.dateComponents([.hour, .minute], from: Date())
+    private func calRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
+        let now = Calendar.current.dateComponents([.hour, .minute], from: referenceDate)
         
         let timelines = sortTimelines(timelines)
         
@@ -85,8 +87,6 @@ struct Provider: TimelineProvider {
         }
         
         let currentTimeline = timelines[currentTimelineIndex]
-        print(currentTimeline)
-        
         
         var remainingTimeInCurrentTimeline = 0.0
         if currentTimeline.isAvailable {
