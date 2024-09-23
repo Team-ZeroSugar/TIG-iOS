@@ -41,7 +41,7 @@ struct Provider: TimelineProvider {
                 print("total: " + totalAvailabilityTime.formattedDuration())
                 print("remain: \(remainAvailabilityTime)")
                 
-                let entry = TIGEntry(date: .now, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)
+                let entry = TIGEntry(date: entryDate, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)
                 entries.append(entry)
             }
         } else {
@@ -49,6 +49,7 @@ struct Provider: TimelineProvider {
             entries.append(entry)
         }
         
+        print(entries)
         let widgetTimeline = WidgetKit.Timeline(entries: entries, policy: .atEnd)
         
         completion(widgetTimeline)
@@ -100,7 +101,6 @@ struct Provider: TimelineProvider {
         
         
         let availableTimeAfterCurrent = Double(timelines.suffix(from: currentTimelineIndex + 1).filter{ $0.isAvailable }.count * 30)
-        print(timelines.suffix(from: currentTimelineIndex + 1))
         
         let totalAvailableTimeInMinutes = remainingTimeInCurrentTimeline + availableTimeAfterCurrent
         
