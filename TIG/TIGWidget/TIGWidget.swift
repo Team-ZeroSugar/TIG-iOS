@@ -40,7 +40,7 @@ struct Provider: TimelineProvider {
                 entries.append(entry)
             }
         } else {
-            let entry = TIGEntry(date: .now, totalAvailabilityTime: nil, remainAvailabilityTime: DateComponents(hour:1, minute: 1))
+            let entry = TIGEntry(date: .now, totalAvailabilityTime: nil, remainAvailabilityTime: nil)
             entries.append(entry)
         }
         
@@ -116,7 +116,7 @@ struct Provider: TimelineProvider {
 struct TIGEntry: TimelineEntry {
     let date: Date
     let totalAvailabilityTime: Int?
-    let remainAvailabilityTime: DateComponents
+    let remainAvailabilityTime: DateComponents?
 }
 
 struct TIGWidgetEntryView : View {
@@ -141,10 +141,10 @@ struct TIGWidgetEntryView : View {
                 
                 
                 
-                if let totalAvailTime = entry.totalAvailabilityTime {
+                if let totalAvailTime = entry.totalAvailabilityTime, let remainAvailTime = entry.remainAvailabilityTime {
                     Spacer().frame(height: 12)
                     
-                    Text(entry.remainAvailabilityTime.formattedDuration())
+                    Text(remainAvailTime.formattedDuration())
                         .foregroundStyle(.gray05)
                         .font(.custom(AppFont.semiBold, size: 24))
                     
@@ -170,8 +170,8 @@ struct TIGWidgetEntryView : View {
                     Text("남은 활용 가능 시간")
                         .font(.custom(AppFont.medium, size: 13))
                     
-                    if entry.totalAvailabilityTime != nil {
-                        Text(entry.remainAvailabilityTime.formattedDuration())
+                    if let remainAvailTime = entry.remainAvailabilityTime {
+                        Text(remainAvailTime.formattedDuration())
                             .font(.custom(AppFont.bold, size: 16))
                     } else {
                         Text("설정 필요")
