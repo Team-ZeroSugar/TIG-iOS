@@ -10,12 +10,10 @@ import SwiftUI
 import SwiftData
 
 struct Provider: TimelineProvider {
-    // 위젯이 로드되기 전에 보여줄 기본 데이터
     func placeholder(in context: Context) -> TIGEntry {
         TIGEntry(date: .now, totalAvailabilityTime: 8, remainAvailabilityTime: DateComponents(hour: 4, minute: 30))
     }
     
-    // 위젯 미리보기
     func getSnapshot(in context: Context, completion: @escaping (TIGEntry) -> ()) {
         let entry = TIGEntry(date: .now, totalAvailabilityTime: 15, remainAvailabilityTime: DateComponents(hour: 2, minute: 30))
         completion(entry)
@@ -38,9 +36,6 @@ struct Provider: TimelineProvider {
                 
                 let remainAvailabilityTime = calRemainingAvailableTime(timelines: timelines, referenceDate: entryDate) ?? DateComponents(hour:0, minute: 0)
                 
-                print("total: " + totalAvailabilityTime.formattedDuration())
-                print("remain: \(remainAvailabilityTime)")
-                
                 let entry = TIGEntry(date: entryDate, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)
                 entries.append(entry)
             }
@@ -49,7 +44,6 @@ struct Provider: TimelineProvider {
             entries.append(entry)
         }
         
-        print(entries)
         let widgetTimeline = WidgetKit.Timeline(entries: entries, policy: .atEnd)
         
         completion(widgetTimeline)
