@@ -192,13 +192,14 @@ extension HomeViewModel {
         let calendar = Calendar.current
         let now = Date()
         
-        let hour = calendar.component(.hour, from: now)
-        let minute = calendar.component(.minute, from: now)
+        let currentTimeInMinutes = calendar.component(.hour, from: now) * 60 + calendar.component(.minute, from: now)
         
-        for timeline in state.dailyContent.timelines {
-            let start = ((timeline.start.hour! * 60) + timeline.start.minute!)
-            let end = ((timeline.end.hour! * 60) + timeline.end.minute!)
-            if ((hour * 60) + minute) >= start && ((hour * 60) + minute) <= end {
+        let groupedTimelines = self.groupedTimelines(timelines: state.dailyContent.timelines)
+        
+        for timeline in groupedTimelines {
+            let start = (timeline.start.hour! * 60) + timeline.start.minute!
+            let end = (timeline.end.hour! * 60) + timeline.end.minute!
+            if currentTimeInMinutes >= start && currentTimeInMinutes <= end {
                 return (isAvailable: timeline.isAvailable, start: timeline.start, end: timeline.end)
             }
         }
