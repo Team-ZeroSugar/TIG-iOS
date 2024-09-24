@@ -181,6 +181,14 @@ extension HomeViewModel {
             Day.allCases.forEach { day in
                 self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyRepeats[day]!.timelines)
             }
+            
+            let savedDailyContents = self.fetchDailyContents()
+            savedDailyContents.forEach { dailyContent in
+                let weekday = Calendar.current.component(.weekday, from: dailyContent.date)
+                dailyContentRepository.updateDailyContent(dailyContent: dailyContent, timelines: state.weeklyRepeats[Day(rawValue: weekday)!]!.timelines)
+            }
+            
+            self.state.dailyContent = readDailyContent(self.state.currentDate)
         } else {
             self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyContent.timelines)
         }
@@ -325,6 +333,19 @@ extension HomeViewModel {
         }
         
         return weeklyRepeats
+    }
+    
+    private func fetchDailyContents() -> [DailyContent] {
+        let savedDailyContentsResult = dailyContentRepository.fetchDailyContents()
+        
+        switch savedDailyContentsResult {
+        case .success(let dailyContents):
+            return dailyContents
+        case .failure(let error):
+            print(error.rawValue)
+        }
+        
+        return []
     }
     
     private func sortTimelines(_ timelines: [Timeline]) -> [Timeline] {
