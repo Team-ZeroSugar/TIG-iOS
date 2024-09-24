@@ -34,14 +34,14 @@ extension DateComponents {
         }
     }
     
-    func formattedDuration() -> String {
+    func formattedFullDuration() -> String {
         var components: [String] = []
         
-        if let hours = self.hour, hours > 0 {
+        if let hours = self.hour, hours >= 0 {
             components.append("\(hours)시간")
         }
         
-        if let minutes = self.minute, minutes > 0 {
+        if let minutes = self.minute, minutes >= 0 {
             components.append("\(minutes)분")
         }
         

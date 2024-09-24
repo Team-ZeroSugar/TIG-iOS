@@ -144,13 +144,13 @@ struct TIGWidgetEntryView : View {
                 if let totalAvailTime = entry.totalAvailabilityTime, let remainAvailTime = entry.remainAvailabilityTime {
                     Spacer().frame(height: 12)
                     
-                    Text(remainAvailTime.formattedDuration())
+                    Text(remainAvailTime.formattedFullDuration())
                         .foregroundStyle(.gray05)
                         .font(.custom(AppFont.semiBold, size: 24))
                     
                     Spacer().frame(height: 8)
                     
-                    Text("/ " + totalAvailTime.formattedDuration())
+                    Text("/ " + totalAvailTime.formattedFullDuration())
                         .foregroundStyle(.gray05)
                         .font(.custom(AppFont.medium, size: 12))
                 } else {
@@ -171,7 +171,7 @@ struct TIGWidgetEntryView : View {
                         .font(.custom(AppFont.medium, size: 13))
                     
                     if let remainAvailTime = entry.remainAvailabilityTime {
-                        Text(remainAvailTime.formattedDuration())
+                        Text(remainAvailTime.formattedFullDuration())
                             .font(.custom(AppFont.bold, size: 16))
                     } else {
                         Text("설정 필요")
