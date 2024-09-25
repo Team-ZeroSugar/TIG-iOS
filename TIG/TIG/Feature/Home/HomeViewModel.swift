@@ -226,15 +226,64 @@ extension HomeViewModel {
     }
     
     func remainingTime() -> String {
-        let currentTime = countTo - counter
-        return currentTime.formattedTime()
+        let now = Date()
+        if let remainingTime = calRemainingAvailableTime(timelines: state.dailyContent.timelines, referenceDate: now) {
+            let hours = remainingTime.hour ?? 0
+            let minutes = remainingTime.minute ?? 0
+            
+            print(hours)
+            print(minutes)
+            
+            let totalMinutes = hours * 60 + minutes
+            return totalMinutes.formattedTime()
+        } else {
+            return "0시간 0분"
+        }
     }
     
     func getTotalAvailableTime() -> String {
         let availableCount = state.dailyContent.timelines.filter { $0.isAvailable }.count
         let totalAvailableTime = availableCount * 30
-        
+            
         return totalAvailableTime.formattedTime()
+    }
+    
+    func calRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
+        let now = Calendar.current.dateComponents([.hour, .minute], from: referenceDate)
+
+        let timelines = sortTimelines(timelines)
+        
+        guard let currentTimelineIndex = timelines.firstIndex(where: { timeline in
+            guard let startDate = Calendar.current.date(from: timeline.start),
+                  let endDate = Calendar.current.date(from: timeline.end),
+                  let nowDate = Calendar.current.date(from: now) else {
+                return false
+            }
+            return startDate <= nowDate && nowDate <= endDate
+        }) else {
+            return nil
+        }
+        
+        let currentTimeline = timelines[currentTimelineIndex]
+        
+        var remainingTimeInCurrentTimeline = 0.0
+        if currentTimeline.isAvailable {
+            guard let endDate = Calendar.current.date(from: currentTimeline.end),
+                  let nowDate = Calendar.current.date(from: now) else {
+                return nil
+            }
+            
+            remainingTimeInCurrentTimeline = endDate.timeIntervalSince(nowDate) / 60
+        }
+        
+        
+        let availableTimeAfterCurrent = Double(timelines.suffix(from: currentTimelineIndex + 1).filter{ $0.isAvailable }.count * 30)
+        
+        let totalAvailableTimeInMinutes = remainingTimeInCurrentTimeline + availableTimeAfterCurrent
+        
+        let hours = Int(totalAvailableTimeInMinutes) / 60
+        let minutes = Int(totalAvailableTimeInMinutes) % 60
+        return DateComponents(hour: hours, minute: minutes)
     }
     
     // MARK: - AnnounceView Function
