@@ -192,7 +192,9 @@ extension HomeViewModel {
         let calendar = Calendar.current
         let now = Date()
         
-        let currentTimeInMinutes = calendar.component(.hour, from: now) * 60 + calendar.component(.minute, from: now)
+        let hour = calendar.component(.hour, from: now)
+        let minute = calendar.component(.minute, from: now)
+        let currentTimeInMinutes = hour * 60 + minute
         
         let groupedTimelines = self.groupedTimelines(timelines: state.dailyContent.timelines)
         
@@ -230,9 +232,6 @@ extension HomeViewModel {
         if let remainingTime = calRemainingAvailableTime(timelines: state.dailyContent.timelines, referenceDate: now) {
             let hours = remainingTime.hour ?? 0
             let minutes = remainingTime.minute ?? 0
-            
-            print(hours)
-            print(minutes)
             
             let totalMinutes = hours * 60 + minutes
             return totalMinutes.formattedTime()
