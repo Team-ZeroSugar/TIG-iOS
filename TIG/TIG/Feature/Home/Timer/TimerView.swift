@@ -23,6 +23,10 @@ struct TimerView: View {
         }
         .padding(.horizontal, 20)
         .padding(.top, 44)
+        .onAppear {
+            homeViewModel.startTimer()
+            homeViewModel.updateTimeAndTimer()
+        }
     }
 }
 
@@ -108,7 +112,7 @@ fileprivate struct TimerBodyView: View {
                         .clipShape(Capsule())
                         .padding(.bottom, 6)
                     
-                    Text(homeViewModel.remainingTime())
+                    Text(homeViewModel.state.remainingTime)
                         .font(.custom(AppFont.semiBold, size: 36))
                     Text("/ \(homeViewModel.getTotalAvailableTime())")
                         .font(.custom(AppFont.medium, size: 13))
