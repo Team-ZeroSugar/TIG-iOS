@@ -207,9 +207,6 @@ extension HomeViewModel {
         
         state.remainingTime = remainingTime()
         let currentProgress = progress()
-        
-        print("남은 가용 시간: \(remainingMinutes)분, 전체 가용 시간: \(totalMinutes)분, 진행도: \(currentProgress * 100)%")
-
     }
     
     func progress() -> CGFloat {
