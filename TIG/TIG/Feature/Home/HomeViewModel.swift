@@ -119,6 +119,7 @@ final class HomeViewModel {
             
         // AnnounceView
         case .settingButtonTapped:
+            self.state.isEditMode = true
             self.createTimeline()
           
         // SettingView
