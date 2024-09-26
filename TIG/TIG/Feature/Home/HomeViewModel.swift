@@ -17,6 +17,7 @@ final class HomeViewModel {
         var isCalendarVisible: Bool = false
         var currentDate: Date = .now
         
+        var remainingTime: String = "0시간 0분"
         // TimelineView
         var isEditMode: Bool = false
         var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
@@ -28,21 +29,6 @@ final class HomeViewModel {
         var isRepeatView: Bool = false
     }
     
-    // TimerView
-    private var counter: Int = 0
-    private var countTo: Int {
-//        if let selectedContent = state.dailyContents.first(where: { Calendar.current.isDate($0.date.formattedDate, inSameDayAs: state.currentDate.formattedDate) }) {
-//            return selectedContent.totalAvailabilityTime
-//        } else {
-//            return 0
-//        }
-        let content = state.dailyContent
-        if content.date.formattedDate == .now.formattedDate {
-            return content.totalAvailabilityTime
-        } else {
-            return 0
-        }
-    }
     private var timer: AnyCancellable?
     
     enum Action {
@@ -82,8 +68,6 @@ final class HomeViewModel {
 //        self.state.dailyContent = self.readDailyContent(.now)
 //        self.state.weeklyRepeats = self.readWeeklyRepeats()
 //        self.state.appSetting = self.settingRepository.getAppSettings()
-//        
-//        startTimer()
     }
     
     func effect(_ action: Action) {
@@ -213,23 +197,51 @@ extension HomeViewModel {
         timer = Timer.publish(every: 60, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
-                self?.incrementCounter()
+                self?.updateTimeAndTimer()
             }
     }
     
-    func incrementCounter() {
-        if counter < countTo {
-           counter += 60
-        }
+    func updateTimeAndTimer() {
+        let remainingMinutes = calRemainingAvailableMinutes()
+        let totalMinutes = calTotalAvailableMinutes()
+        
+        state.remainingTime = remainingTime()
+        let currentProgress = progress()
     }
     
     func progress() -> CGFloat {
-        return CGFloat(counter) / CGFloat(countTo)
+        let totalMinutes = calTotalAvailableMinutes()
+        let remainingMinutes = calRemainingAvailableMinutes()
+        
+        if totalMinutes == 0 { return 0.0 }
+        
+        return (1 - CGFloat(remainingMinutes) / CGFloat(totalMinutes))
+    }
+    
+    func calTotalAvailableMinutes() -> Int {
+        let availableTimelines = state.dailyContent.timelines.filter { $0.isAvailable }
+        let totalMinutes = availableTimelines.reduce(0) { result, timeline in
+            let start = timeline.start.hour! * 60 + timeline.start.minute!
+            let end = timeline.end.hour! * 60 + timeline.end.minute!
+            
+            return result + (end - start)
+        }
+        
+        return totalMinutes
+    }
+    
+    func calRemainingAvailableMinutes() -> Int {
+        let now = Date()
+        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines, referenceDate: now) {
+            let remainingMinutes = (remainingTime.hour ?? 0) * 60 + (remainingTime.minute ?? 0)
+            return remainingMinutes
+        }
+        return 0
     }
     
     func remainingTime() -> String {
         let now = Date()
-        if let remainingTime = calRemainingAvailableTime(timelines: state.dailyContent.timelines, referenceDate: now) {
+        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines, referenceDate: now) {
             let hours = remainingTime.hour ?? 0
             let minutes = remainingTime.minute ?? 0
             
@@ -247,7 +259,7 @@ extension HomeViewModel {
         return totalAvailableTime.formattedTime()
     }
     
-    func calRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
+    func getRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
         let now = Calendar.current.dateComponents([.hour, .minute], from: referenceDate)
 
         let timelines = sortTimelines(timelines)
@@ -287,8 +299,8 @@ extension HomeViewModel {
     
     // MARK: - AnnounceView Function
     func createTimeline() {
-        let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex).convertDateFormat()
-        let bedtime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex).convertDateFormat()
+        let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex).convertToDateFormat()
+        let bedtime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex).convertToDateFormat()
         let calendar = Calendar.current
         
         var currentTime = wakeupTime
