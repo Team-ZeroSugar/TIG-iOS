@@ -194,7 +194,7 @@ extension HomeViewModel {
     }
     
     func startTimer() {
-        timer = Timer.publish(every: 60, on: .main, in: .common)
+        timer = Timer.publish(every: 30, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 self?.updateTimeAndTimer()
@@ -207,6 +207,9 @@ extension HomeViewModel {
         
         state.remainingTime = remainingTime()
         let currentProgress = progress()
+        
+        print("남은 가용 시간: \(remainingMinutes)분, 전체 가용 시간: \(totalMinutes)분, 진행도: \(currentProgress * 100)%")
+
     }
     
     func progress() -> CGFloat {
@@ -231,8 +234,7 @@ extension HomeViewModel {
     }
     
     func calRemainingAvailableMinutes() -> Int {
-        let now = Date()
-        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines, referenceDate: now) {
+        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines) {
             let remainingMinutes = (remainingTime.hour ?? 0) * 60 + (remainingTime.minute ?? 0)
             return remainingMinutes
         }
@@ -240,8 +242,7 @@ extension HomeViewModel {
     }
     
     func remainingTime() -> String {
-        let now = Date()
-        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines, referenceDate: now) {
+        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines) {
             let hours = remainingTime.hour ?? 0
             let minutes = remainingTime.minute ?? 0
             
@@ -259,8 +260,8 @@ extension HomeViewModel {
         return totalAvailableTime.formattedTime()
     }
     
-    func getRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
-        let now = Calendar.current.dateComponents([.hour, .minute], from: referenceDate)
+    func getRemainingAvailableTime(timelines: [Timeline]) -> DateComponents? {
+        let now = Calendar.current.dateComponents([.hour, .minute], from: .now)
 
         let timelines = sortTimelines(timelines)
         
