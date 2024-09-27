@@ -307,10 +307,13 @@ extension HomeViewModel {
     // MARK: - AnnounceView Function
     func createTimeline() {
         let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex).convertToDateFormat()
-        let bedtime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex).convertToDateFormat()
+        var bedtime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex).convertToDateFormat()
         let calendar = Calendar.current
         
         var currentTime = wakeupTime
+      if wakeupTime > bedtime {
+        bedtime.addTimeInterval(86400)
+      }
         
         while currentTime < bedtime {
             let nextTime = calendar.date(byAdding: .minute, value: 30, to: currentTime)!
@@ -350,7 +353,6 @@ extension HomeViewModel {
     switch dailyContentResult {
     case .success(var dailyContent):
       dailyContent.timelines = sortTimelines(dailyContent.timelines)
-      print(dailyContent)
       return dailyContent
     case .failure(let error):
       print(error.rawValue)
@@ -359,7 +361,6 @@ extension HomeViewModel {
       switch weeklyRepeatResult {
       case .success(var weeklyRepeat):
         weeklyRepeat.timelines = sortTimelines(weeklyRepeat.timelines)
-        print(weeklyRepeat)
         let dailyContent = DailyContent(
           date: date,
           timelines: weeklyRepeat.timelines,

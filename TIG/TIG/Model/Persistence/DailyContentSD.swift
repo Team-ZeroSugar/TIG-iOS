@@ -32,6 +32,8 @@ extension DailyContentSD {
   
     private func formatDateComponents(_ timelines: [TimelineSD]) -> [Timeline] {
       var timelineEntities = self.timelines.map { $0.toEntity() }
+      if timelineEntities.isEmpty { return [] }
+      
       let curDay = timelineEntities[0].start.day!
     
       for (idx, entity) in timelineEntities.enumerated() {

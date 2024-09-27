@@ -10,7 +10,6 @@
 		0947BA9B2C534A93003F186A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9A2C534A93003F186A /* TimerView.swift */; };
 		0947BA9D2C534D87003F186A /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* AnnounceView.swift */; };
 		356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimelineView.swift */; };
-		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
 		5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */; };
@@ -60,7 +59,6 @@
 		0947BA9A2C534A93003F186A /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		0947BA9C2C534D87003F186A /* AnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceView.swift; sourceTree = "<group>"; };
 		356FF03B2C4A89F0005A078C /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
-		35B315172C573B6E00735F8F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatView.swift; sourceTree = "<group>"; };
 		5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
@@ -122,7 +120,7 @@
 		573882CA2C747597009BD189 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				577B36582C4A984F0015C9A4 /* DTO */,
+				577B36582C4A984F0015C9A4 /* Persistence */,
 				57A98F1E2C3CD46D00863BC6 /* Entitiy */,
 			);
 			path = Model;
@@ -147,14 +145,14 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		577B36582C4A984F0015C9A4 /* DTO */ = {
+		577B36582C4A984F0015C9A4 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */,
 				577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */,
 				577B365B2C4A98B90015C9A4 /* TimelineSD.swift */,
 			);
-			path = DTO;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		577B36672C4BF1E20015C9A4 /* Storage */ = {
@@ -245,7 +243,6 @@
 				57A98F232C3CD51300863BC6 /* DefaultDailyContentRepository.swift */,
 				577B36632C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift */,
 				577B36682C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift */,
-				35B315172C573B6E00735F8F /* TestData.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -444,7 +441,6 @@
 				57A98F242C3CD51300863BC6 /* DefaultDailyContentRepository.swift in Sources */,
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
 				577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */,
-				35B315182C573B6E00735F8F /* TestData.swift in Sources */,
 				5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */,
 				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,
 				573882D72C9564ED009BD189 /* SettingViewModel.swift in Sources */,
@@ -591,13 +587,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
-				DEVELOPMENT_TEAM = C3P52YR8KJ;
+				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIG/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "시간가용";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -626,13 +624,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIG/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "시간가용";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
