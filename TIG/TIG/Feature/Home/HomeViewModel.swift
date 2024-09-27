@@ -233,11 +233,11 @@ extension HomeViewModel {
     }
     
     func updateTimeAndTimer() {
-        let remainingMinutes = calRemainingAvailableMinutes()
-        let totalMinutes = calTotalAvailableMinutes()
+        _ = calRemainingAvailableMinutes()
+        _ = calTotalAvailableMinutes()
         
         state.remainingTime = calRemainingAvailableMinutes().formattedTime()
-        let currentProgress = progress()
+        _ = progress()
     }
     
     func progress() -> CGFloat {
