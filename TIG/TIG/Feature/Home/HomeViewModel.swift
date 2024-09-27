@@ -236,7 +236,7 @@ extension HomeViewModel {
         let remainingMinutes = calRemainingAvailableMinutes()
         let totalMinutes = calTotalAvailableMinutes()
         
-        state.remainingTime = remainingTime()
+        state.remainingTime = calRemainingAvailableMinutes().formattedTime()
         let currentProgress = progress()
     }
     
@@ -258,22 +258,14 @@ extension HomeViewModel {
     
     func calRemainingAvailableMinutes() -> Int {
         if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines) {
-            let remainingMinutes = (remainingTime.hour ?? 0) * 60 + (remainingTime.minute ?? 0)
-            return remainingMinutes
-        }
-        return 0
-    }
-    
-    func remainingTime() -> String {
-        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines) {
             let hours = remainingTime.hour ?? 0
             let minutes = remainingTime.minute ?? 0
             
             let totalMinutes = hours * 60 + minutes
-            return totalMinutes.formattedTime()
-        } else {
-            return "0시간 0분"
+            
+            return totalMinutes
         }
+        return 0
     }
     
     func getRemainingAvailableTime(timelines: [Timeline]) -> DateComponents? {
