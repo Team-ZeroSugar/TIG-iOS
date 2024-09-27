@@ -122,7 +122,7 @@
 		573882CA2C747597009BD189 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				577B36582C4A984F0015C9A4 /* DTO */,
+				577B36582C4A984F0015C9A4 /* Persistence */,
 				57A98F1E2C3CD46D00863BC6 /* Entitiy */,
 			);
 			path = Model;
@@ -147,14 +147,14 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		577B36582C4A984F0015C9A4 /* DTO */ = {
+		577B36582C4A984F0015C9A4 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */,
 				577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */,
 				577B365B2C4A98B90015C9A4 /* TimelineSD.swift */,
 			);
-			path = DTO;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		577B36672C4BF1E20015C9A4 /* Storage */ = {
@@ -591,13 +591,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
-				DEVELOPMENT_TEAM = C3P52YR8KJ;
+				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIG/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "시간가용";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -626,13 +628,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIG/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "시간가용";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
