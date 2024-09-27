@@ -114,7 +114,7 @@ fileprivate struct TimerBodyView: View {
                     
                     Text(homeViewModel.state.remainingTime)
                         .font(.custom(AppFont.semiBold, size: 36))
-                    Text("/ \(homeViewModel.getTotalAvailableTime())")
+                    Text("/ \(homeViewModel.calTotalAvailableMinutes().formattedTime())")
                         .font(.custom(AppFont.medium, size: 13))
                 }
             }

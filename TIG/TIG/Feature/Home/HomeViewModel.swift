@@ -250,13 +250,8 @@ extension HomeViewModel {
     }
     
     func calTotalAvailableMinutes() -> Int {
-        let availableTimelines = state.dailyContent.timelines.filter { $0.isAvailable }
-        let totalMinutes = availableTimelines.reduce(0) { result, timeline in
-            let start = timeline.start.hour! * 60 + timeline.start.minute!
-            let end = timeline.end.hour! * 60 + timeline.end.minute!
-            
-            return result + (end - start)
-        }
+        let availableCount = state.dailyContent.timelines.filter { $0.isAvailable }.count
+        let totalMinutes = availableCount * 30
         
         return totalMinutes
     }
@@ -279,13 +274,6 @@ extension HomeViewModel {
         } else {
             return "0시간 0분"
         }
-    }
-    
-    func getTotalAvailableTime() -> String {
-        let availableCount = state.dailyContent.timelines.filter { $0.isAvailable }.count
-        let totalAvailableTime = availableCount * 30
-            
-        return totalAvailableTime.formattedTime()
     }
     
     func getRemainingAvailableTime(timelines: [Timeline]) -> DateComponents? {
