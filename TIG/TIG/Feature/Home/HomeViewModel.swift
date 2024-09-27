@@ -18,10 +18,13 @@ final class HomeViewModel {
         var currentDate: Date = .now
         
         var remainingTime: String = "0시간 0분"
+        
         // TimelineView
         var isEditMode: Bool = false
         var dailyContent: DailyContent = .init(date: .now, timelines: [], totalAvailabilityTime: 0)
+        var dailyEditingTimelines: [Timeline] = []
         var weeklyRepeats: [Day: WeeklyRepeat] = [:]
+        var weeklyEditingTimelines: [Day: [Timeline]] = [:]
         var appSetting: AppSetting = .init(wakeupTime: .now, bedTime: .now, isLightMode: false, allowNotifications: false)
 
         // WeeklyRepeatView
@@ -85,7 +88,9 @@ final class HomeViewModel {
         // TimelineView
         case .editTapped:
             if self.state.isEditMode {
-                updateTimeline()
+                self.updateTimeline()
+            } else {
+                self.getEditingTimeline()
             }
             self.state.isEditMode.toggle()
         case .timeSlotTapped(let index, let day):
@@ -105,6 +110,7 @@ final class HomeViewModel {
         case .settingButtonTapped:
             self.state.isEditMode = true
             self.createTimeline()
+            self.getEditingTimeline()
           
         // SettingView
         case .updateSleepTimeButtonTapped:
@@ -155,27 +161,29 @@ extension HomeViewModel {
     
     func toggleTimeSlot(_ index: Int, day: Day?) {
         if day == nil {
-            self.state.dailyContent.timelines[index].isAvailable.toggle()
+            self.state.dailyEditingTimelines[index].isAvailable.toggle()
         } else {
-            self.state.weeklyRepeats[day!]?.timelines[index].isAvailable.toggle()
+            self.state.weeklyEditingTimelines[day!]?[index].isAvailable.toggle()
         }
     }
     
     func updateTimeline() {
         if self.state.isRepeatView {
             Day.allCases.forEach { day in
-                self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyRepeats[day]!.timelines)
+                self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyEditingTimelines[day]!)
+                self.state.weeklyRepeats[day]!.timelines = state.weeklyEditingTimelines[day]!
             }
             
             let savedDailyContents = self.fetchDailyContents()
             savedDailyContents.forEach { dailyContent in
                 let weekday = Calendar.current.component(.weekday, from: dailyContent.date)
-                dailyContentRepository.updateDailyContent(dailyContent: dailyContent, timelines: state.weeklyRepeats[Day(rawValue: weekday)!]!.timelines)
+                dailyContentRepository.updateDailyContent(dailyContent: dailyContent, timelines: state.weeklyEditingTimelines[Day(rawValue: weekday)!]!)
+                self.state.dailyContent.timelines = self.state.weeklyEditingTimelines[Day(rawValue: weekday)!]!
             }
             
-            self.state.dailyContent = readDailyContent(self.state.currentDate)
         } else {
-            self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyContent.timelines)
+            self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyEditingTimelines)
+            self.state.dailyContent.timelines = self.state.dailyEditingTimelines
         }
     }
     
@@ -416,6 +424,16 @@ extension HomeViewModel {
                 return $0.start.minute ?? 0 < $1.start.minute ?? 0
             }
             return $0.start.hour ?? 0 < $1.start.hour ?? 0
+        }
+    }
+    
+    private func getEditingTimeline() {
+        if self.state.isRepeatView {
+            Day.allCases.forEach { day in
+                self.state.weeklyEditingTimelines[day] = self.state.weeklyRepeats[day]?.timelines
+            }
+        } else {
+            self.state.dailyEditingTimelines = self.state.dailyContent.timelines
         }
     }
 }
