@@ -38,8 +38,8 @@ enum Day: Int, CaseIterable {
 
 struct WeeklyRepeatView: View {
     
-    @Environment(HomeViewModel.self) var homeViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(HomeViewModel.self) var homeViewModel
     
     var body: some View {
         ZStack {
@@ -90,9 +90,6 @@ struct WeeklyRepeatView: View {
         .onAppear() {
             homeViewModel.effect(.enterRepeatView)
         }
-//        .onDisappear() {
-//            homeViewModel.effect(.exitRepeatView)
-//        }
     }
 }
 
