@@ -169,11 +169,17 @@ extension HomeViewModel {
     
     func updateTimeline() {
         if self.state.isRepeatView {
+            
+            var editingDays:[Day] = []
+            
             Day.allCases.forEach { day in
                 let oldTimelines = self.state.weeklyRepeats[day]!.timelines
                 let newTimelines = self.state.weeklyEditingTimelines[day]!
                 
                 if oldTimelines != newTimelines {
+                    
+                    editingDays.append(day)
+                    
                     self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: newTimelines)
                     self.state.weeklyRepeats[day]!.timelines = newTimelines
                 }
@@ -182,8 +188,11 @@ extension HomeViewModel {
             let savedDailyContents = self.fetchDailyContents()
             savedDailyContents.forEach { dailyContent in
                 let weekday = Calendar.current.component(.weekday, from: dailyContent.date)
-                dailyContentRepository.updateDailyContent(dailyContent: dailyContent, timelines: state.weeklyEditingTimelines[Day(rawValue: weekday)!]!)
-                self.state.dailyContent.timelines = self.state.weeklyEditingTimelines[Day(rawValue: weekday)!]!
+                
+                if editingDays.contains(Day(rawValue: weekday)!) {
+                    dailyContentRepository.updateDailyContent(dailyContent: dailyContent, timelines: state.weeklyEditingTimelines[Day(rawValue: weekday)!]!)
+                    self.state.dailyContent.timelines = self.state.weeklyEditingTimelines[Day(rawValue: weekday)!]!
+                }
             }
             
         } else {
