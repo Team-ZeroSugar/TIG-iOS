@@ -181,7 +181,7 @@ fileprivate struct TimelineContentView: View {
         
         let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
-        let editingTimelines = selectedDay == nil ? homeViewModel.state.dailyEditingTimelines : homeViewModel.state.weeklyEditingTimelines[selectedDay!]!
+        let editingTimelines = selectedDay == nil ? homeViewModel.state.dailyEditingTimelines : homeViewModel.state.weeklyEditingTimelines[selectedDay!] ?? []
         
         let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
         
