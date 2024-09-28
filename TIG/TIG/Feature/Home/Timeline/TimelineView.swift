@@ -181,20 +181,22 @@ fileprivate struct TimelineContentView: View {
         
         let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
+        let editingTimelines = selectedDay == nil ? homeViewModel.state.dailyEditingTimelines : homeViewModel.state.weeklyEditingTimelines[selectedDay!] ?? []
+        
         let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
         
         if homeViewModel.state.isEditMode {
             VStack(alignment: .leading, spacing:4) {
-                ForEach(timelines.indices, id: \.self) { index in
+                ForEach(editingTimelines.indices, id: \.self) { index in
                     Button(action: {
                         homeViewModel.effect(.timeSlotTapped(index, day: selectedDay))
                     }, label: {
                         RoundedRectangle(cornerRadius: 8)
-                        .fill(timelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
+                        .fill(editingTimelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                   .stroke(AppColor.timelineStroke, lineWidth: 2)
-                                    .opacity(timelines[index].isAvailable ? 0 : 1)
+                                    .opacity(editingTimelines[index].isAvailable ? 0 : 1)
                             )
                             .frame(height: 35)
                     })

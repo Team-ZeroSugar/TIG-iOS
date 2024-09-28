@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Timeline {
+struct Timeline: Equatable {
     var start: DateComponents
     var end: DateComponents
     var isAvailable: Bool
