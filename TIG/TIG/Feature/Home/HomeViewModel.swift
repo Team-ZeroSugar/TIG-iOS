@@ -170,8 +170,13 @@ extension HomeViewModel {
     func updateTimeline() {
         if self.state.isRepeatView {
             Day.allCases.forEach { day in
-                self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: state.weeklyEditingTimelines[day]!)
-                self.state.weeklyRepeats[day]!.timelines = state.weeklyEditingTimelines[day]!
+                let oldTimelines = self.state.weeklyRepeats[day]!.timelines
+                let newTimelines = self.state.weeklyEditingTimelines[day]!
+                
+                if oldTimelines != newTimelines {
+                    self.weeklyRepeatRepository.updateWeeklyRepeat(weeklyRepeat: state.weeklyRepeats[day]!, timelines: newTimelines)
+                    self.state.weeklyRepeats[day]!.timelines = newTimelines
+                }
             }
             
             let savedDailyContents = self.fetchDailyContents()
