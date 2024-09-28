@@ -100,7 +100,7 @@ fileprivate struct TimerBodyView: View {
             ZStack {
                 TimerTrack()
                 
-                TimerProgressBar(progress: homeViewModel.progress())
+                TimerProgressBar(progress: homeViewModel.state.progress)
                 
                 VStack(spacing: 4) {
                     Text("남은 활용 가능 시간")

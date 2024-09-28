@@ -18,6 +18,8 @@ final class HomeViewModel {
         var currentDate: Date = .now
         
         var remainingTime: String = "0시간 0분"
+
+        var progress: CGFloat = 0.0
         
         // TimelineView
         var isEditMode: Bool = false
@@ -233,20 +235,16 @@ extension HomeViewModel {
     }
     
     func updateTimeAndTimer() {
-        let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines)
-        _ = calTotalAvailableMinutes()
-        
-        state.remainingTime = remainingTime.formattedTime()
-        _ = progress()
-    }
-    
-    func progress() -> CGFloat {
-        let totalMinutes = calTotalAvailableMinutes()
         let remainingMinutes = getRemainingAvailableTime(timelines: state.dailyContent.timelines)
+        let totalMinutes = calTotalAvailableMinutes()
         
-        if totalMinutes == 0 { return 0.0 }
+        state.remainingTime = remainingMinutes.formattedTime()
         
-        return (1 - CGFloat(remainingMinutes) / CGFloat(totalMinutes))
+        if totalMinutes == 0 {
+            state.progress = 0.0
+        } else {
+            state.progress = 1 - CGFloat(remainingMinutes) / CGFloat(totalMinutes)
+        }
     }
     
     func calTotalAvailableMinutes() -> Int {
