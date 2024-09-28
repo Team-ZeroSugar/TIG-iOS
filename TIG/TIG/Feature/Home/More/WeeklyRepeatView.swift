@@ -38,7 +38,7 @@ enum Day: Int, CaseIterable {
 
 struct WeeklyRepeatView: View {
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) var dismiss
     @Environment(HomeViewModel.self) var homeViewModel
     
     var body: some View {
@@ -76,7 +76,7 @@ struct WeeklyRepeatView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
                     homeViewModel.effect(.exitRepeatView)
-                    self.presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }, label: {
                     HStack {
                         Image(systemName: "chevron.left")
