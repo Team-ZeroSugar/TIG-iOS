@@ -39,6 +39,7 @@ enum Day: Int, CaseIterable {
 struct WeeklyRepeatView: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         ZStack {
@@ -61,7 +62,7 @@ struct WeeklyRepeatView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .navigationTitle(homeViewModel.state.isEditMode ? "반복 일정 편집" : "반복 일정 관리")
-        .toolbar(content: {
+        .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
                     Button(action: {
@@ -71,13 +72,27 @@ struct WeeklyRepeatView: View {
                     })
                 }
             }
-        })
+            
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    homeViewModel.effect(.exitRepeatView)
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .aspectRatio(contentMode: .fit)
+                        Text("뒤로")
+                    }
+                })
+            }
+        }
+        .navigationBarBackButtonHidden(true)
         .onAppear() {
             homeViewModel.effect(.enterRepeatView)
         }
-        .onDisappear() {
-            homeViewModel.effect(.exitRepeatView)
-        }
+//        .onDisappear() {
+//            homeViewModel.effect(.exitRepeatView)
+//        }
     }
 }
 
