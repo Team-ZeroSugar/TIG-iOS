@@ -236,7 +236,7 @@ extension HomeViewModel {
     
     func updateTimeAndTimer() {
         let remainingMinutes = getRemainingAvailableTime(timelines: state.dailyContent.timelines)
-        let totalMinutes = calTotalAvailableMinutes()
+        let totalMinutes = getTotalAvailableTime()
         
         state.remainingTime = remainingMinutes.formattedTime()
         
@@ -247,7 +247,7 @@ extension HomeViewModel {
         }
     }
     
-    func calTotalAvailableMinutes() -> Int {
+    func getTotalAvailableTime() -> Int {
         let availableCount = state.dailyContent.timelines.filter { $0.isAvailable }.count
         let totalMinutes = availableCount * 30
         
