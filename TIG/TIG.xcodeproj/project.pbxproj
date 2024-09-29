@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0947BA9B2C534A93003F186A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9A2C534A93003F186A /* TimerView.swift */; };
 		0947BA9D2C534D87003F186A /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* AnnounceView.swift */; };
+		351FBE0A2CA912180053D45E /* DefaultDailyContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F232C3CD51300863BC6 /* DefaultDailyContentRepository.swift */; };
+		351FBE0B2CA9143D0053D45E /* DailyContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F1F2C3CD4D000863BC6 /* DailyContentRepository.swift */; };
 		355E48AA2C9ABC4800F9C768 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
 		355E48AB2C9ABC4A00F9C768 /* WeeklyRepeatSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */; };
 		355E48AC2C9ABC4C00F9C768 /* TimelineSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365B2C4A98B90015C9A4 /* TimelineSD.swift */; };
@@ -30,7 +32,6 @@
 		359369F72C759C8600BE24FF /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F412C3CE0FB00863BC6 /* AppFont.swift */; };
 		359369F82C759D2D00BE24FF /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F432C3CE11D00863BC6 /* AppColor.swift */; };
 		359369F92C759D3300BE24FF /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F212C3CD4FA00863BC6 /* Colors.xcassets */; };
-		35B315182C573B6E00735F8F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B315172C573B6E00735F8F /* TestData.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
 		5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */; };
@@ -113,7 +114,6 @@
 		359369EB2C759AEB00BE24FF /* TIGWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIGWidget.swift; sourceTree = "<group>"; };
 		359369ED2C759AEC00BE24FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		359369EF2C759AEC00BE24FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		35B315172C573B6E00735F8F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatView.swift; sourceTree = "<group>"; };
 		5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
@@ -545,7 +545,9 @@
 				355E48AE2C9ABC5300F9C768 /* Timeline.swift in Sources */,
 				355E48B62C9FE04400F9C768 /* DateComponents+Ext.swift in Sources */,
 				355E48B22C9ABDBA00F9C768 /* SwiftDataStorage.swift in Sources */,
+				351FBE0A2CA912180053D45E /* DefaultDailyContentRepository.swift in Sources */,
 				355E48AF2C9ABC5400F9C768 /* WeeklyRepeat.swift in Sources */,
+				351FBE0B2CA9143D0053D45E /* DailyContentRepository.swift in Sources */,
 				359369EC2C759AEB00BE24FF /* TIGWidget.swift in Sources */,
 				355E48AA2C9ABC4800F9C768 /* DailyContentSD.swift in Sources */,
 				359369F82C759D2D00BE24FF /* AppColor.swift in Sources */,
@@ -835,7 +837,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
-				DEVELOPMENT_TEAM = C3P52YR8KJ;
 				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -24,8 +24,8 @@ struct Provider: TimelineProvider {
         var entries: [TIGEntry] = []
         
         let dailyContent = getDailyContent()
+        
         if let timelines = dailyContent?.timelines {
-            
             
             let currentDate = Date()
             
@@ -50,19 +50,17 @@ struct Provider: TimelineProvider {
     }
     
     private func getDailyContent() -> DailyContent? {
-        let modelContext = SwiftDataStorage.shared.modelContext
-        let date: Date = .now
+        let dailyContentRepository = DefaultDailyContentRepository()
+        let savedDailyContentsResult = dailyContentRepository.fetchDailyContents()
         
-        do {
-            let predicate = #Predicate<DailyContentSD> { $0.date == date.formattedDate }
-            let descriptor = FetchDescriptor(predicate: predicate)
-            
-            let datas = try modelContext.fetch(descriptor)
-            guard let data = datas.first else { return nil }
-            return data.toEntity()
-        } catch {
-            return nil
+        switch savedDailyContentsResult {
+        case .success(let dailyContents):
+            return dailyContents[0]
+        case .failure(let error):
+            print(error.rawValue)
         }
+        
+        return nil
     }
     
     private func calRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
