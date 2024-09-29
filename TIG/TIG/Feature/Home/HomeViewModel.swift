@@ -116,12 +116,12 @@ final class HomeViewModel {
           
         // SettingView
         case .updateSleepTimeButtonTapped:
-          self.state.dailyContent = self.readDailyContent(.now)
+          self.state.dailyContent = self.readDailyContent()
         }
     }
   
   func initData() {
-    self.state.dailyContent = self.readDailyContent(.now)
+    self.state.dailyContent = self.readDailyContent()
     self.state.weeklyRepeats = self.readWeeklyRepeats()
     self.state.appSetting = self.settingRepository.getAppSettings()
     
@@ -338,6 +338,34 @@ extension HomeViewModel {
 
 
 extension HomeViewModel {
+  
+  private func readDailyContent() -> DailyContent {
+    let now = Date()
+    let wakeupTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
+    var bedTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
+    
+    if wakeupTimeIndex >= bedTimeIndex {
+      bedTimeIndex += 48
+    }
+    
+    var bedDate = bedTimeIndex.convertToDateFormat()
+    
+    var targetDate: Date
+    if now >= bedDate {
+      targetDate = now.addingTimeInterval(86400)
+    } else {
+      bedDate.addTimeInterval(-86400)
+      if now >= bedDate {
+        targetDate = now
+      } else {
+        targetDate = now.addingTimeInterval(-86400)
+      }
+    }
+    
+    let dailyContent = readDailyContent(targetDate)
+    return dailyContent
+  }
+  
   private func readDailyContent(_ date: Date) -> DailyContent {
     let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
     
