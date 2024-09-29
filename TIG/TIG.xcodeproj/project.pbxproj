@@ -11,6 +11,7 @@
 		0947BA9D2C534D87003F186A /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947BA9C2C534D87003F186A /* AnnounceView.swift */; };
 		351FBE0A2CA912180053D45E /* DefaultDailyContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F232C3CD51300863BC6 /* DefaultDailyContentRepository.swift */; };
 		351FBE0B2CA9143D0053D45E /* DailyContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F1F2C3CD4D000863BC6 /* DailyContentRepository.swift */; };
+		351FBE0C2CA92C620053D45E /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882D42C90709F009BD189 /* UserDefaultsKey.swift */; };
 		355E48AA2C9ABC4800F9C768 /* DailyContentSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36592C4A98AB0015C9A4 /* DailyContentSD.swift */; };
 		355E48AB2C9ABC4A00F9C768 /* WeeklyRepeatSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365D2C4A98D40015C9A4 /* WeeklyRepeatSD.swift */; };
 		355E48AC2C9ABC4C00F9C768 /* TimelineSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B365B2C4A98B90015C9A4 /* TimelineSD.swift */; };
@@ -550,6 +551,7 @@
 				351FBE0B2CA9143D0053D45E /* DailyContentRepository.swift in Sources */,
 				359369EC2C759AEB00BE24FF /* TIGWidget.swift in Sources */,
 				355E48AA2C9ABC4800F9C768 /* DailyContentSD.swift in Sources */,
+				351FBE0C2CA92C620053D45E /* UserDefaultsKey.swift in Sources */,
 				359369F82C759D2D00BE24FF /* AppColor.swift in Sources */,
 				355E48AD2C9ABC5100F9C768 /* DailyContent.swift in Sources */,
 				355E48B02C9ABC6200F9C768 /* Date+Ext.swift in Sources */,
