@@ -36,17 +36,7 @@ extension Int {
           let hours = totalMinutes / 60
           let minutes = totalMinutes % 60
           
-          var result = ""
-          if hours >= 0 {
-            result += "\(hours)시간"
-          }
-          if minutes >= 0 {
-            if !result.isEmpty {
-              result += " "
-            }
-            result += "\(minutes)분"
-          }
-          return result
+          return "\(hours)시간 \(minutes)분"
         }
   
   

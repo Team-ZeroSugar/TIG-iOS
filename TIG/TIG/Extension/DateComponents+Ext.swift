@@ -35,17 +35,10 @@ extension DateComponents {
     }
     
     func formattedFullDuration() -> String {
-        var components: [String] = []
-        
-        if let hours = self.hour, hours >= 0 {
-            components.append("\(hours)시간")
+        guard let hours = self.hour, let minutes = self.minute else {
+            return "0시간 0분"
         }
-        
-        if let minutes = self.minute, minutes >= 0 {
-            components.append("\(minutes)분")
-        }
-        
-        return components.joined(separator: " ")
+        return "\(hours)시간 \(minutes)분"
     }
   
   func convertToDate() -> Date {
