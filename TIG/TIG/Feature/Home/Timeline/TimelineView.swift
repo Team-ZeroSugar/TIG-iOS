@@ -56,9 +56,16 @@ fileprivate struct TimelineHeaderView: View {
     
     fileprivate var body: some View {
         HStack {
-            Text(homeViewModel.state.isEditMode ? "오늘 일정 시간을 탭해서 지워주세요" : "지금은 활용 가능 시간이에요")
-                .font(.custom(AppFont.semiBold, size: 18))
-                .foregroundStyle(AppColor.gray05)
+            if homeViewModel.state.isEditMode {
+                Text("오늘 일정 시간을 탭해서 지워주세요")
+                    .font(.custom(AppFont.semiBold, size: 18))
+                    .foregroundStyle(AppColor.gray05)
+            } else {
+                Text(homeViewModel.currentTimeline()?.isAvailable == true ? "지금은 활용 가능한 시간이에요" : "지금은 활용 불가능한 시간이에요")
+                    .font(.custom(AppFont.semiBold, size: 18))
+                    .foregroundStyle(AppColor.gray05)
+            }
+            
             
             Spacer()
             
@@ -174,20 +181,22 @@ fileprivate struct TimelineContentView: View {
         
         let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
         
+        let editingTimelines = selectedDay == nil ? homeViewModel.state.dailyEditingTimelines : homeViewModel.state.weeklyEditingTimelines[selectedDay!] ?? []
+        
         let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
         
         if homeViewModel.state.isEditMode {
             VStack(alignment: .leading, spacing:4) {
-                ForEach(timelines.indices, id: \.self) { index in
+                ForEach(editingTimelines.indices, id: \.self) { index in
                     Button(action: {
                         homeViewModel.effect(.timeSlotTapped(index, day: selectedDay))
                     }, label: {
                         RoundedRectangle(cornerRadius: 8)
-                        .fill(timelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
+                        .fill(editingTimelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                   .stroke(AppColor.timelineStroke, lineWidth: 2)
-                                    .opacity(timelines[index].isAvailable ? 0 : 1)
+                                    .opacity(editingTimelines[index].isAvailable ? 0 : 1)
                             )
                             .frame(height: 35)
                     })

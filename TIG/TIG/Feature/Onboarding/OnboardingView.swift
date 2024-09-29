@@ -11,6 +11,7 @@ struct OnboardingView: View {
   @State private var currentPage: Int = 1
   @State private var wakeupTimeIndex = 16
   @State private var bedTimeIndex = 46
+  @State private var isDisable: Bool = false
   
   init() {
     UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(resource: .blueMain)
@@ -39,9 +40,14 @@ struct OnboardingView: View {
         Spacer().frame(height: 10)
         
         Button(action: {
+          isDisable = true
           withAnimation {
+            
             if currentPage == 5 { self.saveSleepTime() }
             else { currentPage += 1 }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+              isDisable = false
+            }
           }
           
         }, label: {
@@ -50,9 +56,12 @@ struct OnboardingView: View {
             .font(.custom(AppFont.medium, size: 16))
             .padding(.vertical)
             .padding(.horizontal, 116)
-            .background(RoundedRectangle(cornerRadius: 27.5))
+            .background(RoundedRectangle(cornerRadius: 27.5)
+              .foregroundStyle(AppColor.blueMain))
         })
+        .disabled(isDisable)
         .padding(.bottom, 30)
+        
       }
     }
   }
@@ -65,6 +74,8 @@ struct OnboardingView: View {
   }
 }
 
+// TODO: OnboardingView들을 재사용 가능한 코드로 수정 필요
+
 // MARK: - FirstView
 fileprivate struct OnboardingFirstView: View {
   
@@ -74,7 +85,10 @@ fileprivate struct OnboardingFirstView: View {
       
       Image(.onboardingFirst)
         .resizable()
-        .frame(width: 250, height: 250)
+        .frame(
+          width: UIScreen.main.bounds.width * 0.7,
+          height: UIScreen.main.bounds.width * 0.7
+        )
       
       Spacer().frame(height: 50)
       
@@ -96,7 +110,10 @@ fileprivate struct OnboardingSecondView: View {
       
       Image(.onboardingSecond)
         .resizable()
-        .frame(width: 250, height: 250)
+        .frame(
+          width: UIScreen.main.bounds.width * 0.7,
+          height: UIScreen.main.bounds.width * 0.7
+        )
       
       Spacer().frame(height: 50)
       
@@ -122,7 +139,10 @@ fileprivate struct OnboardingThirdView: View {
       
       Image(.onboardingThird)
         .resizable()
-        .frame(width: 250, height: 250)
+        .frame(
+          width: UIScreen.main.bounds.width * 0.7,
+          height: UIScreen.main.bounds.width * 0.7
+        )
       
       Spacer().frame(height: 50)
       
@@ -152,7 +172,7 @@ fileprivate struct SleepTimeSettingView: View {
   
   fileprivate var body: some View {
     VStack(spacing: 0) {
-      Spacer().frame(height: 130)
+      Spacer().frame(height: 80)
       
       Text(isWakeupMode ? "평소 몇 시에 일어나시나요?" : "평소 몇 시에 주무시나요?")
         .font(.custom(AppFont.bold, size: 28))
@@ -165,7 +185,8 @@ fileprivate struct SleepTimeSettingView: View {
         .padding(.top, 12)
       
       Spacer()
-      
+        .frame(height: 30)
+        
       Image(.circles)
         .resizable()
         .aspectRatio(contentMode: .fit)
@@ -174,7 +195,10 @@ fileprivate struct SleepTimeSettingView: View {
             .background {
               RoundedRectangle(cornerRadius: 10)
                 .fill(AppColor.blueMain.opacity(0.5))
-                .frame(width: 200, height: 40)
+                .frame(
+                  width: UIScreen.main.bounds.width * 0.4,
+                  height: 40
+                )
             }
         }
       
@@ -185,4 +209,7 @@ fileprivate struct SleepTimeSettingView: View {
 
 #Preview {
   OnboardingView()
+    
 }
+
+

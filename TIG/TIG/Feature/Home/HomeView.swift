@@ -63,9 +63,6 @@ struct HomeView: View {
           )
           .datePickerStyle(.graphical)
           .frame(width: 300, height: 300)
-//          .onChange(of: currentDate) { _, _ in
-//            homeViewModel.effect(.dateTapped(currentDate))
-//          }
         }
         .padding()
     }
