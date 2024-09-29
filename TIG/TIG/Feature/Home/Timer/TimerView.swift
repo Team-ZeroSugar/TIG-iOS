@@ -100,7 +100,7 @@ fileprivate struct TimerBodyView: View {
             ZStack {
                 TimerTrack()
                 
-                TimerProgressBar(progress: homeViewModel.progress())
+                TimerProgressBar(progress: homeViewModel.state.progress)
                 
                 VStack(spacing: 4) {
                     Text("남은 활용 가능 시간")
@@ -114,7 +114,7 @@ fileprivate struct TimerBodyView: View {
                     
                     Text(homeViewModel.state.remainingTime)
                         .font(.custom(AppFont.semiBold, size: 36))
-                    Text("/ \(homeViewModel.getTotalAvailableTime())")
+                    Text("/ \(homeViewModel.getTotalAvailableTime().formattedTime())")
                         .font(.custom(AppFont.medium, size: 13))
                 }
             }

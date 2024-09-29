@@ -19,6 +19,8 @@ final class HomeViewModel {
         var currentDate: Date = .now
         
         var remainingTime: String = "0시간 0분"
+
+        var progress: CGFloat = 0.0
         
         // TimelineView
         var isEditMode: Bool = false
@@ -115,12 +117,12 @@ final class HomeViewModel {
           
         // SettingView
         case .updateSleepTimeButtonTapped:
-          self.state.dailyContent = self.readDailyContent(.now)
+          self.state.dailyContent = self.readDailyContent()
         }
     }
   
   func initData() {
-    self.state.dailyContent = self.readDailyContent(.now)
+    self.state.dailyContent = self.readDailyContent()
     self.state.weeklyRepeats = self.readWeeklyRepeats()
     self.state.appSetting = self.settingRepository.getAppSettings()
     
@@ -238,62 +240,26 @@ extension HomeViewModel {
     }
     
     func updateTimeAndTimer() {
-        let remainingMinutes = calRemainingAvailableMinutes()
-        let totalMinutes = calTotalAvailableMinutes()
+        let remainingMinutes = getRemainingAvailableTime(timelines: state.dailyContent.timelines)
+        let totalMinutes = getTotalAvailableTime()
         
-        state.remainingTime = remainingTime()
-        let currentProgress = progress()
-    }
-    
-    func progress() -> CGFloat {
-        let totalMinutes = calTotalAvailableMinutes()
-        let remainingMinutes = calRemainingAvailableMinutes()
+        state.remainingTime = remainingMinutes.formattedTime()
         
-        if totalMinutes == 0 { return 0.0 }
-        
-        return (1 - CGFloat(remainingMinutes) / CGFloat(totalMinutes))
-    }
-    
-    func calTotalAvailableMinutes() -> Int {
-        let availableTimelines = state.dailyContent.timelines.filter { $0.isAvailable }
-        let totalMinutes = availableTimelines.reduce(0) { result, timeline in
-            let start = timeline.start.hour! * 60 + timeline.start.minute!
-            let end = timeline.end.hour! * 60 + timeline.end.minute!
-            
-            return result + (end - start)
+        if totalMinutes == 0 {
+            state.progress = 0.0
+        } else {
+            state.progress = 1 - CGFloat(remainingMinutes) / CGFloat(totalMinutes)
         }
+    }
+    
+    func getTotalAvailableTime() -> Int {
+        let availableCount = state.dailyContent.timelines.filter { $0.isAvailable }.count
+        let totalMinutes = availableCount * 30
         
         return totalMinutes
     }
     
-    func calRemainingAvailableMinutes() -> Int {
-        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines) {
-            let remainingMinutes = (remainingTime.hour ?? 0) * 60 + (remainingTime.minute ?? 0)
-            return remainingMinutes
-        }
-        return 0
-    }
-    
-    func remainingTime() -> String {
-        if let remainingTime = getRemainingAvailableTime(timelines: state.dailyContent.timelines) {
-            let hours = remainingTime.hour ?? 0
-            let minutes = remainingTime.minute ?? 0
-            
-            let totalMinutes = hours * 60 + minutes
-            return totalMinutes.formattedTime()
-        } else {
-            return "0시간 0분"
-        }
-    }
-    
-    func getTotalAvailableTime() -> String {
-        let availableCount = state.dailyContent.timelines.filter { $0.isAvailable }.count
-        let totalAvailableTime = availableCount * 30
-            
-        return totalAvailableTime.formattedTime()
-    }
-    
-    func getRemainingAvailableTime(timelines: [Timeline]) -> DateComponents? {
+    func getRemainingAvailableTime(timelines: [Timeline]) -> Int {
         let now = Calendar.current.dateComponents([.hour, .minute], from: .now)
 
         let timelines = sortTimelines(timelines)
@@ -306,7 +272,7 @@ extension HomeViewModel {
             }
             return startDate <= nowDate && nowDate <= endDate
         }) else {
-            return nil
+            return 0
         }
         
         let currentTimeline = timelines[currentTimelineIndex]
@@ -315,7 +281,7 @@ extension HomeViewModel {
         if currentTimeline.isAvailable {
             guard let endDate = Calendar.current.date(from: currentTimeline.end),
                   let nowDate = Calendar.current.date(from: now) else {
-                return nil
+                return 0
             }
             
             remainingTimeInCurrentTimeline = endDate.timeIntervalSince(nowDate) / 60
@@ -328,7 +294,10 @@ extension HomeViewModel {
         
         let hours = Int(totalAvailableTimeInMinutes) / 60
         let minutes = Int(totalAvailableTimeInMinutes) % 60
-        return DateComponents(hour: hours, minute: minutes)
+        
+        let totalMinutes = hours * 60 + minutes
+        
+        return totalMinutes
     }
     
     // MARK: - AnnounceView Function
@@ -374,6 +343,34 @@ extension HomeViewModel {
 
 
 extension HomeViewModel {
+  
+  private func readDailyContent() -> DailyContent {
+    let now = Date()
+    let wakeupTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
+    var bedTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
+    
+    if wakeupTimeIndex >= bedTimeIndex {
+      bedTimeIndex += 48
+    }
+    
+    var bedDate = bedTimeIndex.convertToDateFormat()
+    
+    var targetDate: Date
+    if now >= bedDate {
+      targetDate = now.addingTimeInterval(86400)
+    } else {
+      bedDate.addTimeInterval(-86400)
+      if now >= bedDate {
+        targetDate = now
+      } else {
+        targetDate = now.addingTimeInterval(-86400)
+      }
+    }
+    
+    let dailyContent = readDailyContent(targetDate)
+    return dailyContent
+  }
+  
   private func readDailyContent(_ date: Date) -> DailyContent {
     let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
     

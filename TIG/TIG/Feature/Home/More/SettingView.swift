@@ -26,39 +26,6 @@ struct SettingView: View {
   var body: some View {
     List {
       Section("수면 시간 설정") {
-        HStack {
-          Text("취침 시간")
-            .font(.custom(AppFont.medium, size: 16))
-            .foregroundStyle(AppColor.gray04)
-          Spacer()
-          Button(action: {
-            isPresentBedTimePicker = true
-            bedPickerIndex = bedTimeIndex
-          }, label: {
-            Text("\(bedTimeIndex.convertToKoreanTimeFormat())")
-              .font(.custom(AppFont.medium, size: 16))
-              .foregroundStyle(AppColor.blueMain)
-              .padding(4)
-          })
-          .padding(6)
-          .background(AppColor.gray00)
-          .foregroundStyle(.white)
-          .clipShape(RoundedRectangle(cornerRadius: 5))
-          .buttonStyle(.plain)
-          .confirmationDialog(isPresented: $isPresentBedTimePicker) {
-            CustomWheelPicker(selectedIndex: $bedPickerIndex)
-              .background {
-                RoundedRectangle(cornerRadius: 10)
-                  .fill(AppColor.blueMain.opacity(0.5))
-                  .frame(width: 300, height: 40)
-              }
-          } actions: {
-            SheetAction(title: "확인", role: .default) {
-              isShownBedAlert = true
-            }
-            SheetAction(title: "취소", role: .cancel)
-          }
-        }
         
         HStack {
           Text("기상 시간")
@@ -93,6 +60,40 @@ struct SettingView: View {
             SheetAction(title: "취소", role: .cancel)
           }
           
+        }
+        
+        HStack {
+          Text("취침 시간")
+            .font(.custom(AppFont.medium, size: 16))
+            .foregroundStyle(AppColor.gray04)
+          Spacer()
+          Button(action: {
+            isPresentBedTimePicker = true
+            bedPickerIndex = bedTimeIndex
+          }, label: {
+            Text("\(bedTimeIndex.convertToKoreanTimeFormat())")
+              .font(.custom(AppFont.medium, size: 16))
+              .foregroundStyle(AppColor.blueMain)
+              .padding(4)
+          })
+          .padding(6)
+          .background(AppColor.gray00)
+          .foregroundStyle(.white)
+          .clipShape(RoundedRectangle(cornerRadius: 5))
+          .buttonStyle(.plain)
+          .confirmationDialog(isPresented: $isPresentBedTimePicker) {
+            CustomWheelPicker(selectedIndex: $bedPickerIndex)
+              .background {
+                RoundedRectangle(cornerRadius: 10)
+                  .fill(AppColor.blueMain.opacity(0.5))
+                  .frame(width: 300, height: 40)
+              }
+          } actions: {
+            SheetAction(title: "확인", role: .default) {
+              isShownBedAlert = true
+            }
+            SheetAction(title: "취소", role: .cancel)
+          }
         }
       }
       
