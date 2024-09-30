@@ -101,7 +101,7 @@ extension DefaultDailyContentRepository: DailyContentRepository {
         )
       }
     case .failure(let error):
-      print(error.localizedDescription)
+      print("Update DailyContent Error: \(error.rawValue)")
     }
   }
   
@@ -112,7 +112,7 @@ extension DefaultDailyContentRepository: DailyContentRepository {
     case .success(let model):
       modelContext.delete(model)
     case .failure(let error):
-      print(error.localizedDescription)
+      print("Delete DailyContent Error: \(error.rawValue)")
     }
   }
 }

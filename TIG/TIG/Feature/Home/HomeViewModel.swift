@@ -111,7 +111,8 @@ final class HomeViewModel {
         // AnnounceView
         case .settingButtonTapped:
             self.state.isEditMode = true
-            self.createTimeline()
+            //self.createTimeline()
+          self.state.dailyContent = createNewDailyContent()
             self.getEditingTimeline()
           
         // SettingView
@@ -302,9 +303,9 @@ extension HomeViewModel {
         let calendar = Calendar.current
         
         var currentTime = wakeupTime
-      if wakeupTime > bedtime {
-        bedtime.addTimeInterval(86400)
-      }
+        if wakeupTime > bedtime {
+          bedtime.addTimeInterval(86400)
+        }
         
         while currentTime < bedtime {
             let nextTime = calendar.date(byAdding: .minute, value: 30, to: currentTime)!
@@ -334,6 +335,53 @@ extension HomeViewModel {
         }
     }
     
+  private func createNewDailyContent() -> DailyContent {
+      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
+      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
+      
+      if wakeupTime > bedTime {
+        bedTime += 48
+      }
+    
+      var newTimelines: [Timeline] = []
+      
+    var currentMinutes = wakeupTime.convertToDateComponents().convertTotalMinutes()
+    let endMinutes = bedTime.convertToDateComponents().convertTotalMinutes()
+    
+      while currentMinutes < endMinutes {
+        let nextMinutes = currentMinutes + 30
+        
+        let start = currentMinutes.convertToDateComponentsFromMinutes()
+        let end = nextMinutes.convertToDateComponentsFromMinutes()
+        
+        newTimelines.append(Timeline(
+          start: start,
+          end: end,
+          isAvailable: true
+        ))
+        
+        currentMinutes = nextMinutes
+      }
+    
+    if self.state.isRepeatView {
+        self.weeklyRepeatRepository.initialWeeklyRepeats()
+        Day.allCases.forEach { day in
+            self.weeklyRepeatRepository.updateWeeklyRepeat(
+              weeklyRepeat: state.weeklyRepeats[day]!,
+              timelines: state.weeklyRepeats[day]!.timelines
+            )
+        }
+    } else {
+        self.dailyContentRepository.createDailyContent(state.dailyContent)
+    }
+    
+    // TODO: 총 가용시간 구하고 저장
+    return DailyContent(
+      date: .now,
+      timelines: newTimelines,
+      totalAvailabilityTime: 0
+    )
+  }
 }
 
 
