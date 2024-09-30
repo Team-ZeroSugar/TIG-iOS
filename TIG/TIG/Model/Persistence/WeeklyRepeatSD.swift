@@ -36,6 +36,7 @@ extension WeeklyRepeatSD {
     for (idx, entity) in timelineEntities.enumerated() {
       if entity.start.day! != curDay {
         timelineEntities[idx].start.hour! += 24
+        timelineEntities[idx].end.hour! += 24
       }
     }
     
