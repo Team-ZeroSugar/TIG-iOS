@@ -79,4 +79,11 @@ extension Int {
       minute: self % 2 == 0 ? 0 : 30
     )
   }
+  
+  func convertToDateComponentsFromMinutes() -> DateComponents {
+    return DateComponents(
+      hour: self / 60,
+      minute: self % 60
+    )
+  }
 }

@@ -126,51 +126,51 @@ struct SettingView: View {
       
     }
     .navigationTitle("설정")
-//    .alert("기상 시간 변경하기",
-//           isPresented: $isShownWakeupAlert) {
-//      Button(role: .cancel) {
-//        
-//      } label: {
-//        Text("취소")
-//      }
-//      Button {
-//        wakeupTimeIndex = wakeupPickerIndex
-//        
-//        settingViewModel.effect(.updateSleepTimeButtonTapped(
-//          wakeupTimeIndex,
-//          bedTimeIndex
-//        ))
-//        homeViewModel.effect(.updateSleepTimeButtonTapped)
-//      } label: {
-//        Text("확인")
-//      }
-//    } message: {
-//      let before = wakeupTimeIndex.convertToKoreanTimeFormat()
-//      let after = wakeupPickerIndex.convertToKoreanTimeFormat()
-//      Text("\(before)에서 \(after)로 변경하시겠습니까?")
-//    }
-//    .alert("취침 시간 변경하기",
-//           isPresented: $isShownBedAlert) {
-//      Button(role: .cancel) {
-//        
-//      } label: {
-//        Text("취소")
-//      }
-//      Button {
-//        bedTimeIndex = bedPickerIndex
-//        
-//        settingViewModel.effect(.updateSleepTimeButtonTapped(
-//          wakeupTimeIndex,
-//          bedTimeIndex
-//        ))
-//        homeViewModel.effect(.updateSleepTimeButtonTapped)
-//      } label: {
-//        Text("확인")
-//      }
-//    } message: {
-//      let after = bedPickerIndex.convertToKoreanTimeFormat()
-//      Text("\(after)로 변경하시겠습니까?")
-//    }
+    .alert("기상 시간 변경하기",
+           isPresented: $isShownWakeupAlert) {
+      Button(role: .cancel) {
+        
+      } label: {
+        Text("취소")
+      }
+      Button {
+        wakeupTimeIndex = wakeupPickerIndex
+        
+        settingViewModel.effect(.updateSleepTimeButtonTapped(
+          wakeupTimeIndex,
+          bedTimeIndex
+        ))
+        homeViewModel.effect(.updateSleepTimeButtonTapped)
+      } label: {
+        Text("확인")
+      }
+    } message: {
+      let before = wakeupTimeIndex.convertToKoreanTimeFormat()
+      let after = wakeupPickerIndex.convertToKoreanTimeFormat()
+      Text("\(before)에서 \(after)로 변경하시겠습니까?")
+    }
+    .alert("취침 시간 변경하기",
+           isPresented: $isShownBedAlert) {
+      Button(role: .cancel) {
+        
+      } label: {
+        Text("취소")
+      }
+      Button {
+        bedTimeIndex = bedPickerIndex
+        
+        settingViewModel.effect(.updateSleepTimeButtonTapped(
+          wakeupTimeIndex,
+          bedTimeIndex
+        ))
+        homeViewModel.effect(.updateSleepTimeButtonTapped)
+      } label: {
+        Text("확인")
+      }
+    } message: {
+      let after = bedPickerIndex.convertToKoreanTimeFormat()
+      Text("\(after)로 변경하시겠습니까?")
+    }
     
   }
   
