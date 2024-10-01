@@ -24,7 +24,7 @@ struct TIGApp: App {
     }
     .onChange(of: isOnboarding, initial: true) { _, _ in
       if !isOnboarding {
-        homeViewModel.initData()
+        homeViewModel.effect(.onAppear)
       }
     }
   }

@@ -38,6 +38,7 @@ final class HomeViewModel {
     
     enum Action {
         // HomeView
+        case onAppear
         case tabChange(_ tab: Tab)
         case calendarTapped
         case dateTapped(_ date: Date)
@@ -69,15 +70,13 @@ final class HomeViewModel {
         self.dailyContentRepository = DefaultDailyContentRepository()
         self.weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
         self.settingRepository = DefaultAppSettingRepository()
-        
-//        self.state.dailyContent = self.readDailyContent(.now)
-//        self.state.weeklyRepeats = self.readWeeklyRepeats()
-//        self.state.appSetting = self.settingRepository.getAppSettings()
     }
     
     func effect(_ action: Action) {
         switch action {
         // HomeView
+        case .onAppear:
+            self.initData()
         case .tabChange(let tab):
             self.state.activeTab = tab
         case .calendarTapped:
@@ -119,17 +118,17 @@ final class HomeViewModel {
           self.state.dailyContent = self.readDailyContent()
         }
     }
-  
-  func initData() {
-    self.state.dailyContent = self.readDailyContent()
-    self.state.weeklyRepeats = self.readWeeklyRepeats()
-    self.state.appSetting = self.settingRepository.getAppSettings()
-    
-    startTimer()
-  }
 }
 
 extension HomeViewModel {
+  
+    private func initData() {
+      self.state.dailyContent = self.readDailyContent()
+      self.state.weeklyRepeats = self.readWeeklyRepeats()
+      self.state.appSetting = self.settingRepository.getAppSettings()
+      
+      startTimer()
+    }
     
     // MARK: - TimelineView Function
     func groupedTimelines(timelines: [Timeline]) -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
@@ -161,7 +160,7 @@ extension HomeViewModel {
         return result
     }
     
-    func toggleTimeSlot(_ index: Int, day: Day?) {
+    private func toggleTimeSlot(_ index: Int, day: Day?) {
         if day == nil {
             self.state.dailyEditingTimelines[index].isAvailable.toggle()
         } else {
@@ -169,7 +168,7 @@ extension HomeViewModel {
         }
     }
     
-    func updateTimeline() {
+    private func updateTimeline() {
         if self.state.isRepeatView {
             
             var editingDays:[Day] = []
@@ -203,38 +202,41 @@ extension HomeViewModel {
         }
     }
     
-    //MARK: - TimerView Function
-    func currentTimeline() -> (isAvailable: Bool, start: DateComponents, end: DateComponents)? {
-        
-        let calendar = Calendar.current
-        let now = Date()
-        
-        let hour = calendar.component(.hour, from: now)
-        let minute = calendar.component(.minute, from: now)
-        let currentTimeInMinutes = hour * 60 + minute
-        
-        let groupedTimelines = self.groupedTimelines(timelines: state.dailyContent.timelines)
-        
-        for timeline in groupedTimelines {
-            let start = (timeline.start.hour! * 60) + timeline.start.minute!
-            let end = (timeline.end.hour! * 60) + timeline.end.minute!
-            if currentTimeInMinutes >= start && currentTimeInMinutes <= end {
-                return (isAvailable: timeline.isAvailable, start: timeline.start, end: timeline.end)
-            }
-        }
-
-        return nil
+  //MARK: - TimerView Function
+  func currentTimeline() -> (isAvailable: Bool, start: DateComponents, end: DateComponents)? {
+    
+    let groupedTimelines = self.groupedTimelines(timelines: state.dailyContent.timelines)
+    
+    var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
+    let wakeupTime = (groupedTimelines.first?.start.convertTotalMinutes())!
+    let bedTime = (groupedTimelines.last?.end.convertTotalMinutes())!
+    
+    if wakeupTime > nowTime || bedTime <= nowTime {
+      nowTime += 60 * 24
     }
     
-    func startTimer() {
+    for timeline in groupedTimelines {
+      let startTime = timeline.start.convertTotalMinutes()
+      let endTime = timeline.end.convertTotalMinutes()
+      if nowTime >= startTime && nowTime <= endTime {
+        return (isAvailable: timeline.isAvailable, start: timeline.start, end: timeline.end)
+      }
+    }
+    
+    return nil
+  }
+  
+    private func startTimer() {
         timer = Timer.publish(every: 30, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 self?.updateTimeAndTimer()
             }
+      
+      self.updateTimeAndTimer()
     }
     
-    func updateTimeAndTimer() {
+    private func updateTimeAndTimer() {
         let remainingMinutes = getRemainingAvailableTime(timelines: state.dailyContent.timelines)
         let totalMinutes = getTotalAvailableTime()
       
@@ -254,7 +256,7 @@ extension HomeViewModel {
         return totalMinutes
     }
     
-    func getRemainingAvailableTime(timelines: [Timeline]) -> Int {
+    private func getRemainingAvailableTime(timelines: [Timeline]) -> Int {
       let timelines = sortTimelines(timelines)
               
               var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
