@@ -143,7 +143,8 @@ struct TIGWidgetEntryView : View {
                 
                 
                 
-                if let totalAvailTime = entry.totalAvailabilityTime, let remainAvailTime = entry.remainAvailabilityTime {
+                if let totalAvailTime = entry.totalAvailabilityTime, 
+                   let remainAvailTime = entry.remainAvailabilityTime {
                     Spacer().frame(height: 12)
                     
                     Text(remainAvailTime.formattedFullDuration())
