@@ -23,9 +23,9 @@ struct TIGApp: App {
       }
     }
     .onChange(of: isOnboarding, initial: true) { _, _ in
-      if !isOnboarding {
-        homeViewModel.effect(.onAppear)
-      }
+//      if !isOnboarding {
+//        homeViewModel.effect(.onAppear)
+//      }
     }
   }
 }
