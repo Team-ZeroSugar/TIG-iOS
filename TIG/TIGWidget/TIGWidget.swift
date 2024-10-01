@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import SwiftData
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> TIGEntry {
@@ -23,16 +22,18 @@ struct Provider: TimelineProvider {
         
         var entries: [TIGEntry] = []
         
-        if let dailyContent = getDailyContent() {
+        let dailyContent = getDailyContent()
+        
+        if let timelines = dailyContent?.timelines {
             
             let currentDate = Date()
             
             for minuteOffset in 0..<5 {
                 let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
                 
-                let totalAvailabilityTime = (dailyContent.timelines.filter { $0.isAvailable }.count)
+                let totalAvailabilityTime = (timelines.filter { $0.isAvailable }.count)
                 
-                let remainAvailabilityTime = calRemainingAvailableTime(dailyContent: dailyContent, referenceDate: entryDate) ?? DateComponents(hour:0, minute: 0)
+                let remainAvailabilityTime = calRemainingAvailableTime(timelines: timelines, referenceDate: entryDate) ?? DateComponents(hour:0, minute: 0)
                 
                 let entry = TIGEntry(date: entryDate, totalAvailabilityTime: totalAvailabilityTime, remainAvailabilityTime: remainAvailabilityTime)
                 entries.append(entry)
@@ -61,71 +62,36 @@ struct Provider: TimelineProvider {
         return nil
     }
     
-    private func calRemainingAvailableTime(dailyContent: DailyContent, referenceDate: Date) -> DateComponents? {
+    private func calRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
         
-        // 26일의 데이터
-        // 극단적인 가정 -> 기상시간 새벽 4시, 취침시간 새벽 2시
+        let timelines = sortTimelines(timelines)
         
-        // 현재시간이 27일 새벽 1시(타임라인에 포함 O)
-        // 26일의 데이터
-        // now -> hour: 25, minute: 0
+        var referenceTime = Calendar.current.dateComponents([.hour, .minute], from: referenceDate).convertTotalMinutes()
         
-        // 현재시간이 27일 새벽 3시(타임라인에 포함 X)
-        // 27일의 데이터(취침시간이 하루가 넘어갈 경우, now의 날짜 데이터를 표시)
-        // now -> hour: 3, minute: 0
+        let wakeupTime = (timelines.first?.start.convertTotalMinutes())!
+        let bedTime = (timelines.last?.end.convertTotalMinutes())!
         
-        // 일반적인 가정 -> 기상시간 오전 8시, 취침시간 오후 12시
-        // 26일의 데이터
-        // 현재시간이 27일 새벽 1시
-        // now -> hour: 1
-        
-        // 가지고 있는 timeline 데이터가 제대로 된 데이터라고 가정했을때
-        // now 에 들어갈 시간은?
-        
-        // 기상 ~ 취침시간에 포함되고 dailycontents의 날짜의 다음날이다 -> + 24시간
-        // 기상 ~ 취침시간에 미포함되고 dailycontents의 날짜의 다음날이다 -> 그대로 표시
-        
-        // 기상 ~ 취침시간에 포함되고 dailycontents와 같은 날이다 -> 그대로 표시
-        // 기상 ~ 취침시간에 미포함되고 dailycontents와 같은 날이다 -> 그대로 표시
-        
-        let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-        var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
-        
-        if wakeupTime > bedTime {
-            bedTime += 24 * 60
+        if wakeupTime > referenceTime || bedTime <= referenceTime {
+            referenceTime += 60 * 24
         }
-        
-        // TODO: 현재시간 표시하기
-//        let nowTime = Calendar.current.dateComponents([.hour, .minute], from: referenceDate).convertTotalMinutes()
-        let nowDate = referenceDate
-        var nowTime = Calendar.current.dateComponents([.hour, .minute], from: nowDate).convertTotalMinutes()
-        
-        let isSameDay = Calendar.current.isDate(dailyContent.date, equalTo: nowDate, toGranularity: .day)
-        
-        if !isSameDay && (wakeupTime <= nowTime && bedTime > nowTime) {
-            nowTime += 24 * 60
-        }
-        
-
-        
-        let timelines = sortTimelines(dailyContent.timelines)
         
         guard let currentTimelineIndex = timelines.firstIndex(where: { timeline in
             let startTime = timeline.start.convertTotalMinutes()
             let endTime = timeline.end.convertTotalMinutes()
-            return startTime <= nowTime && nowTime <= endTime
+            return startTime <= referenceTime && referenceTime <= endTime
         }) else {
             return nil
         }
         
         let currentTimeline = timelines[currentTimelineIndex]
         
+        
         var remainingTimeInCurrentTimeline = 0
         if currentTimeline.isAvailable {
             
             let endTime = currentTimeline.end.convertTotalMinutes()
             
-            remainingTimeInCurrentTimeline += endTime - nowTime
+            remainingTimeInCurrentTimeline += endTime - referenceTime
         }
         
         
