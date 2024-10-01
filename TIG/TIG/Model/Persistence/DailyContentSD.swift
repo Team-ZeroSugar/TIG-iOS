@@ -31,15 +31,18 @@ extension DailyContentSD {
     }
   
     private func formatDateComponents(_ timelines: [TimelineSD]) -> [Timeline] {
+      if timelines.isEmpty { return [] }
       var timelineEntities = self.timelines.map { $0.toEntity() }
-      if timelineEntities.isEmpty { return [] }
       
-      let curDay = timelineEntities[0].start.day!
+      let startHour = timelineEntities[0].start.hour!
     
       for (idx, entity) in timelineEntities.enumerated() {
-          if entity.start.day! != curDay {
-            timelineEntities[idx].start.hour! += 24
-          }
+        if entity.start.hour! < startHour {
+          timelineEntities[idx].start.hour! += 24
+        }
+        if entity.end.hour! < startHour {
+          timelineEntities[idx].end.hour! += 24
+        }
       }
       
       return timelineEntities
