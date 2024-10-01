@@ -80,11 +80,16 @@ struct Provider: TimelineProvider {
             let endTime = timeline.end.convertTotalMinutes()
             return startTime <= referenceTime && referenceTime <= endTime
         }) else {
-            return nil
+            
+            let totalAvailableTimeInMinutes = timelines.filter({ $0.isAvailable }).count * 30
+            
+            let hours = Int(totalAvailableTimeInMinutes) / 60
+            let minutes = Int(totalAvailableTimeInMinutes) % 60
+            
+            return DateComponents(hour: hours, minute: minutes)
         }
         
         let currentTimeline = timelines[currentTimelineIndex]
-        
         
         var remainingTimeInCurrentTimeline = 0
         if currentTimeline.isAvailable {
