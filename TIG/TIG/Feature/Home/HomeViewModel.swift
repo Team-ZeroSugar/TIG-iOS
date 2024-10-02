@@ -110,7 +110,7 @@ final class HomeViewModel {
         // AnnounceView
         case .settingButtonTapped:
             self.state.isEditMode = true
-            self.state.dailyContent = createNewDailyContent()
+            self.createNewTimeline()
             self.getEditingTimeline()
           
         // SettingView
@@ -261,9 +261,6 @@ extension HomeViewModel {
               
         var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
         
-//        let wakeupTime = (timelines.first?.start.convertTotalMinutes())!
-//        let bedTime = (timelines.last?.end.convertTotalMinutes())!
-        
         let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
         var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
         
@@ -309,7 +306,7 @@ extension HomeViewModel {
     }
     
     // MARK: - AnnounceView Function
-  private func createNewDailyContent() -> DailyContent {
+  private func createNewTimeline() {
       let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
       var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
       
@@ -336,25 +333,21 @@ extension HomeViewModel {
         
         currentMinutes = nextMinutes
       }
-    
+      
     if self.state.isRepeatView {
         self.weeklyRepeatRepository.initialWeeklyRepeats()
         Day.allCases.forEach { day in
             self.weeklyRepeatRepository.updateWeeklyRepeat(
               weeklyRepeat: state.weeklyRepeats[day]!,
-              timelines: state.weeklyRepeats[day]!.timelines
+              timelines: newTimelines
             )
+            self.state.weeklyRepeats[day]?.timelines = newTimelines
         }
     } else {
+        // TODO: 총 가용시간 구하고 저장
         self.dailyContentRepository.createDailyContent(state.dailyContent)
+        self.state.dailyContent.timelines = newTimelines
     }
-    
-    // TODO: 총 가용시간 구하고 저장
-    return DailyContent(
-      date: .now,
-      timelines: newTimelines,
-      totalAvailabilityTime: 0
-    )
   }
 }
 
