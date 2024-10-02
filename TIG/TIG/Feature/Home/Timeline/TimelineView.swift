@@ -58,11 +58,11 @@ fileprivate struct TimelineHeaderView: View {
         HStack {
             if homeViewModel.state.isEditMode {
                 Text("오늘 일정 시간을 탭해서 지워주세요")
-                    .font(.custom(AppFont.semiBold, size: 18))
+                    .font(.custom(AppFont.semiBold, size: 16))
                     .foregroundStyle(AppColor.gray05)
             } else {
                 Text(homeViewModel.currentTimeline()?.isAvailable == true ? "지금은 활용 가능한 시간이에요" : "지금은 활용 불가능한 시간이에요")
-                    .font(.custom(AppFont.semiBold, size: 18))
+                    .font(.custom(AppFont.semiBold, size: 16))
                     .foregroundStyle(AppColor.gray05)
             }
             

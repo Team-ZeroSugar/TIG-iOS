@@ -111,11 +111,11 @@ fileprivate struct OnboardingSecondView: View {
       Image(.onboardingSecond)
         .resizable()
         .frame(
-          width: UIScreen.main.bounds.width * 0.7,
-          height: UIScreen.main.bounds.width * 0.7
+          width: UIScreen.main.bounds.width * 0.8,
+          height: UIScreen.main.bounds.width * 0.8
         )
       
-      Spacer().frame(height: 50)
+      Spacer().frame(height: 12)
       
       Text("활용 가능 시간은")
         .font(.custom(AppFont.bold, size: 24))
@@ -140,11 +140,11 @@ fileprivate struct OnboardingThirdView: View {
       Image(.onboardingThird)
         .resizable()
         .frame(
-          width: UIScreen.main.bounds.width * 0.7,
-          height: UIScreen.main.bounds.width * 0.7
+          width: UIScreen.main.bounds.width * 0.6,
+          height: UIScreen.main.bounds.width * 0.6
         )
       
-      Spacer().frame(height: 50)
+      Spacer().frame(height: 87)
       
       Text("오늘의 남은 활용 가능 시간을\n인지할 수 있어요")
         .multilineTextAlignment(.center)
