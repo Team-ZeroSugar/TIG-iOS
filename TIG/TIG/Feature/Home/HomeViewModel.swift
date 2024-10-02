@@ -209,8 +209,13 @@ extension HomeViewModel {
     let groupedTimelines = self.groupedTimelines(timelines: state.dailyContent.timelines)
     
     var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
-    let wakeupTime = (groupedTimelines.first?.start.convertTotalMinutes())!
-    let bedTime = (groupedTimelines.last?.end.convertTotalMinutes())!
+    
+    let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+    var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+    
+    if wakeupTime > bedTime {
+        bedTime += 60 * 24
+    }
     
     if wakeupTime > nowTime || bedTime <= nowTime {
       nowTime += 60 * 24
