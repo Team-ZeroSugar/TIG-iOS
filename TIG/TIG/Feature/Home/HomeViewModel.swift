@@ -259,39 +259,46 @@ extension HomeViewModel {
     private func getRemainingAvailableTime(timelines: [Timeline]) -> Int {
       let timelines = sortTimelines(timelines)
               
-              var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
-              
-              let wakeupTime = (timelines.first?.start.convertTotalMinutes())!
-              let bedTime = (timelines.last?.end.convertTotalMinutes())!
-              
-              if wakeupTime > nowTime || bedTime <= nowTime {
-                  nowTime += 60 * 24
-              }
-              
-              guard let currentTimelineIndex = timelines.firstIndex(where: { timeline in
-                  let startTime = timeline.start.convertTotalMinutes()
-                  let endTime = timeline.end.convertTotalMinutes()
-                  return startTime <= nowTime && nowTime <= endTime
-              }) else {
-                  
-                  return timelines.filter({ $0.isAvailable }).count * 30
-              }
-              
-              let currentTimeline = timelines[currentTimelineIndex]
-              
-              var remainingTimeInCurrentTimeline = 0
-              if currentTimeline.isAvailable {
-                  
-                  let endTime = currentTimeline.end.convertTotalMinutes()
-                  
-                  remainingTimeInCurrentTimeline += endTime - nowTime
-              }
-              
-              
-              let availableTimeAfterCurrent = timelines.suffix(from: currentTimelineIndex + 1).filter{ $0.isAvailable }.count * 30
-              
-              let totalAvailableTimeInMinutes = remainingTimeInCurrentTimeline + availableTimeAfterCurrent
-
+        var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
+        
+//        let wakeupTime = (timelines.first?.start.convertTotalMinutes())!
+//        let bedTime = (timelines.last?.end.convertTotalMinutes())!
+        
+        let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+        var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+        
+        if wakeupTime > bedTime {
+            bedTime += 60 * 24
+        }
+        
+        if wakeupTime > nowTime || bedTime <= nowTime {
+            nowTime += 60 * 24
+        }
+        
+        guard let currentTimelineIndex = timelines.firstIndex(where: { timeline in
+            let startTime = timeline.start.convertTotalMinutes()
+            let endTime = timeline.end.convertTotalMinutes()
+            return startTime <= nowTime && nowTime <= endTime
+        }) else {
+            
+            return timelines.filter({ $0.isAvailable }).count * 30
+        }
+        
+        let currentTimeline = timelines[currentTimelineIndex]
+        
+        var remainingTimeInCurrentTimeline = 0
+        if currentTimeline.isAvailable {
+            
+            let endTime = currentTimeline.end.convertTotalMinutes()
+            
+            remainingTimeInCurrentTimeline += endTime - nowTime
+        }
+        
+        
+        let availableTimeAfterCurrent = timelines.suffix(from: currentTimelineIndex + 1).filter{ $0.isAvailable }.count * 30
+        
+        let totalAvailableTimeInMinutes = remainingTimeInCurrentTimeline + availableTimeAfterCurrent
+        
         
         let hours = Int(totalAvailableTimeInMinutes) / 60
         let minutes = Int(totalAvailableTimeInMinutes) % 60
@@ -312,8 +319,8 @@ extension HomeViewModel {
     
       var newTimelines: [Timeline] = []
       
-    var currentMinutes = wakeupTime.convertToDateComponents().convertTotalMinutes()
-    let endMinutes = bedTime.convertToDateComponents().convertTotalMinutes()
+      var currentMinutes = wakeupTime.convertToDateComponents().convertTotalMinutes()
+      let endMinutes = bedTime.convertToDateComponents().convertTotalMinutes()
     
       while currentMinutes < endMinutes {
         let nextMinutes = currentMinutes + 30
@@ -362,7 +369,7 @@ extension HomeViewModel {
       bedTimeIndex += 48
     }
     
-    var bedDate = bedTimeIndex.convertToDateFormat()
+    let bedDate = bedTimeIndex.convertToDateFormat()
     
     let targetDate = DateManager.shared.getCurrentDailyContentDate(from: bedDate)
 
