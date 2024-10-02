@@ -90,6 +90,7 @@ final class HomeViewModel {
         case .editTapped:
             if self.state.isEditMode {
                 self.updateTimeline()
+                self.updateTimeAndTimer()
             } else {
                 self.getEditingTimeline()
             }
@@ -227,13 +228,13 @@ extension HomeViewModel {
   }
   
     private func startTimer() {
-        timer = Timer.publish(every: 30, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                self?.updateTimeAndTimer()
-            }
-      
       self.updateTimeAndTimer()
+      
+      timer = Timer.publish(every: 30, on: .main, in: .common)
+          .autoconnect()
+          .sink { [weak self] _ in
+              self?.updateTimeAndTimer()
+          }
     }
     
     private func updateTimeAndTimer() {
