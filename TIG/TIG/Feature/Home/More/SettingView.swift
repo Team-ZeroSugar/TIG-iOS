@@ -124,7 +124,7 @@ struct SettingView: View {
       //            }
       
     }
-    .navigationTitle("설정")
+    .navigationTitle("수면 시간 설정")
 //    .alert("기상 시간 변경하기",
 //           isPresented: $isShownWakeupAlert) {
 //      Button(role: .cancel) {
