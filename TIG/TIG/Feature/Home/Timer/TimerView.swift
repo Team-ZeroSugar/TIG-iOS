@@ -23,10 +23,6 @@ struct TimerView: View {
         }
         .padding(.horizontal, 20)
         .padding(.top, 44)
-        .onAppear {
-            homeViewModel.startTimer()
-            homeViewModel.updateTimeAndTimer()
-        }
     }
 }
 

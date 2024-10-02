@@ -12,6 +12,7 @@
 		356FF03C2C4A89F1005A078C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FF03B2C4A89F0005A078C /* TimelineView.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
+		57152CE32CABA7F500640B40 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57152CE22CABA7F500640B40 /* DateManager.swift */; };
 		5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */; };
 		573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */; };
 		573882CF2C74C59D009BD189 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CE2C74C59D009BD189 /* DIContainer.swift */; };
@@ -61,6 +62,7 @@
 		356FF03B2C4A89F0005A078C /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatView.swift; sourceTree = "<group>"; };
+		57152CE22CABA7F500640B40 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
 		573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
 		573882CE2C74C59D009BD189 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
@@ -117,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57152CE12CABA7E000640B40 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				57152CE22CABA7F500640B40 /* DateManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		573882CA2C747597009BD189 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +209,7 @@
 				57A98F402C3CE0F200863BC6 /* Constant */,
 				57A98F2B2C3CDADF00863BC6 /* Extension */,
 				573882CA2C747597009BD189 /* Model */,
+				57152CE12CABA7E000640B40 /* Manager */,
 				57A98F182C3CD3FA00863BC6 /* Feature */,
 				57A98F1A2C3CD41100863BC6 /* Repository */,
 				57A98F1B2C3CD41A00863BC6 /* Resource */,
@@ -441,6 +452,7 @@
 				57A98F242C3CD51300863BC6 /* DefaultDailyContentRepository.swift in Sources */,
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
 				577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */,
+				57152CE32CABA7F500640B40 /* DateManager.swift in Sources */,
 				5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */,
 				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,
 				573882D72C9564ED009BD189 /* SettingViewModel.swift in Sources */,
@@ -587,7 +599,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
-				DEVELOPMENT_TEAM = C3P52YR8KJ;
+				DEVELOPMENT_TEAM = 5DFZR8RCQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIG/App/Info.plist;

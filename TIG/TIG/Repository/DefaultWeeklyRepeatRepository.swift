@@ -84,7 +84,7 @@ extension DefaultWeeklyRepeatRepository: WeeklyRepeatRepository {
         )
       }
     case .failure(let error):
-      print(error.localizedDescription)
+      print("Update WeeklyRepeat Error: \(error.rawValue)")
     }
   }
   
