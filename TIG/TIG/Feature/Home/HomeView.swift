@@ -37,6 +37,9 @@ struct HomeView: View {
         }
       })
     }
+    .onAppear {
+      homeViewModel.effect(.onAppear)
+    }
   }
   
   // MARK: - (F)CalendarView

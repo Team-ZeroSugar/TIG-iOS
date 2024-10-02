@@ -137,8 +137,9 @@ struct SettingView: View {
             
         }
         .navigationTitle("수면 시간")
-        
+      
     }
+
     
 }
 

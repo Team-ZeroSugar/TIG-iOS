@@ -20,6 +20,7 @@ final class SwiftDataStorage {
       let container = try ModelContainer(for: schema, configurations: [configuration])
       return ModelContext(container)
     } catch {
+      print("ModelCOntext Error")
       fatalError(error.localizedDescription)
     }
   }()
