@@ -33,6 +33,7 @@ struct AnnounceView: View {
             }
             Spacer().frame(height: 32)
             Button(action: {
+              print("Tap")
                 homeViewModel.effect(.settingButtonTapped)
                 
                 if !isTimelineView {

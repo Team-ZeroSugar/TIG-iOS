@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class TimelineSD {
-    @Attribute(.unique) var id: UUID = UUID()
+    @Attribute(.unique) var id: Date = Date()
     var start: Date
     var end: Date
     var isAvailable: Bool

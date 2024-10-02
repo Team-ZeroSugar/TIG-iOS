@@ -62,6 +62,7 @@ struct WeeklyRepeatView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .navigationTitle(homeViewModel.state.isEditMode ? "반복 일정 편집" : "반복 일정 관리")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 if !homeViewModel.state.weeklyRepeats[.sun]!.timelines.isEmpty {
