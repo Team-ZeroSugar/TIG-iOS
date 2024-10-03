@@ -20,6 +20,7 @@ final class HomeViewModel {
         // TimerView
         var currentTimeline: Timeline?
         var remainingTime: String = "0시간 0분"
+        var totalAvailableTime: Int = 0
         var progress: CGFloat = 0.0
         
         // TimelineView
@@ -85,7 +86,10 @@ final class HomeViewModel {
         case .dateTapped(let date):
             self.state.currentDate = date
             self.state.isCalendarVisible = false
-          self.state.dailyContent = readDailyContent(date)
+            self.state.dailyContent = readDailyContent(date)
+            
+            // TimerViewUpdate
+            startTimer()
             
         // TimelineView
         case .editTapped:
@@ -129,6 +133,14 @@ extension HomeViewModel {
       self.state.weeklyRepeats = self.readWeeklyRepeats()
       self.state.appSetting = self.settingRepository.getAppSettings()
       
+      
+      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+      
+      if wakeupTime > bedTime {
+          bedTime += 60 * 24
+      }
+      self.state.currentDate = DateManager.shared.getCurrentDailyContentDate(from: bedTime.convertToDateFormatFromMinutes())
       startTimer()
     }
     
@@ -229,6 +241,14 @@ extension HomeViewModel {
         bedTime += 60 * 24
     }
     
+    let currentDate = self.state.currentDate.formattedDate
+    let bedDate = bedTime.convertToDateFormatFromMinutes()
+    let now = DateManager.shared.getCurrentDailyContentDate(from: bedDate).formattedDate
+    
+    if currentDate != now {
+      return nil
+    }
+    
     if wakeupTime > nowTime || bedTime <= nowTime {
       nowTime += 60 * 24
     }
@@ -250,6 +270,21 @@ extension HomeViewModel {
   
     private func startTimer() {
       self.updateTimeAndTimer()
+      self.timer = nil
+      
+      let currentDate = self.state.currentDate.formattedDate
+      
+      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+      if wakeupTime > bedTime {
+          bedTime += 60 * 24
+      }
+      let bedDate = bedTime.convertToDateFormatFromMinutes()
+      let now = DateManager.shared.getCurrentDailyContentDate(from: bedDate).formattedDate
+      
+      if currentDate != now {
+        return
+      }
       
       timer = Timer.publish(every: 30, on: .main, in: .common)
           .autoconnect()
@@ -259,10 +294,30 @@ extension HomeViewModel {
     }
     
     private func updateTimeAndTimer() {
+        self.state.currentTimeline = currentTimeline()
+      
         let remainingMinutes = getRemainingAvailableTime(timelines: state.dailyContent.timelines)
         let totalMinutes = getTotalAvailableTime()
       
-        state.remainingTime = remainingMinutes.formattedTime()
+        let currentDate = self.state.currentDate.formattedDate
+      
+      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+      if wakeupTime > bedTime {
+          bedTime += 60 * 24
+      }
+      let bedDate = bedTime.convertToDateFormatFromMinutes()
+      let now = DateManager.shared.getCurrentDailyContentDate(from: bedDate).formattedDate
+        
+        if currentDate != now {
+          self.state.progress = 0
+          self.state.totalAvailableTime = totalMinutes
+          self.state.remainingTime = totalMinutes.formattedTime()
+          return
+        }
+      
+      self.state.remainingTime = remainingMinutes.formattedTime()
+      self.state.totalAvailableTime = totalMinutes
         
         if totalMinutes == 0 {
             state.progress = 0.0
@@ -387,8 +442,9 @@ extension HomeViewModel {
     let bedDate = bedTimeIndex.convertToDateFormat()
     
     let targetDate = DateManager.shared.getCurrentDailyContentDate(from: bedDate)
-
+    print(targetDate.formattedDate)
     let dailyContent = readDailyContent(targetDate)
+    print(dailyContent.date)
     return dailyContent
   }
   

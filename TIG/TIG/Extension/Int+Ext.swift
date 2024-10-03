@@ -70,6 +70,23 @@ extension Int {
     return calendar.date(from: components)!
   }
   
+  func convertToDateFormatFromMinutes() -> Date {
+    let calendar = Calendar.current
+    let now = Date()
+    let ymd = calendar.dateComponents([.year, .month, .day], from: now)
+    let hour = self / 60
+    let minute = self % 60
+    
+    var components = DateComponents()
+    components.year = ymd.year
+    components.month = ymd.month
+    components.day = ymd.day
+    components.hour = hour
+    components.minute = minute
+    
+    return calendar.date(from: components)!
+  }
+  
   /// 0..<48 범위에 존재하는 값을 DateComponents로 변환
   /// 0 : 00:00 / 1 : 00:30 / ... / 47 : 23:30
   /// - Returns: ex) 00:00
