@@ -126,7 +126,7 @@ fileprivate struct TimerTrack: View {
         Circle()
             .fill(Color.clear)
             .overlay(
-                Circle().stroke(AppColor.darkWhite, lineWidth: 13)
+                Circle().stroke(AppColor.timerGray, lineWidth: 13)
             )
             .padding(.horizontal, 4)
         
