@@ -37,6 +37,9 @@ struct HomeView: View {
         }
       })
     }
+    .onAppear {
+      homeViewModel.effect(.onAppear)
+    }
   }
   
   // MARK: - (F)CalendarView
@@ -104,7 +107,7 @@ struct HomeView: View {
       NavigationLink {
         SettingView()
       } label: {
-        Label("설정", systemImage: "gear")
+        Label("수면 시간", systemImage: "moon")
       }
     } label: {
       Image(systemName: "ellipsis")

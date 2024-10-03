@@ -35,6 +35,7 @@
 		359369F92C759D3300BE24FF /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F212C3CD4FA00863BC6 /* Colors.xcassets */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
+		57152CE32CABA7F500640B40 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57152CE22CABA7F500640B40 /* DateManager.swift */; };
 		5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */; };
 		573882CC2C747D6C009BD189 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */; };
 		573882CF2C74C59D009BD189 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573882CE2C74C59D009BD189 /* DIContainer.swift */; };
@@ -117,6 +118,7 @@
 		359369EF2C759AEC00BE24FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35FF0B782C626EC7001583D2 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRepeatView.swift; sourceTree = "<group>"; };
+		57152CE22CABA7F500640B40 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		5717F0BE2C9FE1FE00FDAF28 /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
 		573882CB2C747D6C009BD189 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
 		573882CE2C74C59D009BD189 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
@@ -200,6 +202,14 @@
 				359369EF2C759AEC00BE24FF /* Info.plist */,
 			);
 			path = TIGWidget;
+      sourceTree = "<group>";
+     };
+		57152CE12CABA7E000640B40 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				57152CE22CABA7F500640B40 /* DateManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		573882CA2C747597009BD189 /* Model */ = {
@@ -289,6 +299,7 @@
 				57A98F402C3CE0F200863BC6 /* Constant */,
 				57A98F2B2C3CDADF00863BC6 /* Extension */,
 				573882CA2C747597009BD189 /* Model */,
+				57152CE12CABA7E000640B40 /* Manager */,
 				57A98F182C3CD3FA00863BC6 /* Feature */,
 				57A98F1A2C3CD41100863BC6 /* Repository */,
 				57A98F1B2C3CD41A00863BC6 /* Resource */,
@@ -588,6 +599,7 @@
 				57A98F242C3CD51300863BC6 /* DefaultDailyContentRepository.swift in Sources */,
 				57A98F462C3CF49800863BC6 /* Date+Ext.swift in Sources */,
 				577B36692C4BF32F0015C9A4 /* DefaultAppSettingRepository.swift in Sources */,
+				57152CE32CABA7F500640B40 /* DateManager.swift in Sources */,
 				5717F0BF2C9FE1FE00FDAF28 /* CustomActionSheet.swift in Sources */,
 				577B36622C4BAD460015C9A4 /* WeeklyRepeatRepository.swift in Sources */,
 				573882D72C9564ED009BD189 /* SettingViewModel.swift in Sources */,
@@ -836,6 +848,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TIG/TIG.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TIG/Preview Content\"";
@@ -858,6 +871,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zerosugar.academy.developer.ios.apple.TIG.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

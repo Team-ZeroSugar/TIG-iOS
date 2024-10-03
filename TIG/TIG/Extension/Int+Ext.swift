@@ -43,7 +43,7 @@ extension Int {
   func formattedTime() -> String {
     let hours = self / 60
     let minutes = (self % 60)/* / 60*/
-    return String(format: "%01d시간 %01d분", hours, minutes)
+    return String(format: "%01d시간 %02d분", hours, minutes)
   }
   
   /// 0..<48 범위에 존재하는 값을 시간으로 변환
@@ -86,6 +86,13 @@ extension Int {
     return DateComponents(
       hour: self / 2,
       minute: self % 2 == 0 ? 0 : 30
+    )
+  }
+  
+  func convertToDateComponentsFromMinutes() -> DateComponents {
+    return DateComponents(
+      hour: self / 60,
+      minute: self % 60
     )
   }
 }
