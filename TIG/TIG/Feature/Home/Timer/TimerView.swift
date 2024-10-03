@@ -126,7 +126,7 @@ fileprivate struct TimerTrack: View {
         Circle()
             .fill(Color.clear)
             .overlay(
-                Circle().stroke(AppColor.darkWhite, lineWidth: 12)
+                Circle().stroke(AppColor.darkWhite, lineWidth: 13)
             )
             .padding(.horizontal, 4)
         
@@ -143,8 +143,8 @@ fileprivate struct TimerProgressBar: View {
             .trim(from: progress, to: 1)
             .stroke(
                 style: StrokeStyle(
-                    lineWidth: 16,
-                    lineCap: .round,
+                    lineWidth: 13,
+                    lineCap: .square,
                     lineJoin: .round
                 )
             )
