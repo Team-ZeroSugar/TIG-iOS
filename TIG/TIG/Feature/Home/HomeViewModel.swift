@@ -140,7 +140,7 @@ extension HomeViewModel {
       if wakeupTime > bedTime {
           bedTime += 60 * 24
       }
-      self.state.currentDate = DateManager.shared.getCurrentDailyContentDate(from: bedTime.convertToDateFormatFromMinutes())
+      self.state.currentDate = DateManager.shared.getCurrentDailyContentDate()
       startTimer()
     }
     
@@ -234,16 +234,10 @@ extension HomeViewModel {
     
     var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
     
-    let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-    var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
-    
-    if wakeupTime > bedTime {
-        bedTime += 60 * 24
-    }
+    let (wakeupTime, bedTime) = DateManager.shared.getSleepTimeMinutes()
     
     let currentDate = self.state.currentDate.formattedDate
-    let bedDate = bedTime.convertToDateFormatFromMinutes()
-    let now = DateManager.shared.getCurrentDailyContentDate(from: bedDate).formattedDate
+    let now = DateManager.shared.getCurrentDailyContentDate().formattedDate
     
     if currentDate != now {
       return nil
@@ -274,13 +268,7 @@ extension HomeViewModel {
       
       let currentDate = self.state.currentDate.formattedDate
       
-      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
-      if wakeupTime > bedTime {
-          bedTime += 60 * 24
-      }
-      let bedDate = bedTime.convertToDateFormatFromMinutes()
-      let now = DateManager.shared.getCurrentDailyContentDate(from: bedDate).formattedDate
+      let now = DateManager.shared.getCurrentDailyContentDate().formattedDate
       
       if currentDate != now {
         return
@@ -301,13 +289,7 @@ extension HomeViewModel {
       
         let currentDate = self.state.currentDate.formattedDate
       
-      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
-      if wakeupTime > bedTime {
-          bedTime += 60 * 24
-      }
-      let bedDate = bedTime.convertToDateFormatFromMinutes()
-      let now = DateManager.shared.getCurrentDailyContentDate(from: bedDate).formattedDate
+      let now = DateManager.shared.getCurrentDailyContentDate().formattedDate
         
         if currentDate != now {
           self.state.progress = 0
@@ -432,19 +414,8 @@ extension HomeViewModel {
 extension HomeViewModel {
   
   private func readDailyContent() -> DailyContent {
-    let wakeupTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
-    var bedTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
-    
-    if wakeupTimeIndex >= bedTimeIndex {
-      bedTimeIndex += 48
-    }
-    
-    let bedDate = bedTimeIndex.convertToDateFormat()
-    
-    let targetDate = DateManager.shared.getCurrentDailyContentDate(from: bedDate)
-    print(targetDate.formattedDate)
+    let targetDate = DateManager.shared.getCurrentDailyContentDate()
     let dailyContent = readDailyContent(targetDate)
-    print(dailyContent.date)
     return dailyContent
   }
   
