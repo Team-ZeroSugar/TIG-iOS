@@ -17,8 +17,9 @@ final class HomeViewModel {
         var isCalendarVisible: Bool = false
         var currentDate: Date = .now
         
+        // TimerView
+        var currentTimeline: Timeline?
         var remainingTime: String = "0시간 0분"
-
         var progress: CGFloat = 0.0
         
         // TimelineView
@@ -132,8 +133,8 @@ extension HomeViewModel {
     }
     
     // MARK: - TimelineView Function
-    func groupedTimelines(timelines: [Timeline]) -> [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] {
-        var result: [(isAvailable: Bool, count: Int, start: DateComponents, end: DateComponents)] = []
+    func groupedTimelines(timelines: [Timeline]) -> [TimelineGroup] {
+        var result: [TimelineGroup] = []
         
         if timelines.isEmpty {
             return result
@@ -149,7 +150,12 @@ extension HomeViewModel {
                 currentCount += 1
                 currentEnd = timelines[index].end
             } else {
-                result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+                result.append(TimelineGroup(
+                  start: currentStart,
+                  end: currentEnd,
+                  isAvailable: currentIsAvailable,
+                  count: currentCount
+                ))
                 currentIsAvailable = timelines[index].isAvailable
                 currentCount = 1
                 currentStart = timelines[index].start
@@ -157,7 +163,13 @@ extension HomeViewModel {
             }
         }
         
-        result.append((currentIsAvailable, currentCount, currentStart, currentEnd))
+        result.append(TimelineGroup(
+          start: currentStart,
+          end: currentEnd,
+          isAvailable: currentIsAvailable,
+          count: currentCount
+        ))
+          
         return result
     }
     
@@ -204,7 +216,7 @@ extension HomeViewModel {
     }
     
   //MARK: - TimerView Function
-  func currentTimeline() -> (isAvailable: Bool, start: DateComponents, end: DateComponents)? {
+  func currentTimeline() -> Timeline? {
     
     let groupedTimelines = self.groupedTimelines(timelines: state.dailyContent.timelines)
     
@@ -225,7 +237,11 @@ extension HomeViewModel {
       let startTime = timeline.start.convertTotalMinutes()
       let endTime = timeline.end.convertTotalMinutes()
       if nowTime >= startTime && nowTime <= endTime {
-        return (isAvailable: timeline.isAvailable, start: timeline.start, end: timeline.end)
+        return Timeline(
+          start: timeline.start,
+          end: timeline.end,
+          isAvailable: timeline.isAvailable
+        )
       }
     }
     
