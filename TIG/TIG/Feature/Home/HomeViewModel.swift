@@ -202,9 +202,9 @@ extension HomeViewModel {
             self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyEditingTimelines)
             self.state.dailyContent.timelines = self.state.dailyEditingTimelines
             
-            if #available(iOS 14.0, *) {
-                WidgetCenter.shared.reloadAllTimelines()
-            }
+          // TODO: DI 적용 필요
+            WidgetCenter.shared.reloadAllTimelines()
+            
         }
     }
     

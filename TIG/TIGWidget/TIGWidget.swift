@@ -200,17 +200,17 @@ struct TIGWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            if #available(iOS 17.0, *) {
+//            if #available(iOS 17.0, *) {
                 TIGWidgetEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                TIGWidgetEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
+//            } else {
+//                TIGWidgetEntryView(entry: entry)
+//                    .padding()
+//                    .background()
+//            }
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("남은 활용 가능 시간")
+        .description("오늘 활용할 수 있는 총 시간과\n 남은 활용 가능 시간을 표시합니다.")
         .supportedFamilies([.systemSmall, .accessoryRectangular])
     }
 }
