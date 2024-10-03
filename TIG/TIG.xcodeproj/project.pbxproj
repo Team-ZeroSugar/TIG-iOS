@@ -33,6 +33,9 @@
 		359369F72C759C8600BE24FF /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F412C3CE0FB00863BC6 /* AppFont.swift */; };
 		359369F82C759D2D00BE24FF /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A98F432C3CE11D00863BC6 /* AppColor.swift */; };
 		359369F92C759D3300BE24FF /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F212C3CD4FA00863BC6 /* Colors.xcassets */; };
+		3596270D2CAE7695004F6D3C /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F312C3CDCF000863BC6 /* Pretendard-SemiBold.otf */; };
+		3596270E2CAE76A6004F6D3C /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F302C3CDCF000863BC6 /* Pretendard-Bold.otf */; };
+		3596270F2CAE76A9004F6D3C /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57A98F2E2C3CDCF000863BC6 /* Pretendard-Medium.otf */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
 		57152CE32CABA7F500640B40 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57152CE22CABA7F500640B40 /* DateManager.swift */; };
@@ -202,8 +205,8 @@
 				359369EF2C759AEC00BE24FF /* Info.plist */,
 			);
 			path = TIGWidget;
-      sourceTree = "<group>";
-     };
+			sourceTree = "<group>";
+		};
 		57152CE12CABA7E000640B40 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,8 +526,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				359369EE2C759AEC00BE24FF /* Assets.xcassets in Resources */,
+				3596270E2CAE76A6004F6D3C /* Pretendard-Bold.otf in Resources */,
 				355E48B52C9FDB9800F9C768 /* Assets.xcassets in Resources */,
 				359369F92C759D3300BE24FF /* Colors.xcassets in Resources */,
+				3596270D2CAE7695004F6D3C /* Pretendard-SemiBold.otf in Resources */,
+				3596270F2CAE76A9004F6D3C /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
