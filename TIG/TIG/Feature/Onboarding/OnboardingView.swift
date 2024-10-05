@@ -68,9 +68,9 @@ struct OnboardingView: View {
   
   private func saveSleepTime() {
     // TODO: DI 적용 필요
-    UserDefaults.standard.set(false, forKey: UserDefaultsKey.isOnboarding)
-    UserDefaults.standard.set(wakeupTimeIndex, forKey: UserDefaultsKey.wakeupTimeIndex)
-    UserDefaults.standard.set(bedTimeIndex, forKey: UserDefaultsKey.bedTimeIndex)
+    UserDefaults.shared.set(false, forKey: UserDefaultsKey.isOnboarding)
+    UserDefaults.shared.set(wakeupTimeIndex, forKey: UserDefaultsKey.wakeupTimeIndex)
+    UserDefaults.shared.set(bedTimeIndex, forKey: UserDefaultsKey.bedTimeIndex)
   }
 }
 

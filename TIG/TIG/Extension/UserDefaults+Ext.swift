@@ -8,14 +8,20 @@
 import Foundation
 
 extension UserDefaults {
+    static let appGroupName = "group.com.zerosugar.TIG.appgroup"
+    
+    static var shared: UserDefaults {
+        return UserDefaults(suiteName: appGroupName)!
+    }
+    
     func setAppSettingData(_ appSetting: AppSetting) {
         if let encodedData = try? JSONEncoder().encode(appSetting) {
-           self.set(encodedData, forKey: "appSettingData")
+            UserDefaults.shared.set(encodedData, forKey: "appSettingData")
        }
     }
     
     func getAppSettingData() -> AppSetting {
-        if let savedData = self.data(forKey: "appSettingData") {
+        if let savedData = UserDefaults.shared.data(forKey: "appSettingData") {
             if let decodedData = try? JSONDecoder().decode(AppSetting.self, from: savedData) {
                 return decodedData
             }
