@@ -181,8 +181,9 @@ fileprivate struct SleepTimeSettingView: View {
       Text("수면 시간을 제외한 활용 가능 시간을 알려드릴게요\n설정에서 언제든지 변경할 수 있습니다")
         .font(.custom(AppFont.regular, size: 14))
         .multilineTextAlignment(.center)
-        .foregroundStyle(AppColor.gray04)
+        .foregroundStyle(AppColor.gray03)
         .padding(.top, 12)
+        .lineSpacing(6)
       
       Spacer()
         .frame(height: 30)
