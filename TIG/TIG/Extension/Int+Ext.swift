@@ -29,6 +29,15 @@ extension Int {
     }
     return result
   }
+    
+    // 0시간 0분도 표시
+      func formattedFullDuration() -> String {
+          let totalMinutes = self * 30
+          let hours = totalMinutes / 60
+          let minutes = totalMinutes % 60
+          
+          return "\(hours)시간 \(minutes)분"
+        }
   
   
   func formattedTime() -> String {

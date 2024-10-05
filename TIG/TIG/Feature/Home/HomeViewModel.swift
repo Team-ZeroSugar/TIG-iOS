@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import WidgetKit
 
 @Observable
 final class HomeViewModel {
@@ -200,6 +201,10 @@ extension HomeViewModel {
         } else {
             self.dailyContentRepository.updateDailyContent(dailyContent: self.state.dailyContent, timelines: self.state.dailyEditingTimelines)
             self.state.dailyContent.timelines = self.state.dailyEditingTimelines
+            
+          // TODO: DI 적용 필요
+            WidgetCenter.shared.reloadAllTimelines()
+            
         }
     }
     
@@ -210,8 +215,8 @@ extension HomeViewModel {
     
     var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
     
-    let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-    var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+      let wakeupTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+      var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
     
     if wakeupTime > bedTime {
         bedTime += 60 * 24
@@ -267,8 +272,8 @@ extension HomeViewModel {
               
         var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
         
-        let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-        var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+        let wakeupTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+        var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
         
         if wakeupTime > bedTime {
             bedTime += 60 * 24
@@ -313,8 +318,8 @@ extension HomeViewModel {
     
     // MARK: - AnnounceView Function
   private func createNewTimeline() {
-      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
-      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
+      let wakeupTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
+      var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex)
       
       if wakeupTime > bedTime {
         bedTime += 48
@@ -361,8 +366,8 @@ extension HomeViewModel {
 extension HomeViewModel {
   
   private func readDailyContent() -> DailyContent {
-    let wakeupTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
-    var bedTimeIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
+    let wakeupTimeIndex = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
+    var bedTimeIndex = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex)
     
     if wakeupTimeIndex >= bedTimeIndex {
       bedTimeIndex += 48

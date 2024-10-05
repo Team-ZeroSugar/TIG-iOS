@@ -13,11 +13,11 @@ final class DefaultAppSettingRepository {
 
 extension DefaultAppSettingRepository: AppSettingRepository {
     func updateAppSettings(_ appSetting: AppSetting) {
-        UserDefaults.standard.setAppSettingData(appSetting)
+        UserDefaults.shared.setAppSettingData(appSetting)
     }
     
     func getAppSettings() -> AppSetting {
-        UserDefaults.standard.getAppSettingData()
+        UserDefaults.shared.getAppSettingData()
     }
     
     
