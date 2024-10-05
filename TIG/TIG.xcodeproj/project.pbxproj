@@ -39,6 +39,8 @@
 		359C2BA62CB138A80071F146 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B366A2C4BF5E50015C9A4 /* UserDefaults+Ext.swift */; };
 		359C2BA72CB138D00071F146 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B366C2C4BF6240015C9A4 /* AppSetting.swift */; };
 		359C2BA82CB13A190071F146 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57152CE22CABA7F500640B40 /* DateManager.swift */; };
+		359C2BA92CB13B3F0071F146 /* DefaultWeeklyRepeatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36632C4BB2070015C9A4 /* DefaultWeeklyRepeatRepository.swift */; };
+		359C2BAA2CB13B960071F146 /* WeeklyRepeatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B36612C4BAD460015C9A4 /* WeeklyRepeatRepository.swift */; };
 		35FF0B792C626EC7001583D2 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B782C626EC7001583D2 /* Int+Ext.swift */; };
 		35FF0B7B2C630BE1001583D2 /* WeeklyRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF0B7A2C630BE1001583D2 /* WeeklyRepeatView.swift */; };
 		57152CE32CABA7F500640B40 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57152CE22CABA7F500640B40 /* DateManager.swift */; };
@@ -566,6 +568,7 @@
 				355E48AE2C9ABC5300F9C768 /* Timeline.swift in Sources */,
 				359C2BA82CB13A190071F146 /* DateManager.swift in Sources */,
 				355E48B62C9FE04400F9C768 /* DateComponents+Ext.swift in Sources */,
+				359C2BAA2CB13B960071F146 /* WeeklyRepeatRepository.swift in Sources */,
 				355E48B22C9ABDBA00F9C768 /* SwiftDataStorage.swift in Sources */,
 				351FBE0A2CA912180053D45E /* DefaultDailyContentRepository.swift in Sources */,
 				355E48AF2C9ABC5400F9C768 /* WeeklyRepeat.swift in Sources */,
@@ -576,6 +579,7 @@
 				359C2BA72CB138D00071F146 /* AppSetting.swift in Sources */,
 				359369F82C759D2D00BE24FF /* AppColor.swift in Sources */,
 				355E48AD2C9ABC5100F9C768 /* DailyContent.swift in Sources */,
+				359C2BA92CB13B3F0071F146 /* DefaultWeeklyRepeatRepository.swift in Sources */,
 				355E48B02C9ABC6200F9C768 /* Date+Ext.swift in Sources */,
 				355E48AC2C9ABC4C00F9C768 /* TimelineSD.swift in Sources */,
 				355E48B42C9FCE9500F9C768 /* Int+Ext.swift in Sources */,

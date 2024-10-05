@@ -49,17 +49,52 @@ struct Provider: TimelineProvider {
     }
     
     private func getDailyContent() -> DailyContent? {
-        let dailyContentRepository = DefaultDailyContentRepository()
-        let savedDailyContentsResult = dailyContentRepository.fetchDailyContents()
+        let wakeupTimeIndex = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
+        var bedTimeIndex = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex)
         
-        switch savedDailyContentsResult {
-        case .success(let dailyContents):
-            return dailyContents[0]
-        case .failure(let error):
-            print(error.rawValue)
+        if wakeupTimeIndex >= bedTimeIndex {
+          bedTimeIndex += 48
         }
         
-        return nil
+        let bedDate = bedTimeIndex.convertToDateFormat()
+        let targetDate = DateManager.shared.getCurrentDailyContentDate(from: bedDate)
+        
+        let dailyContent = readDailyContent(targetDate)
+        return dailyContent
+    }
+    
+    private func readDailyContent(_ date: Date) -> DailyContent {
+        let dailyContentRepository = DefaultDailyContentRepository()
+        let weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
+        
+        let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
+        
+        switch dailyContentResult {
+        case .success(var dailyContent):
+            dailyContent.timelines = sortTimelines(dailyContent.timelines)
+            return dailyContent
+        case .failure(let error):
+            print(error.rawValue)
+            let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: date.weekday)
+            
+            switch weeklyRepeatResult {
+            case .success(var weeklyRepeat):
+                weeklyRepeat.timelines = sortTimelines(weeklyRepeat.timelines)
+                let dailyContent = DailyContent(
+                    date: date,
+                    timelines: weeklyRepeat.timelines,
+                    totalAvailabilityTime: 0
+                )
+                return dailyContent
+            case .failure(let error):
+                print(error.rawValue)
+                return DailyContent(
+                    date: date,
+                    timelines: [],
+                    totalAvailabilityTime: 0
+                )
+            }
+        }
     }
     
     private func calRemainingAvailableTime(timelines: [Timeline], referenceDate: Date) -> DateComponents? {
