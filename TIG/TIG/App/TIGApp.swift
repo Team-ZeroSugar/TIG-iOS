@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct TIGApp: App {
   
-  @AppStorage(UserDefaultsKey.isOnboarding) private var isOnboarding: Bool = true
+  @AppStorage(UserDefaultsKey.isOnboarding, store: UserDefaults(suiteName: "group.com.zerosugar.TIG.appgroup")) private var isOnboarding: Bool = true
   @State private var homeViewModel = HomeViewModel()
   
   var body: some Scene {

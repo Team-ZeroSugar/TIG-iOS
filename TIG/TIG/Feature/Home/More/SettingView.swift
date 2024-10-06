@@ -11,8 +11,8 @@ struct SettingView: View {
     @Environment(HomeViewModel.self) private var homeViewModel
     @State private var settingViewModel = SettingViewModel()
     
-    @State private var wakeupTimeIndex: Int = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
-    @State private var bedTimeIndex: Int = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex)
+    @State private var wakeupTimeIndex: Int = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
+    @State private var bedTimeIndex: Int = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex)
     
     @State private var wakeupPickerIndex: Int = 0
     @State private var bedPickerIndex: Int = 0
