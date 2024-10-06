@@ -134,13 +134,6 @@ extension HomeViewModel {
       self.state.weeklyRepeats = self.readWeeklyRepeats()
       self.state.appSetting = self.settingRepository.getAppSettings()
       
-      
-//      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-//      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
-//      
-//      if wakeupTime > bedTime {
-//          bedTime += 60 * 24
-//      }
       self.state.currentDate = DateManager.shared.getCurrentDailyContentDate()
       startTimer()
     }
@@ -228,7 +221,6 @@ extension HomeViewModel {
             
           // TODO: DI 적용 필요
             WidgetCenter.shared.reloadAllTimelines()
-            
         }
     }
     
@@ -325,12 +317,7 @@ extension HomeViewModel {
               
         var nowTime = Calendar.current.dateComponents([.hour, .minute], from: .now).convertTotalMinutes()
         
-        let wakeupTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-        var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
-        
-        if wakeupTime > bedTime {
-            bedTime += 60 * 24
-        }
+        let (wakeupTime, bedTime) = DateManager.shared.getSleepTimeMinutes()
         
         if wakeupTime > nowTime || bedTime <= nowTime {
             nowTime += 60 * 24
@@ -371,19 +358,14 @@ extension HomeViewModel {
     
     // MARK: - AnnounceView Function
   private func createNewTimeline() {
-      let wakeupTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
-      var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex)
       
-      if wakeupTime > bedTime {
-        bedTime += 48
-      }
+      let (wakeupTime, bedTime) = DateManager.shared.getSleepTimeMinutes()
     
       var newTimelines: [Timeline] = []
       
-      var currentMinutes = wakeupTime.convertToDateComponents().convertTotalMinutes()
-      let endMinutes = bedTime.convertToDateComponents().convertTotalMinutes()
+      var currentMinutes = wakeupTime
     
-      while currentMinutes < endMinutes {
+      while currentMinutes < bedTime {
         let nextMinutes = currentMinutes + 30
         
         let start = currentMinutes.convertToDateComponentsFromMinutes()
