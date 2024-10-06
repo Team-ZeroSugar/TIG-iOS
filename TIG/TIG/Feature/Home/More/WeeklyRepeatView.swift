@@ -79,12 +79,15 @@ struct WeeklyRepeatView: View {
                     homeViewModel.effect(.exitRepeatView)
                     dismiss()
                 }, label: {
-                    HStack {
+                    HStack(spacing: 0) {
                         Image(systemName: "chevron.left")
-                            .aspectRatio(contentMode: .fit)
+                            .fontWeight(.semibold)
+                        
+                        Spacer().frame(width: 3)
+                        
                         Text("뒤로")
                     }
-                })
+                }).offset(x: -7)
             }
         }
         .navigationBarBackButtonHidden(true)
