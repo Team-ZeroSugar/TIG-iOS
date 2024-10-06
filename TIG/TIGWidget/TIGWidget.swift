@@ -22,9 +22,9 @@ struct Provider: TimelineProvider {
         
         var entries: [TIGEntry] = []
         
-        let dailyContent = getDailyContent()
+        let timelines = getDailyContent().timelines
         
-        if let timelines = dailyContent?.timelines {
+        if !timelines.isEmpty {
             
             let currentDate = Date()
             
@@ -48,26 +48,18 @@ struct Provider: TimelineProvider {
         completion(widgetTimeline)
     }
     
-    private func getDailyContent() -> DailyContent? {
-        let wakeupTimeIndex = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex)
-        var bedTimeIndex = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex)
-        
-        if wakeupTimeIndex >= bedTimeIndex {
-          bedTimeIndex += 48
-        }
-        
-        let bedDate = bedTimeIndex.convertToDateFormat()
-        let targetDate = DateManager.shared.getCurrentDailyContentDate(from: bedDate)
-        
-        let dailyContent = readDailyContent(targetDate)
-        return dailyContent
-    }
+//    private func getDailyContent() -> DailyContent? {
+//        let targetDate = DateManager.shared.getCurrentDailyContentDate()
+//        let dailyContent = readDailyContent(targetDate)
+//        return dailyContent
+//    }
     
-    private func readDailyContent(_ date: Date) -> DailyContent {
+    private func getDailyContent() -> DailyContent {
         let dailyContentRepository = DefaultDailyContentRepository()
         let weeklyRepeatRepository = DefaultWeeklyRepeatRepository()
+        let targetDate = DateManager.shared.getCurrentDailyContentDate()
         
-        let dailyContentResult = dailyContentRepository.readDailyContent(date: date)
+        let dailyContentResult = dailyContentRepository.readDailyContent(date: targetDate)
         
         switch dailyContentResult {
         case .success(var dailyContent):
@@ -75,13 +67,13 @@ struct Provider: TimelineProvider {
             return dailyContent
         case .failure(let error):
             print(error.rawValue)
-            let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: date.weekday)
+            let weeklyRepeatResult = weeklyRepeatRepository.readWeelkyRepeat(weekday: targetDate.weekday)
             
             switch weeklyRepeatResult {
             case .success(var weeklyRepeat):
                 weeklyRepeat.timelines = sortTimelines(weeklyRepeat.timelines)
                 let dailyContent = DailyContent(
-                    date: date,
+                    date: targetDate,
                     timelines: weeklyRepeat.timelines,
                     totalAvailabilityTime: 0
                 )
@@ -89,7 +81,7 @@ struct Provider: TimelineProvider {
             case .failure(let error):
                 print(error.rawValue)
                 return DailyContent(
-                    date: date,
+                    date: targetDate,
                     timelines: [],
                     totalAvailabilityTime: 0
                 )

@@ -135,12 +135,12 @@ extension HomeViewModel {
       self.state.appSetting = self.settingRepository.getAppSettings()
       
       
-      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
-      
-      if wakeupTime > bedTime {
-          bedTime += 60 * 24
-      }
+//      let wakeupTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+//      var bedTime = UserDefaults.standard.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+//      
+//      if wakeupTime > bedTime {
+//          bedTime += 60 * 24
+//      }
       self.state.currentDate = DateManager.shared.getCurrentDailyContentDate()
       startTimer()
     }
