@@ -28,13 +28,18 @@ struct TimelineView: View {
             if selectedDay == nil {
                 Spacer().frame(height: 47)
                 
-                TimelineHeaderView(homeViewModel: homeViewModel)
+                DailyHeaderView(homeViewModel: homeViewModel)
                     .padding(.horizontal, 20)
+            } else {
+                
+                Spacer().frame(height: 17)
+                
+                WeeklyHeaderView(homeViewModel: homeViewModel)
             }
             
             ScrollView {
                 VStack {
-                    Spacer().frame(height: 20)
+                    Spacer().frame(height: 40)
                     
                     TimelineBodyView(homeViewModel: homeViewModel, selectedDay: selectedDay)
                 }
@@ -45,8 +50,8 @@ struct TimelineView: View {
 }
 
 
-// MARK: - Header View
-fileprivate struct TimelineHeaderView: View {
+// MARK: - Daily Header View
+fileprivate struct DailyHeaderView: View {
     
     private var homeViewModel: HomeViewModel
     
@@ -77,6 +82,31 @@ fileprivate struct TimelineHeaderView: View {
                     .foregroundStyle(AppColor.blueMain)
             })
         }
+    }
+}
+
+// MARK: - Weekly Header View
+fileprivate struct WeeklyHeaderView: View {
+    
+    private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack {
+            if homeViewModel.state.isEditMode {
+                Text("고정 일정 시간을 탭해서 지워주세요")
+                    .font(.custom(AppFont.medium, size: 13))
+                    .foregroundStyle(AppColor.gray03)
+            } else {
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundStyle(AppColor.gray02)
+                    .padding(.top, 15)
+            }
+        }.padding(.horizontal, 20)
     }
 }
 
