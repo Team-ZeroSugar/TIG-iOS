@@ -259,7 +259,7 @@ fileprivate struct TimelineContentView: View {
                                         Spacer().frame(height: 8)
                                     }
                                     
-                                    HStack(alignment: .top) {
+                                    HStack(alignment: .top, spacing: 0) {
                                         if item.count >= 2 {
                                             Text("활용 가능 시간")
                                                 .padding(.horizontal, 12)
@@ -269,9 +269,9 @@ fileprivate struct TimelineContentView: View {
                                                 .foregroundColor(.darkWhite)
                                         }
                                         
-                                        Spacer()
+                                        Spacer(minLength: 0)
                                         
-                                        VStack {
+                                        VStack(alignment: .trailing) {
                                             
                                             Spacer()
                                             
