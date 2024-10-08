@@ -55,7 +55,7 @@ fileprivate struct TimerHeaderView: View {
                             .font(.custom(AppFont.semiBold, size: 12))
                             .foregroundStyle(AppColor.gray03)
                     } else {
-                        Text("타임라인 정보 없음")
+                        Text("오늘의 타임라인이 아님")
                             .font(.custom(AppFont.semiBold, size: 12))
                             .foregroundStyle(AppColor.gray03)
                     }

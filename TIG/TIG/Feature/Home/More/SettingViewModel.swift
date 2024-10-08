@@ -108,7 +108,7 @@ extension SettingViewModel {
       
       let isAvailable = timelines.first(where: {
         $0.start.convertTotalMinutes() == currentMinutes
-      })?.isAvailable ?? false
+      })?.isAvailable ?? true
       
       let start = currentMinutes.convertToDateComponentsFromMinutes()
       let end = nextMinutes.convertToDateComponentsFromMinutes()
