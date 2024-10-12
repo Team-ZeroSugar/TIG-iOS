@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import WidgetKit
 
 @Observable
 final class HomeViewModel {
@@ -219,8 +220,8 @@ extension HomeViewModel {
             self.state.dailyContent.timelines = self.state.dailyEditingTimelines
             
           // TODO: DI 적용 필요
-            //WidgetCenter.shared.reloadAllTimelines()
         }
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
   //MARK: - TimerView Function
@@ -424,6 +425,7 @@ extension HomeViewModel {
           timelines: weeklyRepeat.timelines,
           totalAvailabilityTime: 0
         )
+          self.dailyContentRepository.createDailyContent(dailyContent)
         return dailyContent
       case .failure(let error):
         print(error.rawValue)
