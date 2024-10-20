@@ -12,3 +12,10 @@ struct Timeline: Equatable {
     var end: DateComponents
     var isAvailable: Bool
 }
+
+struct TimelineGroup {
+  var start: DateComponents
+  var end: DateComponents
+  var isAvailable: Bool
+  var count: Int
+}

@@ -11,19 +11,34 @@ final class DateManager {
   static let shared = DateManager()
   private init() {}
   
-  func getCurrentDailyContentDate(from bedDate: Date) -> Date {
+  private let oneDay: TimeInterval = 86400
+  
+  func getCurrentDailyContentDate() -> Date {
+    let sleepTime = getSleepTimeMinutes()
+    let bedDate = sleepTime.bed.convertToDateFormatFromMinutes()
     let now = Date()
     
     if now >= bedDate {
-      return now.addingTimeInterval(86400)
+      return now.addingTimeInterval(oneDay)
     } else {
-      let newBed = bedDate.addingTimeInterval(-86400)
+      let newBed = bedDate.addingTimeInterval(-oneDay)
       
       if now >= newBed {
         return now
       } else {
-        return now.addingTimeInterval(-86400)
+        return now.addingTimeInterval(-oneDay)
       }
     }
+  }
+  
+  func getSleepTimeMinutes() -> (wakeup: Int, bed: Int) {
+    let wakeupTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
+    var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+    
+    if wakeupTime > bedTime {
+        bedTime += 60 * 24
+    }
+    
+    return (wakeupTime, bedTime)
   }
 }

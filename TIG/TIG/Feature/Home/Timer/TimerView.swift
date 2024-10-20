@@ -36,17 +36,18 @@ fileprivate struct TimerHeaderView: View {
     }
 
     fileprivate var body: some View {
+      let currentTimeline = homeViewModel.state.currentTimeline
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .frame(height: 79)
                 .foregroundStyle(AppColor.gray01)
             HStack(spacing: 20) {
-                Image(homeViewModel.currentTimeline()?.isAvailable == true ? .availableIcon : .unavailableIcon)
+              Image(currentTimeline?.isAvailable == true ? .availableIcon : .unavailableIcon)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 36)
                 VStack(alignment: .leading, spacing: 5) {
-                    if let timeline = homeViewModel.currentTimeline() {
+                  if let timeline = currentTimeline {
                         // Safely unwrap and format the start and end times
                         let startTime = timeline.start.formattedTimelineTime() ?? ""
                         let endTime = timeline.end.formattedTimelineTime() ?? ""
@@ -54,16 +55,16 @@ fileprivate struct TimerHeaderView: View {
                             .font(.custom(AppFont.semiBold, size: 12))
                             .foregroundStyle(AppColor.gray03)
                     } else {
-                        Text("타임라인 정보 없음")
+                        Text("오늘의 타임라인이 아님")
                             .font(.custom(AppFont.semiBold, size: 12))
                             .foregroundStyle(AppColor.gray03)
                     }
                         
                     HStack(spacing: 0) {
                         Text("지금은 ")
-                        Text(homeViewModel.currentTimeline()?.isAvailable == true ? "활용할 수 있는 시간" : "활용할 수 없는 시간")
+                      Text(currentTimeline?.isAvailable == true ? "활용할 수 있는 시간" : "활용할 수 없는 시간")
                             .font(.custom(AppFont.bold, size: 16))
-                            .foregroundStyle(homeViewModel.currentTimeline()?.isAvailable == true ? AppColor.blueMain : AppColor.gray04)
+                            .foregroundStyle(currentTimeline?.isAvailable == true ? AppColor.blueMain : AppColor.gray04)
                         Text("이에요")
                     }
                     .font(.custom(AppFont.semiBold, size: 16))
@@ -110,7 +111,7 @@ fileprivate struct TimerBodyView: View {
                     
                     Text(homeViewModel.state.remainingTime)
                         .font(.custom(AppFont.semiBold, size: 36))
-                    Text("/ \(homeViewModel.getTotalAvailableTime().formattedTime())")
+                  Text("/ \(homeViewModel.state.totalAvailableTime.formattedTime())")
                         .font(.custom(AppFont.medium, size: 13))
                 }
             }
