@@ -25,15 +25,15 @@ struct HomeView: View {
           .ignoresSafeArea(edges: .bottom)
         
         if homeViewModel.state.isCalendarVisible {
-          CalendarView()
+          calendarView()
         }
       }
       .toolbar(content: {
         ToolbarItem(placement: .topBarLeading) {
-          CalendarButton()
+          calendarButton()
         }
         ToolbarItem(placement: .topBarTrailing) {
-          MenuButton()
+          menuButton()
         }
       })
     }
@@ -43,7 +43,7 @@ struct HomeView: View {
   }
   
   // MARK: - (F)CalendarView
-  private func CalendarView() -> some View {
+  private func calendarView() -> some View {
     ZStack(alignment: .topLeading) {
       Color.black.opacity(0.2)
         .ignoresSafeArea()
@@ -72,7 +72,7 @@ struct HomeView: View {
   }
   
   // MARK: - (F)CalendarButton
-  private func CalendarButton() -> some View {
+  private func calendarButton() -> some View {
     Button(action: {
       homeViewModel.effect(.calendarTapped)
     }, label: {
@@ -96,7 +96,7 @@ struct HomeView: View {
   }
   
   // MARK: - (F)MenuButton
-  private func MenuButton() -> some View {
+  private func menuButton() -> some View {
     Menu {
       NavigationLink {
         WeeklyRepeatView()
@@ -134,9 +134,9 @@ fileprivate struct ScrollableTabBar: View {
     GeometryReader { proxy in
       VStack(spacing: 0) {
         
-        TabBar(size: proxy.size)
+        tabBar(size: proxy.size)
         
-        TabBarItem(size: proxy.size)
+        tabBarItem(size: proxy.size)
         
       }
       .onChange(of: scrollPosition) { _, new in
@@ -145,15 +145,15 @@ fileprivate struct ScrollableTabBar: View {
           selectedTabOffset = (proxy.size.width / 2) * CGFloat(Tab.allCases.firstIndex(of: new.unsafelyUnwrapped) ?? 0)
         }
       }
-      .onChange(of: homeViewModel.state.activeTab) { oldValue, newValue in
-        scrollPosition = newValue
+      .onChange(of: homeViewModel.state.activeTab) {
+        scrollPosition = $1
       }
     }
     
   }
   
   // MARK: - (F)TabBar
-  private func TabBar(size: CGSize) -> some View {
+  private func tabBar(size: CGSize) -> some View {
     HStack(spacing: 0) {
       ForEach(Tab.allCases, id: \.self) { tab in
         Button(
@@ -190,21 +190,23 @@ fileprivate struct ScrollableTabBar: View {
   }
   
   // MARK: - (F)TabBar Item
-  private func TabBarItem(size: CGSize) -> some View {
-    ScrollView(.horizontal) {
+  private func tabBarItem(size: CGSize) -> some View {
+    let timelines = homeViewModel.state.dailyContent.timelines
+    
+    return ScrollView(.horizontal) {
       LazyHStack(spacing: 0) {
         ForEach(Tab.allCases, id: \.self) { tab in
           VStack {
             switch tab {
             case .time:
-              if homeViewModel.state.dailyContent.timelines.isEmpty {
+              if timelines.isEmpty {
                 AnnounceView()
               } else {
                 TimerView()
               }
               
             case .timeline:
-              if homeViewModel.state.dailyContent.timelines.isEmpty {
+              if timelines.isEmpty {
                 AnnounceView(isTimelineView: true)
               } else {
                 TimelineView()

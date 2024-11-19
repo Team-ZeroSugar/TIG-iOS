@@ -11,7 +11,11 @@ import WidgetKit
 @main
 struct TIGApp: App {
   
-  @AppStorage(UserDefaultsKey.isOnboarding, store: UserDefaults(suiteName: "group.com.zerosugar.TIG.appgroup")) private var isOnboarding: Bool = true
+  @AppStorage(
+    UserDefaultsKey.isOnboarding,
+    store: UserDefaults(suiteName: "group.com.zerosugar.TIG.appgroup")
+  ) private var isOnboarding: Bool = true
+  
   @State private var homeViewModel = HomeViewModel()
   @Environment(\.scenePhase) var scenePhase
   
@@ -24,11 +28,6 @@ struct TIGApp: App {
         HomeView()
           .environment(homeViewModel)
       }
-    }
-    .onChange(of: isOnboarding, initial: true) { _, _ in
-      //      if !isOnboarding {
-      //        homeViewModel.effect(.onAppear)
-      //      }
     }
     .onChange(of: scenePhase) { phase, _ in
       switch phase {

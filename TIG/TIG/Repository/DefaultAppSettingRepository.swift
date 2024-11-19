@@ -19,6 +19,4 @@ extension DefaultAppSettingRepository: AppSettingRepository {
   func getAppSettings() -> AppSetting {
     UserDefaults.shared.getAppSettingData()
   }
-  
-  
 }

@@ -17,7 +17,10 @@ final class SwiftDataStorage {
     let schema = Schema([DailyContentSD.self, WeeklyRepeatSD.self])
     let configuration = ModelConfiguration(isStoredInMemoryOnly: false)
     do {
-      let container = try ModelContainer(for: schema, configurations: [configuration])
+      let container = try ModelContainer(
+        for: schema,
+        configurations: [configuration]
+      )
       return ModelContext(container)
     } catch {
       print("ModelCOntext Error")

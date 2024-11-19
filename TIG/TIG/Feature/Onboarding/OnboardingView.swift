@@ -30,9 +30,15 @@ struct OnboardingView: View {
             .tag(2)
           OnboardingThirdView()
             .tag(3)
-          SleepTimeSettingView(selectedIndex: $wakeupTimeIndex, isWakeupMode: true)
+          SleepTimeSettingView(
+            selectedIndex: $wakeupTimeIndex,
+            isWakeupMode: true
+          )
             .tag(4)
-          SleepTimeSettingView(selectedIndex: $bedTimeIndex, isWakeupMode: false)
+          SleepTimeSettingView(
+            selectedIndex: $bedTimeIndex,
+            isWakeupMode: false
+          )
             .tag(5)
         }
         .tabViewStyle(.page)
@@ -45,7 +51,9 @@ struct OnboardingView: View {
             
             if currentPage == 5 { self.saveSleepTime() }
             else { currentPage += 1 }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(
+              deadline: .now() + 0.5
+            ) {
               isDisable = false
             }
           }
@@ -119,7 +127,12 @@ fileprivate struct OnboardingSecondView: View {
       
       Text("활용 가능 시간은")
         .font(.custom(AppFont.bold, size: 24))
-      Text("하루 중 일정이 있는 시간을 제외한\n자유롭게 활용할 수 있는 시간이에요!")
+      Text(
+        """
+        하루 중 일정이 있는 시간을 제외한
+        자유롭게 활용할 수 있는 시간이에요!
+        """
+      )
         .multilineTextAlignment(.center)
         .font(.custom(AppFont.regular, size: 16))
         .foregroundStyle(AppColor.gray03)
@@ -174,11 +187,20 @@ fileprivate struct SleepTimeSettingView: View {
     VStack(spacing: 0) {
       Spacer().frame(height: 80)
       
-      Text(isWakeupMode ? "평소 몇 시에 일어나시나요?" : "평소 몇 시에 주무시나요?")
+      Text(
+        isWakeupMode
+        ? "평소 몇 시에 일어나시나요?"
+        : "평소 몇 시에 주무시나요?"
+      )
         .font(.custom(AppFont.bold, size: 28))
         .foregroundStyle(AppColor.gray05)
       
-      Text("수면 시간을 제외한 활용 가능 시간을 알려드릴게요\n설정에서 언제든지 변경할 수 있습니다")
+      Text(
+        """
+        수면 시간을 제외한 활용 가능 시간을 알려드릴게요
+        설정에서 언제든지 변경할 수 있습니다
+        """
+      )
         .font(.custom(AppFont.regular, size: 14))
         .multilineTextAlignment(.center)
         .foregroundStyle(AppColor.gray03)

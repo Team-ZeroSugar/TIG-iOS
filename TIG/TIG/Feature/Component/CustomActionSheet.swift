@@ -34,7 +34,10 @@ struct CustomActionSheet<Content: View>: UIViewControllerRepresentable {
     UIViewController()
   }
   
-  func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+  func updateUIViewController(
+    _ uiViewController: UIViewController,
+    context: Context
+  ) {
     if isPresented {
       presentActionSheet(uiViewController)
     } else {
@@ -43,17 +46,23 @@ struct CustomActionSheet<Content: View>: UIViewControllerRepresentable {
   }
   
   private func presentActionSheet(_ viewController: UIViewController) {
-    guard let contentView  = UIHostingController(rootView: content()).view
+    guard let contentView  = UIHostingController(
+      rootView: content()
+    ).view
     else { return }
     
-    let sheetController = UIAlertController(title: nil,
-                                            message: nil,
-                                            preferredStyle: .actionSheet)
+    let sheetController = UIAlertController(
+      title: nil,
+      message: nil,
+      preferredStyle: .actionSheet
+    )
     
     let actions = actions()
     actions.map { action in
-      UIAlertAction(title: action.title,
-                    style: action.role) { _ in
+      UIAlertAction(
+        title: action.title,
+        style: action.role
+      ) { _ in
         action.handler?()
         isPresented = false
       }
@@ -105,9 +114,11 @@ struct CustomActionSheetModifier<C: View>: ViewModifier {
   
   func body(content: Content) -> some View {
     ZStack {
-      CustomActionSheet(isPresented: $isPresented,
-                        content: self.content,
-                        actions: actions)
+      CustomActionSheet(
+        isPresented: $isPresented,
+        content: self.content,
+        actions: actions
+      )
       .frame(width: .zero, height: .zero)
       content
     }

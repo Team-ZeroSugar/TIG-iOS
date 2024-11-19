@@ -61,7 +61,11 @@ struct WeeklyRepeatView: View {
       }
     }
     .ignoresSafeArea(edges: .bottom)
-    .navigationTitle(homeViewModel.state.isEditMode ? "반복 일정 편집" : "반복 일정 관리")
+    .navigationTitle(
+      homeViewModel.state.isEditMode
+      ? "반복 일정 편집"
+      : "반복 일정 관리"
+    )
     .navigationBarTitleDisplayMode(.inline)
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
@@ -117,12 +121,23 @@ fileprivate struct DaySelectView: View {
         }, label: {
           ZStack {
             Circle().frame(width: 35, height: 35)
-              .foregroundColor(homeViewModel.state.selectedDay == day ? .blueMain : .clear)
+              .foregroundColor(
+                homeViewModel.state.selectedDay == day
+                ? .blueMain
+                : .clear
+              )
             
             Text(day.value)
               .font(.custom(
-                homeViewModel.state.selectedDay == day ? AppFont.semiBold : AppFont.medium, size: 14))
-              .foregroundColor(homeViewModel.state.selectedDay == day ? .darkWhite : .gray03)
+                homeViewModel.state.selectedDay == day
+                ? AppFont.semiBold
+                : AppFont.medium, size: 14)
+              )
+              .foregroundColor(
+                homeViewModel.state.selectedDay == day
+                ? .darkWhite
+                : .gray03
+              )
           }
         })
       }

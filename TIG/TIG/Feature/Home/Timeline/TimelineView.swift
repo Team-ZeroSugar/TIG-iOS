@@ -18,7 +18,9 @@ struct TimelineView: View {
   
   var body: some View {
     
-    let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
+    let timelines = selectedDay == nil
+    ? homeViewModel.state.dailyContent.timelines
+    : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
     
     if timelines.isEmpty {
       
@@ -41,7 +43,10 @@ struct TimelineView: View {
         VStack {
           Spacer().frame(height: 40)
           
-          TimelineBodyView(homeViewModel: homeViewModel, selectedDay: selectedDay)
+          TimelineBodyView(
+            homeViewModel: homeViewModel,
+            selectedDay: selectedDay
+          )
         }
         .padding(.horizontal, 20)
       }
@@ -66,7 +71,11 @@ fileprivate struct DailyHeaderView: View {
           .font(.custom(AppFont.semiBold, size: 16))
           .foregroundStyle(AppColor.gray05)
       } else {
-        Text(homeViewModel.currentTimeline()?.isAvailable == true ? "지금은 활용 가능한 시간이에요" : "지금은 활용 불가능한 시간이에요")
+        Text(
+          homeViewModel.currentTimeline()?.isAvailable == true
+          ? "지금은 활용 가능한 시간이에요"
+          : "지금은 활용 불가능한 시간이에요"
+        )
           .font(.custom(AppFont.semiBold, size: 16))
           .foregroundStyle(AppColor.gray05)
       }
@@ -125,11 +134,17 @@ fileprivate struct TimelineBodyView: View {
     
     HStack(spacing: 0) {
       
-      TimeMarkerView(homeViewModel: homeViewModel, selectedDay: selectedDay)
+      TimeMarkerView(
+        homeViewModel: homeViewModel,
+        selectedDay: selectedDay
+      )
       
       Spacer().frame(width: 18)
       
-      TimelineContentView(homeViewModel: homeViewModel, selectedDay: selectedDay)
+      TimelineContentView(
+        homeViewModel: homeViewModel,
+        selectedDay: selectedDay
+      )
       
     }
     .padding(.bottom, 50)
@@ -149,7 +164,9 @@ fileprivate struct TimeMarkerView: View {
   
   fileprivate var body: some View {
     
-    let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
+    let timelines = selectedDay == nil
+    ? homeViewModel.state.dailyContent.timelines
+    : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
     
     VStack(alignment: .leading, spacing: 0) {
       ForEach(timelines.indices, id: \.self) { index in
@@ -209,9 +226,13 @@ fileprivate struct TimelineContentView: View {
   
   fileprivate var body: some View {
     
-    let timelines = selectedDay == nil ? homeViewModel.state.dailyContent.timelines : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
+    let timelines = selectedDay == nil
+    ? homeViewModel.state.dailyContent.timelines
+    : homeViewModel.state.weeklyRepeats[selectedDay!]!.timelines
     
-    let editingTimelines = selectedDay == nil ? homeViewModel.state.dailyEditingTimelines : homeViewModel.state.weeklyEditingTimelines[selectedDay!] ?? []
+    let editingTimelines = selectedDay == nil
+    ? homeViewModel.state.dailyEditingTimelines
+    : homeViewModel.state.weeklyEditingTimelines[selectedDay!] ?? []
     
     let groupedTimelines = homeViewModel.groupedTimelines(timelines: timelines)
     
@@ -222,7 +243,11 @@ fileprivate struct TimelineContentView: View {
             homeViewModel.effect(.timeSlotTapped(index, day: selectedDay))
           }, label: {
             RoundedRectangle(cornerRadius: 8)
-              .fill(editingTimelines[index].isAvailable ? AppColor.blueTimeline : Color.clear)
+              .fill(
+                editingTimelines[index].isAvailable
+                ? AppColor.blueTimeline
+                : Color.clear
+              )
               .overlay(
                 RoundedRectangle(cornerRadius: 8)
                   .stroke(AppColor.timelineStroke, lineWidth: 2)

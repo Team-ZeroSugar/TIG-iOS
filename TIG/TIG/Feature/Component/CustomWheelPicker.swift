@@ -39,14 +39,27 @@ struct CustomWheelPicker: UIViewRepresentable {
       1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(
+      _ pickerView: UIPickerView,
+      numberOfRowsInComponent component: Int
+    ) -> Int {
       48
     }
     
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+    func pickerView(
+      _ pickerView: UIPickerView,
+      viewForRow row: Int,
+      forComponent component: Int,
+      reusing view: UIView?
+    ) -> UIView {
       
       let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-      let rowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+      let rowLabel = UILabel(frame: CGRect(
+        x: 0,
+        y: 0,
+        width: view.bounds.width,
+        height: view.bounds.height
+      ))
       
       rowLabel.text = row.convertToKoreanTimeFormat()
       rowLabel.font = UIFont(name: AppFont.medium, size: 20)
@@ -61,11 +74,18 @@ struct CustomWheelPicker: UIViewRepresentable {
       return view
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(
+      _ pickerView: UIPickerView,
+      didSelectRow row: Int,
+      inComponent component: Int
+    ) {
       self.parent.selectedIndex = row
     }
     
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func pickerView(
+      _ pickerView: UIPickerView,
+      rowHeightForComponent component: Int
+    ) -> CGFloat {
       50
     }
   }
