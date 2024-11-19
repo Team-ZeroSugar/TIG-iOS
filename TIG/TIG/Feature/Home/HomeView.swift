@@ -61,7 +61,7 @@ struct HomeView: View {
               get: { homeViewModel.state.currentDate },
               set: { homeViewModel.effect(.dateTapped($0)) }
             ),
-            in: .now...,
+            in: homeViewModel.state.startDate...,
             displayedComponents: [.date]
           )
           .datePickerStyle(.graphical)

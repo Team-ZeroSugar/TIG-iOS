@@ -16,6 +16,7 @@ final class HomeViewModel {
         // HomeView
         var activeTab: Tab = .time
         var isCalendarVisible: Bool = false
+        var startDate: Date = .now
         var currentDate: Date = .now
         
         // TimerView
@@ -134,6 +135,7 @@ extension HomeViewModel {
       self.state.weeklyRepeats = self.readWeeklyRepeats()
       self.state.appSetting = self.settingRepository.getAppSettings()
       
+        self.state.startDate = getFirstDailyContentDate()
       self.state.currentDate = DateManager.shared.getCurrentDailyContentDate()
       startTimer()
     }
@@ -488,5 +490,10 @@ extension HomeViewModel {
         } else {
             self.state.dailyEditingTimelines = self.state.dailyContent.timelines
         }
+    }
+    
+    private func getFirstDailyContentDate() -> Date {
+        let dailyContents = self.fetchDailyContents()
+        return dailyContents.first?.date ?? Date()
     }
 }
