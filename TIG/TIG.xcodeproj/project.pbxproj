@@ -288,7 +288,9 @@
 				359369E32C759AEB00BE24FF /* Frameworks */,
 				57A98F052C3CCAB600863BC6 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		57A98F052C3CCAB600863BC6 /* Products */ = {
 			isa = PBXGroup;

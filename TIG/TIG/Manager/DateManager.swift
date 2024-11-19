@@ -36,7 +36,7 @@ final class DateManager {
     var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
     
     if wakeupTime > bedTime {
-        bedTime += 60 * 24
+      bedTime += 60 * 24
     }
     
     return (wakeupTime, bedTime)

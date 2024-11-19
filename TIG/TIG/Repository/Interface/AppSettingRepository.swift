@@ -8,6 +8,6 @@
 import Foundation
 
 protocol AppSettingRepository {
-    func updateAppSettings(_ appSetting: AppSetting)
-    func getAppSettings() -> AppSetting
+  func updateAppSettings(_ appSetting: AppSetting)
+  func getAppSettings() -> AppSetting
 }

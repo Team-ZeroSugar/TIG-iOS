@@ -187,7 +187,7 @@ fileprivate struct SleepTimeSettingView: View {
       
       Spacer()
         .frame(height: 30)
-        
+      
       Image(.circles)
         .resizable()
         .aspectRatio(contentMode: .fit)
@@ -210,7 +210,7 @@ fileprivate struct SleepTimeSettingView: View {
 
 #Preview {
   OnboardingView()
-    
+  
 }
 
 

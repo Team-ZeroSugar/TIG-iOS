@@ -8,7 +8,7 @@
 import Foundation
 
 struct DailyContent {
-    var date: Date
-    var timelines: [Timeline]
-    var totalAvailabilityTime: Int
+  var date: Date
+  var timelines: [Timeline]
+  var totalAvailabilityTime: Int
 }

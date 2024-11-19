@@ -146,7 +146,7 @@ fileprivate struct ScrollableTabBar: View {
         }
       }
       .onChange(of: homeViewModel.state.activeTab) { oldValue, newValue in
-          scrollPosition = newValue
+        scrollPosition = newValue
       }
     }
     
@@ -197,18 +197,18 @@ fileprivate struct ScrollableTabBar: View {
           VStack {
             switch tab {
             case .time:
-                if homeViewModel.state.dailyContent.timelines.isEmpty {
-                    AnnounceView()
-                } else {
-                    TimerView()
-                }
+              if homeViewModel.state.dailyContent.timelines.isEmpty {
+                AnnounceView()
+              } else {
+                TimerView()
+              }
               
             case .timeline:
-                if homeViewModel.state.dailyContent.timelines.isEmpty {
-                    AnnounceView(isTimelineView: true)
-                } else {
-                    TimelineView()
-                }
+              if homeViewModel.state.dailyContent.timelines.isEmpty {
+                AnnounceView(isTimelineView: true)
+              } else {
+                TimelineView()
+              }
             }
           }
           .frame(width: size.width)
