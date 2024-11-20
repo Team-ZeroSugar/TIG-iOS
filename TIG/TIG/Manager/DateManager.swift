@@ -32,11 +32,16 @@ final class DateManager {
   }
   
   func getSleepTimeMinutes() -> (wakeup: Int, bed: Int) {
-    let wakeupTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.wakeupTimeIndex) * 30
-    var bedTime = UserDefaults.shared.integer(forKey: UserDefaultsKey.bedTimeIndex) * 30
+    let wakeupTime = UserDefaults.shared.integer(
+      forKey: UserDefaultsKey.wakeupTimeIndex
+    ) * 30
+    
+    var bedTime = UserDefaults.shared.integer(
+      forKey: UserDefaultsKey.bedTimeIndex
+    ) * 30
     
     if wakeupTime > bedTime {
-        bedTime += 60 * 24
+      bedTime += 60 * 24
     }
     
     return (wakeupTime, bedTime)

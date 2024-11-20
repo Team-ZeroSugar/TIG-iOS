@@ -34,7 +34,10 @@ struct CustomActionSheet<Content: View>: UIViewControllerRepresentable {
     UIViewController()
   }
   
-  func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+  func updateUIViewController(
+    _ uiViewController: UIViewController,
+    context: Context
+  ) {
     if isPresented {
       presentActionSheet(uiViewController)
     } else {
@@ -43,17 +46,23 @@ struct CustomActionSheet<Content: View>: UIViewControllerRepresentable {
   }
   
   private func presentActionSheet(_ viewController: UIViewController) {
-    guard let contentView  = UIHostingController(rootView: content()).view
+    guard let contentView  = UIHostingController(
+      rootView: content()
+    ).view
     else { return }
     
-    let sheetController = UIAlertController(title: nil,
-                                            message: nil,
-                                            preferredStyle: .actionSheet)
+    let sheetController = UIAlertController(
+      title: nil,
+      message: nil,
+      preferredStyle: .actionSheet
+    )
     
     let actions = actions()
     actions.map { action in
-      UIAlertAction(title: action.title,
-                    style: action.role) { _ in
+      UIAlertAction(
+        title: action.title,
+        style: action.role
+      ) { _ in
         action.handler?()
         isPresented = false
       }
@@ -98,38 +107,40 @@ struct CustomActionSheet<Content: View>: UIViewControllerRepresentable {
 }
 
 struct CustomActionSheetModifier<C: View>: ViewModifier {
-    
-    @Binding var isPresented: Bool
-    @ViewBuilder var content: () -> C
-    @SheetActionBuilder var actions: () -> [SheetAction]
-    
-    func body(content: Content) -> some View {
-        ZStack {
-            CustomActionSheet(isPresented: $isPresented,
-                              content: self.content,
-                              actions: actions)
-            .frame(width: .zero, height: .zero)
-            content
-        }
+  
+  @Binding var isPresented: Bool
+  @ViewBuilder var content: () -> C
+  @SheetActionBuilder var actions: () -> [SheetAction]
+  
+  func body(content: Content) -> some View {
+    ZStack {
+      CustomActionSheet(
+        isPresented: $isPresented,
+        content: self.content,
+        actions: actions
+      )
+      .frame(width: .zero, height: .zero)
+      content
     }
-    
+  }
+  
 }
 
 extension View {
-    
-    @available(iOS 13.0, *)
-    func confirmationDialog<C: View>(
-      isPresented: Binding<Bool>,
-      @ViewBuilder content: @escaping () -> (C),
-      @SheetActionBuilder actions: @escaping () -> ([SheetAction])
-    ) -> some View {
-        modifier(
-          CustomActionSheetModifier(
-            isPresented: isPresented,
-            content: content,
-            actions: actions
-          )
-        )
-    }
-    
+  
+  @available(iOS 13.0, *)
+  func confirmationDialog<C: View>(
+    isPresented: Binding<Bool>,
+    @ViewBuilder content: @escaping () -> (C),
+    @SheetActionBuilder actions: @escaping () -> ([SheetAction])
+  ) -> some View {
+    modifier(
+      CustomActionSheetModifier(
+        isPresented: isPresented,
+        content: content,
+        actions: actions
+      )
+    )
+  }
+  
 }

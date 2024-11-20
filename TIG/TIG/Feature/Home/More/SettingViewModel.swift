@@ -87,8 +87,14 @@ extension SettingViewModel {
     }
     
     // 수면시간 데이터 업데이트
-    UserDefaults.shared.set(wakeupTimeIndex, forKey: UserDefaultsKey.wakeupTimeIndex)
-    UserDefaults.shared.set(bedTimeIndex, forKey: UserDefaultsKey.bedTimeIndex)
+    UserDefaults.shared.set(
+      wakeupTimeIndex,
+      forKey: UserDefaultsKey.wakeupTimeIndex
+    )
+    UserDefaults.shared.set(
+      bedTimeIndex,
+      forKey: UserDefaultsKey.bedTimeIndex
+    )
   }
   
   private func updatedTimeline(

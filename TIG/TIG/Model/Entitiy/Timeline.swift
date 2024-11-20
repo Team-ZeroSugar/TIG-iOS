@@ -8,9 +8,9 @@
 import Foundation
 
 struct Timeline: Equatable {
-    var start: DateComponents
-    var end: DateComponents
-    var isAvailable: Bool
+  var start: DateComponents
+  var end: DateComponents
+  var isAvailable: Bool
 }
 
 struct TimelineGroup {
