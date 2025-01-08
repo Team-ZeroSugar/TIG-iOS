@@ -86,6 +86,7 @@ final class HomeViewModel {
     case .calendarTapped:
       self.state.isCalendarVisible.toggle()
     case .dateTapped(let date):
+      self.state.isEditMode = false
       self.state.currentDate = date
       self.state.isCalendarVisible = false
       self.state.dailyContent = readDailyContent(date)

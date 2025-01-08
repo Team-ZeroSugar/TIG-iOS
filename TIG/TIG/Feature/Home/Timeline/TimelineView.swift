@@ -184,7 +184,7 @@ fileprivate struct TimeMarkerView: View {
           Spacer().frame(width: 14, height: 39)
           
           Rectangle()
-            .frame(width: index % 2 == 0 ? 28 : 16, height: 1)
+            .frame(width: isHour ? 28 : 16, height: 1)
             .foregroundStyle(AppColor.gray02)
         }
         
