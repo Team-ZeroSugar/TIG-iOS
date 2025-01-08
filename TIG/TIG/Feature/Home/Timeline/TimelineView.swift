@@ -38,6 +38,7 @@ struct TimelineView: View {
         Spacer().frame(height: 17)
         
         WeeklyHeaderView(homeViewModel: homeViewModel)
+          
       }
       
       ScrollView {
@@ -53,9 +54,10 @@ struct TimelineView: View {
       }
       .disabled(isScrollDisabled)
       .gesture(
-        DragGesture()
-          .onChanged({ value in
-            print(value.translation.height)
+        DragGesture(minimumDistance: 0)
+          .onChanged({ gesture in
+            if !isScrollDisabled { return }
+            print(gesture.translation.height)
           })
           .onEnded({ _ in
             isScrollDisabled = false
