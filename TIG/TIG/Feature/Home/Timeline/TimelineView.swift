@@ -10,6 +10,7 @@ import SwiftUI
 struct TimelineView: View {
   
   @Environment(HomeViewModel.self) var homeViewModel
+  @State private var isScrollDisabled: Bool = false
   private var selectedDay: Day?
   
   init(selectedDay: Day? = nil) {
@@ -45,11 +46,21 @@ struct TimelineView: View {
           
           TimelineBodyView(
             homeViewModel: homeViewModel,
-            selectedDay: selectedDay
+            selectedDay: selectedDay,
+            isScrollDisabled: $isScrollDisabled
           )
-        }
-        .padding(.horizontal, 20)
+        }.padding(.horizontal, 20)
       }
+      .disabled(isScrollDisabled)
+      .gesture(
+        DragGesture()
+          .onChanged({ value in
+            print(value.translation.height)
+          })
+          .onEnded({ _ in
+            isScrollDisabled = false
+          })
+      )
     }
   }
 }
@@ -122,12 +133,18 @@ fileprivate struct WeeklyHeaderView: View {
 // MARK: - Body View
 fileprivate struct TimelineBodyView: View {
   
+  @Binding private var isScrollDisabled: Bool
   private var homeViewModel: HomeViewModel
   private var selectedDay: Day?
   
-  init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
+  init(
+    homeViewModel: HomeViewModel,
+    selectedDay: Day? = nil,
+    isScrollDisabled: Binding<Bool>
+  ) {
     self.homeViewModel = homeViewModel
     self.selectedDay = selectedDay
+    self._isScrollDisabled = isScrollDisabled
   }
   
   fileprivate var body: some View {
@@ -143,7 +160,8 @@ fileprivate struct TimelineBodyView: View {
       
       TimelineContentView(
         homeViewModel: homeViewModel,
-        selectedDay: selectedDay
+        selectedDay: selectedDay,
+        isSrcollDisabled: $isScrollDisabled
       )
       
     }
@@ -216,12 +234,18 @@ fileprivate struct TimeMarkerView: View {
 // MARK: - TimelineContentView
 fileprivate struct TimelineContentView: View {
   
+  @Binding private var isSrcollDisabled: Bool
   private var homeViewModel: HomeViewModel
   private var selectedDay: Day?
   
-  init(homeViewModel: HomeViewModel, selectedDay: Day? = nil) {
+  init(
+    homeViewModel: HomeViewModel,
+    selectedDay: Day? = nil,
+    isSrcollDisabled: Binding<Bool>
+  ) {
     self.homeViewModel = homeViewModel
     self.selectedDay = selectedDay
+    self._isSrcollDisabled = isSrcollDisabled
   }
   
   fileprivate var body: some View {
@@ -255,6 +279,13 @@ fileprivate struct TimelineContentView: View {
               )
               .frame(height: 35)
           })
+          .simultaneousGesture(
+            LongPressGesture(minimumDuration: 1)
+              .onEnded({ _ in
+                isSrcollDisabled = true
+              })
+          )
+          
         }
       }
     } else {
